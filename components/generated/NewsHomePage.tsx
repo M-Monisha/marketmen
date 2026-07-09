@@ -1315,14 +1315,14 @@ function ReadArticle(props: ReadArticleProps) {
 function NewsHomePage(props: NewsHomePageProps) {
   return <div className={`home ${props.className || ''}`.trim()} style={{
     width: '100%',
-    maxWidth: '1562px',
+    maxWidth: '100vw',
     height: 'auto',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'rgba(255, 255, 255, 1)',
     boxSizing: 'border-box',
     position: 'relative',
-    margin: '0 auto',
+    overflowX: 'hidden',
     ...props.style
   }}>
       <div className="body" style={{
@@ -1332,7 +1332,8 @@ function NewsHomePage(props: NewsHomePageProps) {
       flexDirection: 'column',
       boxSizing: 'border-box',
       zIndex: 0,
-      position: 'relative'
+      position: 'relative',
+      overflowX: 'hidden'
     }}>
         <div className="layout" style={{
         height: 'auto',
