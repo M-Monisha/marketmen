@@ -1314,18 +1314,20 @@ function ReadArticle(props: ReadArticleProps) {
  */
 function NewsHomePage(props: NewsHomePageProps) {
   return <div className={`home ${props.className || ''}`.trim()} style={{
-    width: '1562px',
-    height: '7219px',
+    width: '100%',
+    maxWidth: '1562px',
+    height: 'auto',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'rgba(255, 255, 255, 1)',
     boxSizing: 'border-box',
     position: 'relative',
+    margin: '0 auto',
     ...props.style
   }}>
       <div className="body" style={{
-      width: '1562px',
-      height: '7219px',
+      width: '100%',
+      height: 'auto',
       display: 'flex',
       flexDirection: 'column',
       boxSizing: 'border-box',
@@ -1345,7 +1347,7 @@ function NewsHomePage(props: NewsHomePageProps) {
       }}>
           <div className="homepage" style={{
           width: 'auto',
-          height: '6583px',
+          height: 'auto',
           display: 'flex',
           flexDirection: 'column',
           paddingTop: '80px',
@@ -9321,7 +9323,7 @@ function NewsHomePage(props: NewsHomePageProps) {
         </div>
       </div>
       <header className="header" style={{
-      width: '1562px',
+      width: '100%',
       height: '80px',
       display: 'flex',
       flexDirection: 'column',
@@ -9335,7 +9337,7 @@ function NewsHomePage(props: NewsHomePageProps) {
       zIndex: 1
     }}>
         <div className="container" style={{
-        width: '1280px',
+        width: '100%',
         height: '80px',
         display: 'flex',
         flexDirection: 'row',
@@ -9344,7 +9346,8 @@ function NewsHomePage(props: NewsHomePageProps) {
         paddingLeft: '32px',
         paddingRight: '32px',
         maxWidth: '1280px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        margin: '0 auto'
       }}>
           <a className="link" style={{
           width: 'auto',

@@ -178,46 +178,92 @@ img.broken-image-fallback {
   flex-shrink: 0;
 }
 
+/* ── Responsive Fix: Override Figma hardcoded widths ── */
+
+/* Root wrappers */
+.home,
+.home > div,
+header.header {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* All fixed 1280px inner containers become fluid with max-width */
+.home div[style*="width: 1280px"],
+.home div[style*="width: 1562px"],
+.home section[style*="width: 1562px"],
+.home header[style*="width: 1562px"],
+.home header[style*="width: 1280px"] {
+  width: 100% !important;
+  max-width: 1280px !important;
+  min-width: 0 !important;
+}
+
+/* Remove fixed height on homepage container */
+div.homepage {
+  height: auto !important;
+}
+
+body, #__next {
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
 /* ── Mobile Responsiveness ── */
+@media (max-width: 1024px) {
+  /* Padding on sections */
+  section[class="section"] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
 @media (max-width: 768px) {
 
-  /* Make the root page scrollable and not overflow horizontally */
-  body, #__next, main {
-    overflow-x: hidden !important;
-    width: 100% !important;
+  /* Hero section height */
+  section[style*="height: 910px"] {
+    height: auto !important;
+    min-height: auto !important;
+    padding-top: 100px !important;
+    padding-bottom: 40px !important;
   }
 
-  /* All fixed-width containers become fluid */
-  div[style*="width: 1562px"],
-  div[style*="width: 1280px"],
-  div[style*="width: 1216px"],
-  header[style*="width: 1562px"] {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Stack rows to columns on mobile */
-  div[style*="flex-direction: row"] {
+  /* All row flex containers wrap on mobile */
+  .home div[style*="flex-direction: row"],
+  .home header[style*="flex-direction: row"] {
     flex-wrap: wrap !important;
   }
 
-  /* WhatsApp bar: stack text and button */
-  .planning-an-event-let-s-talk-directly {
-    font-size: 13px !important;
+  /* Section padding */
+  .home section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 
-  /* Marquee logos: smaller on mobile */
+  /* Marquee logos: scale down on mobile */
   .marquee-wrapper {
-    height: 100px !important;
+    height: 120px !important;
   }
-
   .marquee-track {
-    height: 100px !important;
+    height: 120px !important;
     gap: 16px !important;
   }
+  .marquee-track > div {
+    width: 120px !important;
+    height: 60px !important;
+  }
 
-  /* Header nav: hide on mobile, show hamburger later */
-  header.navigation {
+  /* Nav links: hide on small screens */
+  header nav,
+  header .navigation {
     display: none !important;
+  }
+
+  /* WhatsApp bar text */
+  .planning-an-event-let-s-talk-directly {
+    font-size: 12px !important;
   }
 }
