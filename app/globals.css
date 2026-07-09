@@ -177,3 +177,47 @@ img.broken-image-fallback {
 .marquee-track > * {
   flex-shrink: 0;
 }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+
+  /* Make the root page scrollable and not overflow horizontally */
+  body, #__next, main {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+  /* All fixed-width containers become fluid */
+  div[style*="width: 1562px"],
+  div[style*="width: 1280px"],
+  div[style*="width: 1216px"],
+  header[style*="width: 1562px"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Stack rows to columns on mobile */
+  div[style*="flex-direction: row"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* WhatsApp bar: stack text and button */
+  .planning-an-event-let-s-talk-directly {
+    font-size: 13px !important;
+  }
+
+  /* Marquee logos: smaller on mobile */
+  .marquee-wrapper {
+    height: 100px !important;
+  }
+
+  .marquee-track {
+    height: 100px !important;
+    gap: 16px !important;
+  }
+
+  /* Header nav: hide on mobile, show hamburger later */
+  header.navigation {
+    display: none !important;
+  }
+}

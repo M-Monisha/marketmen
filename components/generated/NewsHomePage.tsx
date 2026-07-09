@@ -8174,7 +8174,7 @@ function NewsHomePage(props: NewsHomePageProps) {
               minWidth: '0'
             }}>
                 <div className="container" style={{
-                width: '1280px',
+                width: '100%',
                 height: 'auto',
                 display: 'flex',
                 flexDirection: 'row',
@@ -8182,7 +8182,9 @@ function NewsHomePage(props: NewsHomePageProps) {
                 alignItems: 'center',
                 maxWidth: '1280px',
                 boxSizing: 'border-box',
-                flexShrink: 0
+                flexShrink: 0,
+                gap: '16px',
+                flexWrap: 'wrap'
               }}>
                   <div className="paragraph" style={{
                   width: 'auto',
@@ -8221,7 +8223,8 @@ function NewsHomePage(props: NewsHomePageProps) {
                   boxSizing: 'border-box',
                   borderRadius: '14px',
                   flexShrink: 0,
-                  marginLeft: 'auto'
+                  marginLeft: 'auto',
+                  textDecoration: 'none'
                 }} href="#" role="link">
                     <img src="https://storage.googleapis.com/storage.magicpath.ai/user/426021263450968064/figma-assets/2345743f-b659-485c-9e86-6f5fd5674b86.svg" alt="Icon" className="icon" style={{
                     width: '15px',
