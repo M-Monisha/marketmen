@@ -241,7 +241,7 @@ function HeroSection() {
     <section className="relative pt-20 min-h-screen flex items-center overflow-hidden">
       {/* Full-bleed background */}
       <img
-        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=90&fit=crop"
+        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=90&fit=crop"
         alt=""
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
