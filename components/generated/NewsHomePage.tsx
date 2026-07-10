@@ -104,7 +104,7 @@ function ServiceCard({ icon, title, desc, bg, bgImg }: { icon: string; title: st
       {/* Background image */}
       <div className="absolute inset-0">
         <img src={bgImg} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-white/90 group-hover:bg-white/82 transition-all duration-200" />
+        <div className="absolute inset-0 bg-white/85 group-hover:bg-white/75 transition-all duration-200" />
       </div>
       {/* Content */}
       <div className="relative p-3.5 flex flex-col gap-2">
@@ -112,7 +112,7 @@ function ServiceCard({ icon, title, desc, bg, bgImg }: { icon: string; title: st
           <img src={icon} alt={title} className="w-4 h-4 object-contain" />
         </div>
         <p className="text-[#0f172a] font-bold text-[12px] leading-4">{title}</p>
-        <p className="text-[#64748b] text-[11px] leading-4">{desc}</p>
+        <p className="text-[#1e293b] text-[11px] leading-4 font-medium">{desc}</p>
       </div>
     </div>
   );
