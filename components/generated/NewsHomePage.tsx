@@ -643,19 +643,19 @@ const imgMechanic = "https://www.figma.com/api/mcp/asset/95ddf56f-6fff-476d-9a0d
 
 const caseStudies = [
   {
-    img: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80&fit=crop',
+    img: '/chyawanprash.jpeg',
     brandBg: 'bg-[#ae1d0b]', brandLetter: 'D', brand: 'Dabur',
     title: 'Chyawanprash Winter Campaign', location: '12 States',
     stats: [{ value: '2.4 Cr+', label: 'People Reached' }, { value: '340+', label: 'Cities' }, { value: '4.2x', label: 'ROI', green: true }],
   },
   {
-    img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&fit=crop',
+    img: '/dealer%20meet.jpeg',
     brandBg: 'bg-[#00108f]', brandLetter: 'C', brand: 'CEAT Tyres',
     title: 'Dealer Meet & Product Launch', location: 'Pan India',
     stats: [{ value: '18,000+', label: 'People Reached' }, { value: '85', label: 'Cities' }, { value: '3.8x', label: 'ROI', green: true }],
   },
   {
-    img: 'https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=600&q=80&fit=crop',
+    img: '/rural%20meet%20.jpeg',
     brandBg: 'bg-[#052f6d]', brandLetter: 'C', brand: 'CEAT Tyres',
     title: 'Rural Mechanic Meet', location: 'UP, MP, Rajasthan',
     stats: [{ value: '45,000+', label: 'People Reached' }, { value: '120+', label: 'Cities' }, { value: '5.1x', label: 'ROI', green: true }],
