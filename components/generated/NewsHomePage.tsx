@@ -306,6 +306,257 @@ function WhyUsSection() {
   );
 }
 
+// ── Opportunities ─────────────────────────────────────────────────────────────
+const imgOppArrow    = "https://www.figma.com/api/mcp/asset/31095440-83d8-48d8-bba2-36db45b85940";
+const imgOppReadMore = "https://www.figma.com/api/mcp/asset/f8729e5b-012d-4708-a647-374ebb9a60b5";
+
+const imgGanesh      = "https://www.figma.com/api/mcp/asset/bd7a97a2-017a-4cc5-ba86-02d99b0ee033";
+const imgGarbha      = "https://www.figma.com/api/mcp/asset/dc59f4d7-182b-4884-9554-a9828667e94a";
+const imgEmpCal      = "https://www.figma.com/api/mcp/asset/63f87c81-7b2b-42fc-b2be-872d63d7e90e";
+const imgRetailExp   = "https://www.figma.com/api/mcp/asset/b0eddc1c-dfc5-4114-b3e9-cac1c7176cfe";
+const imgCollege     = "https://www.figma.com/api/mcp/asset/ffd3902f-4d24-4c12-82d0-bafa4dcb9ed2";
+const imgRuralCamp   = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9ba6-2c4084a1a495";
+const imgCSR         = "https://www.figma.com/api/mcp/asset/5626d768-c94c-4666-8999-b2a4d3673869";
+
+const opportunities = [
+  { img: imgGanesh,   title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
+  { img: imgGarbha,   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
+  { img: imgEmpCal,   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.' },
+  { img: imgRetailExp,title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.' },
+  { img: imgCollege,  title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.' },
+  { img: imgRuralCamp,title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.' },
+  { img: imgCSR,      title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.' },
+];
+
+function OpportunityCard({ img, title, desc }: { img: string; title: string; desc: string }) {
+  return (
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col">
+      <div className="h-48 shrink-0 overflow-hidden">
+        <img src={img} alt={title} className="w-full h-full object-cover" />
+      </div>
+      <div className="p-5 flex flex-col gap-2 flex-1">
+        <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
+        <p className="text-[#64748b] text-[12px] leading-5 flex-1">{desc}</p>
+        <a href="#" className="flex items-center gap-1 text-[#1e9fd4] font-bold text-[12px] mt-1">
+          Read More
+          <img src={imgOppReadMore} alt="" className="w-3 h-3" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function OpportunitiesSection() {
+  return (
+    <section className="bg-white py-20 px-8" id="opportunities">
+      <div className="max-w-[1280px] mx-auto">
+        {/* Header row */}
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+          <div>
+            <SectionLabel>Opportunities</SectionLabel>
+            <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[60px]">
+              Instead of Waiting for Opportunities,<br />We Create Them.
+            </h2>
+          </div>
+          <a href="#" className="border-2 border-[#1e9fd4] text-[#1e9fd4] font-bold text-[13px] px-[22px] py-3 rounded-[14px] flex items-center gap-2 hover:bg-[#ebf7fc] transition-colors shrink-0">
+            View All Opportunities
+            <img src={imgOppArrow} alt="" className="w-3.5 h-3.5" />
+          </a>
+        </div>
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {opportunities.map(o => <OpportunityCard key={o.title} {...o} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Our Specialist Divisions ──────────────────────────────────────────────────
+const imgDivMM     = "https://www.figma.com/api/mcp/asset/58d2e479-9a1f-4f3d-a0f1-79a7af8d8f1c";
+const imgDivRetail = "https://www.figma.com/api/mcp/asset/e148aa53-893e-4661-93c3-7f4eda0632ac";
+const imgDivLocal  = "https://www.figma.com/api/mcp/asset/3d8d389f-593d-49c7-a6d5-80ed89b34f32";
+const imgDivTech   = "https://www.figma.com/api/mcp/asset/f42bdfa7-47d3-4536-a4e6-717fe3442fa3";
+const imgDivKM     = "https://www.figma.com/api/mcp/asset/dc13dfe0-9e9e-4662-bbb0-b7740ac6a236";
+const imgDivOrange = "https://www.figma.com/api/mcp/asset/3202cba3-7155-4d4e-b9e4-fc1bc5156448";
+const imgDivBlue   = "https://www.figma.com/api/mcp/asset/074d6993-fd44-4e5a-8350-346e77e8a5fd";
+const imgDivPink   = "https://www.figma.com/api/mcp/asset/7b85d153-0aa2-4863-b342-cd797ff53f33";
+
+const divisions = [
+  {
+    logo: imgDivMM,
+    borderColor: 'border-[rgba(30,212,69,0.19)]',
+    bg: 'linear-gradient(160deg, rgba(94,212,30,0.082) 0%, rgba(23,161,92,0.125) 100%)',
+    dotColor: 'bg-[#1ed41e]',
+    textColor: 'text-[#476949]',
+    linkColor: 'text-[#25d366]',
+    linkIcon: imgDivKM,
+    items: ['Brand Activation','Experiential Marketing','Rural Marketing','Employee Engagement','Video & Photo Production','Event IPs'],
+  },
+  {
+    logo: imgDivRetail,
+    borderColor: 'border-[rgba(177,115,17,0.19)]',
+    bg: 'linear-gradient(160deg, rgba(222,126,42,0.082) 0%, rgba(180,111,0,0.125) 100%)',
+    dotColor: 'bg-[#bc9836]',
+    textColor: 'text-[#696147]',
+    linkColor: 'text-[#c48807]',
+    linkIcon: imgDivOrange,
+    items: ['Retail Branding','Visual Merchandising','Shop-in-Shop Solutions','Trade Marketing','Channel Programs','In-Store Promotions'],
+  },
+  {
+    logo: imgDivLocal,
+    borderColor: 'border-[rgba(74,30,233,0.19)]',
+    bg: 'linear-gradient(160deg, rgba(50,30,233,0.082) 0%, rgba(72,43,179,0.125) 100%)',
+    dotColor: 'bg-[#321ee9]',
+    textColor: 'text-[#514769]',
+    linkColor: 'text-[#4a1ee9]',
+    linkIcon: imgDivBlue,
+    items: ['Hyperlocal Marketing','Community Marketing','Space Monetization','Retail Media Solutions','Brand Visibility Campaigns','Consumer Engagement'],
+  },
+  {
+    logo: imgDivTech,
+    borderColor: 'border-[rgba(192,21,189,0.19)]',
+    bg: 'linear-gradient(160deg, rgba(192,21,155,0.082) 0%, rgba(246,100,231,0.125) 100%)',
+    dotColor: 'bg-[#c015af]',
+    textColor: 'text-[#694762]',
+    linkColor: 'text-[#c015af]',
+    linkIcon: imgDivPink,
+    items: ['White-Label SaaS Platforms','Visitor Management Systems','QR & Registration Solutions','Queue Management Systems','Event Technology Solutions','Custom Business Applications'],
+  },
+];
+
+function DivisionCard({ logo, borderColor, bg, dotColor, textColor, linkColor, linkIcon, items }: typeof divisions[0]) {
+  return (
+    <div className={`bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col`}>
+      {/* Logo header */}
+      <div className={`border-b-2 ${borderColor} px-5 py-4`} style={{ backgroundImage: bg }}>
+        <img src={logo} alt="" className="h-12 object-contain" />
+      </div>
+      {/* List */}
+      <div className="px-5 py-4 flex flex-col gap-1.5 flex-1">
+        {items.map(item => (
+          <div key={item} className="flex items-center gap-2">
+            <div className={`${dotColor} w-1.5 h-1.5 rounded-full shrink-0`} />
+            <p className={`${textColor} text-[11px] leading-[16.5px]`}>{item}</p>
+          </div>
+        ))}
+      </div>
+      {/* Know More */}
+      <div className="px-5 pb-4">
+        <a href="#" className={`${linkColor} font-bold text-[12px] flex items-center gap-1`}>
+          Know More
+          <img src={linkIcon} alt="" className="w-3 h-3" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function DivisionsSection() {
+  return (
+    <section className="bg-[#f8fafc] py-20 px-8">
+      <div className="max-w-[1280px] mx-auto">
+        <div className="flex flex-col items-center mb-14 text-center">
+          <SectionLabel>Our Divisions</SectionLabel>
+          <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[60px]">
+            Our Specialist Divisions
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {divisions.map((d, i) => <DivisionCard key={i} {...d} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Case Studies ──────────────────────────────────────────────────────────────
+const imgChyawan  = "https://www.figma.com/api/mcp/asset/a3d2831a-8b5f-4f58-a904-16a66618aeb3";
+const imgDealer   = "https://www.figma.com/api/mcp/asset/27cfaa09-54aa-4a35-a7bd-5d579bd48241";
+const imgMechanic = "https://www.figma.com/api/mcp/asset/95ddf56f-6fff-476d-9a0d-89153323d97d";
+
+const caseStudies = [
+  {
+    img: imgChyawan,
+    brandBg: 'bg-[#ae1d0b]',
+    brandLetter: 'D',
+    brand: 'Dabur',
+    title: 'Chyawanprash Winter Campaign',
+    location: '12 States',
+    stats: [{ value: '2.4 Cr+', label: 'People Reached' }, { value: '340+', label: 'Cities' }, { value: '4.2x', label: 'ROI', green: true }],
+  },
+  {
+    img: imgDealer,
+    brandBg: 'bg-[#00108f]',
+    brandLetter: 'C',
+    brand: 'CEAT Tyres',
+    title: 'Dealer Meet & Product Launch',
+    location: 'Pan India',
+    stats: [{ value: '18,000+', label: 'People Reached' }, { value: '85', label: 'Cities' }, { value: '3.8x', label: 'ROI', green: true }],
+  },
+  {
+    img: imgMechanic,
+    brandBg: 'bg-[#052f6d]',
+    brandLetter: 'C',
+    brand: 'CEAT Tyres',
+    title: 'Rural Mechanic Meet',
+    location: 'UP, MP, Rajasthan',
+    stats: [{ value: '45,000+', label: 'People Reached' }, { value: '120+', label: 'Cities' }, { value: '5.1x', label: 'ROI', green: true }],
+  },
+];
+
+function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stats }: typeof caseStudies[0]) {
+  return (
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col">
+      <div className="h-52 shrink-0 overflow-hidden">
+        <img src={img} alt={title} className="w-full h-full object-cover" />
+      </div>
+      <div className="p-6 flex flex-col gap-3 flex-1">
+        {/* Brand row */}
+        <div className="flex items-center gap-2">
+          <div className={`${brandBg} w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0`}>
+            <span className="text-white font-extrabold text-[11px]">{brandLetter}</span>
+          </div>
+          <span className="text-[#0f172a] font-bold text-[13px]">{brand}</span>
+        </div>
+        <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
+        <p className="text-[#64748b] text-[12px]">{location}</p>
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-2">
+          {stats.map(s => (
+            <div key={s.label} className="bg-[#f8fafc] rounded-[14px] p-2 flex flex-col items-center">
+              <span className={`font-extrabold text-[14px] leading-[21px] ${s.green ? 'text-[#8dc63f]' : 'text-[#1e9fd4]'}`}>{s.value}</span>
+              <span className="text-[#64748b] text-[10px] text-center leading-[15px]">{s.label}</span>
+            </div>
+          ))}
+        </div>
+        {/* CTA */}
+        <button className="w-full border border-[#1e9fd4] rounded-[14px] h-10 text-[#1e9fd4] font-bold text-[12px] hover:bg-[#ebf7fc] transition-colors mt-auto">
+          View Case Study →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function CaseStudiesSection() {
+  return (
+    <section className="bg-[#f8fafc] py-20 px-8" id="case-studies">
+      <div className="max-w-[1280px] mx-auto">
+        <div className="flex flex-col items-center mb-12 text-center">
+          <SectionLabel>Case Studies</SectionLabel>
+          <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[60px]">
+            Recent Success Stories
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {caseStudies.map(c => <CaseStudyCard key={c.title} {...c} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Trusted By (Marquee) ──────────────────────────────────────────────────────
 function TrustedBySection() {
   return (
@@ -484,6 +735,9 @@ export function NewsHomePage() {
         <HeroSection />
         <WhatWeDoSection />
         <WhyUsSection />
+        <OpportunitiesSection />
+        <DivisionsSection />
+        <CaseStudiesSection />
         <TrustedBySection />
         <CTASection />
       </main>
