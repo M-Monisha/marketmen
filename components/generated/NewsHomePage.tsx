@@ -258,8 +258,7 @@ function HeroSection() {
 
         {/* Headline */}
         <h1 className="font-extrabold text-white leading-[1.08] tracking-[-1.5px]" style={{ fontSize: 'clamp(32px, 5vw, 60px)' }}>
-          India&apos;s On-Ground<br />
-          <span className="text-[#1e9fd4]">Brand Growth</span> Partner
+          India&apos;s On-Ground <span className="text-[#1e9fd4]">Brand Growth</span> Partner
         </h1>
 
         {/* Divider */}
