@@ -98,14 +98,22 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
-function ServiceCard({ icon, title, desc, bg }: { icon: string; title: string; desc: string; bg: string }) {
+function ServiceCard({ icon, title, desc, bg, bgImg }: { icon: string; title: string; desc: string; bg: string; bgImg: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-xl p-3.5 flex flex-col gap-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-      <div className={`${bg} rounded-lg w-8 h-8 flex items-center justify-center shrink-0`}>
-        <img src={icon} alt={title} className="w-4 h-4 object-contain" />
+    <div className="relative rounded-xl overflow-hidden border border-[#e2e8f0] flex flex-col gap-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer group">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img src={bgImg} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-white/90 group-hover:bg-white/82 transition-all duration-200" />
       </div>
-      <p className="text-[#0f172a] font-bold text-[12px] leading-4">{title}</p>
-      <p className="text-[#64748b] text-[11px] leading-4">{desc}</p>
+      {/* Content */}
+      <div className="relative p-3.5 flex flex-col gap-2">
+        <div className={`${bg} rounded-lg w-8 h-8 flex items-center justify-center shrink-0`}>
+          <img src={icon} alt={title} className="w-4 h-4 object-contain" />
+        </div>
+        <p className="text-[#0f172a] font-bold text-[12px] leading-4">{title}</p>
+        <p className="text-[#64748b] text-[11px] leading-4">{desc}</p>
+      </div>
     </div>
   );
 }
@@ -238,7 +246,7 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 function HeroSection() {
   const { ref: statsRef, inView: statsInView } = useInView();
   return (
-    <section className="relative pt-20 min-h-screen flex items-center overflow-hidden">
+    <section className="relative pt-20 flex items-center overflow-hidden" style={{ minHeight: 'min(100svh, 700px)' }}>
       {/* Full-bleed background */}
       <img
         src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=90&fit=crop"
@@ -248,7 +256,7 @@ function HeroSection() {
       <div className="absolute inset-0 bg-[rgba(10,6,24,0.78)]" />
 
       {/* Centred content */}
-      <div className="relative z-10 w-full max-w-[720px] mx-auto px-6 py-24 flex flex-col items-center text-center gap-6">
+      <div className="relative z-10 w-full max-w-[720px] mx-auto px-6 py-12 md:py-20 flex flex-col items-center text-center gap-5">
 
         {/* Badge */}
         <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5">
@@ -303,16 +311,16 @@ function HeroSection() {
 
 // ── What We Do ────────────────────────────────────────────────────────────────
 const services = [
-  { icon: imgSvcBrand,    title: 'Brand Activation',     desc: 'High-impact on-ground activations that connect brands directly with consumers across India.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgSvcRetail,   title: 'Retail Branding',      desc: 'Transforming retail spaces with impactful branding solutions that drive footfall and sales.', bg: 'bg-[#f3fae8]' },
-  { icon: imgSvcCorpEvt,  title: 'Corporate Events',     desc: 'End-to-end corporate event management with flawless execution at any scale.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgSvcEmpEng,   title: 'Employee Engagement',  desc: 'Meaningful engagement programs that build culture, morale, and team spirit.', bg: 'bg-[#f3fae8]' },
-  { icon: imgSvcRural,    title: 'Rural Marketing',      desc: 'Deep rural reach through haats, village meets, and targeted rural activation formats.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgSvcEvent,    title: 'Event IPs',            desc: 'Proprietary event formats and intellectual properties for recurring brand experiences.', bg: 'bg-[#f3fae8]' },
-  { icon: imgSvcMedia,    title: 'Media & Production',   desc: 'Comprehensive media planning, space booking, and large-scale production services.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgSvcPermit,   title: 'Permissions & Liaison',desc: 'Expert handling of government permissions and stakeholder coordination.', bg: 'bg-[#f3fae8]' },
-  { icon: imgSvcVideo,    title: 'Video Production',     desc: 'Professional video content that captures campaign stories and brand narratives.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgSvcCreative, title: 'Creative Design',      desc: 'Striking visual communication that elevates brand identity across all touchpoints.', bg: 'bg-[#f3fae8]' },
+  { icon: imgSvcBrand,    title: 'Brand Activation',      desc: 'High-impact on-ground activations that connect brands directly with consumers across India.',      bg: 'bg-[#ebf7fc]', bgImg: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&q=70&fit=crop' },
+  { icon: imgSvcRetail,   title: 'Retail Branding',       desc: 'Transforming retail spaces with impactful branding solutions that drive footfall and sales.',       bg: 'bg-[#f3fae8]', bgImg: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=70&fit=crop' },
+  { icon: imgSvcCorpEvt,  title: 'Corporate Events',      desc: 'End-to-end corporate event management with flawless execution at any scale.',                      bg: 'bg-[#ebf7fc]', bgImg: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&q=70&fit=crop' },
+  { icon: imgSvcEmpEng,   title: 'Employee Engagement',   desc: 'Meaningful engagement programs that build culture, morale, and team spirit.',                      bg: 'bg-[#f3fae8]', bgImg: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=70&fit=crop' },
+  { icon: imgSvcRural,    title: 'Rural Marketing',       desc: 'Deep rural reach through haats, village meets, and targeted rural activation formats.',            bg: 'bg-[#ebf7fc]', bgImg: 'https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=400&q=70&fit=crop' },
+  { icon: imgSvcEvent,    title: 'Event IPs',             desc: 'Proprietary event formats and intellectual properties for recurring brand experiences.',            bg: 'bg-[#f3fae8]', bgImg: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=70&fit=crop' },
+  { icon: imgSvcMedia,    title: 'Media & Production',    desc: 'Comprehensive media planning, space booking, and large-scale production services.',                 bg: 'bg-[#ebf7fc]', bgImg: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&q=70&fit=crop' },
+  { icon: imgSvcPermit,   title: 'Permissions & Liaison', desc: 'Expert handling of government permissions and stakeholder coordination.',                           bg: 'bg-[#f3fae8]', bgImg: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=70&fit=crop' },
+  { icon: imgSvcVideo,    title: 'Video Production',      desc: 'Professional video content that captures campaign stories and brand narratives.',                   bg: 'bg-[#ebf7fc]', bgImg: 'https://images.unsplash.com/photo-1601506521793-dc748fc80b67?w=400&q=70&fit=crop' },
+  { icon: imgSvcCreative, title: 'Creative Design',       desc: 'Striking visual communication that elevates brand identity across all touchpoints.',                bg: 'bg-[#f3fae8]', bgImg: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=70&fit=crop' },
 ];
 
 function WhatWeDoSection() {
