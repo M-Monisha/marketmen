@@ -100,12 +100,12 @@ function SectionLabel({ children }: { children: string }) {
 
 function ServiceCard({ icon, title, desc, bg }: { icon: string; title: string; desc: string; bg: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-5 flex flex-col gap-3 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
-      <div className={`${bg} rounded-xl w-11 h-11 flex items-center justify-center shrink-0`}>
-        <img src={icon} alt={title} className="w-[18px] h-[18px] object-contain" />
+    <div className="bg-white border border-[#e2e8f0] rounded-xl p-3.5 flex flex-col gap-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer">
+      <div className={`${bg} rounded-lg w-8 h-8 flex items-center justify-center shrink-0`}>
+        <img src={icon} alt={title} className="w-4 h-4 object-contain" />
       </div>
-      <p className="text-[#0f172a] font-bold text-[13px] leading-5">{title}</p>
-      <p className="text-[#64748b] text-[12px] leading-5">{desc}</p>
+      <p className="text-[#0f172a] font-bold text-[12px] leading-4">{title}</p>
+      <p className="text-[#64748b] text-[11px] leading-4">{desc}</p>
     </div>
   );
 }
@@ -159,7 +159,7 @@ function Header() {
         {/* Logo */}
         <a href="/" className="shrink-0 group">
           <div className="bg-white rounded-xl px-3 py-2 shadow-[0_0_20px_rgba(30,159,212,0.4)] group-hover:shadow-[0_0_28px_rgba(30,159,212,0.65)] transition-shadow duration-300">
-            <img src={imgLogo} alt="MarketMen" className="h-10 w-auto object-contain" />
+          <img src={imgLogo} alt="MarketMen" className="h-12 w-auto object-contain" />
           </div>
         </a>
 
@@ -214,9 +214,9 @@ function StatCard({ num, suffix = '', display, label, gradient, started }: {
   const counted = useCountUp(num, 1400, started);
   const val = display ?? `${counted}${suffix}`;
   return (
-    <div className="bg-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.1)] rounded-2xl px-4 py-3.5 flex flex-col gap-1 hover:bg-[rgba(255,255,255,0.11)] transition-colors">
-      <span className={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent font-extrabold text-[22px] leading-tight`}>{val}</span>
-      <p className="text-[#94a3b8] text-[11px] font-medium leading-4">{label}</p>
+    <div className="bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.09)] rounded-xl px-3 py-2.5 flex items-center gap-2.5 hover:bg-[rgba(255,255,255,0.1)] transition-colors">
+      <span className={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent font-extrabold text-[15px] leading-tight shrink-0`}>{val}</span>
+      <p className="text-[#94a3b8] text-[10px] font-medium leading-3.5">{label}</p>
     </div>
   );
 }
@@ -225,68 +225,64 @@ function StatCard({ num, suffix = '', display, label, gradient, started }: {
 function HeroSection() {
   const { ref: statsRef, inView: statsInView } = useInView();
   return (
-    <section className="bg-gradient-to-r from-[#2b1f3a] to-[#142f4c] pt-20">
-      <div className="max-w-[1280px] mx-auto px-8 py-16 flex flex-wrap items-center gap-10">
-        {/* Left column */}
-        <div className="flex-1 min-w-[300px] flex flex-col gap-5">
+    <section className="bg-gradient-to-r from-[#2b1f3a] to-[#142f4c] pt-20 min-h-[92vh] flex items-center relative overflow-hidden">
+      {/* Right image — full height background panel */}
+      <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[48%]">
+        <img
+          src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=900&q=90&fit=crop"
+          alt="Brand activation event"
+          className="w-full h-full object-cover"
+        />
+        {/* gradient fade left so text side blends */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2b1f3a] via-[rgba(27,20,45,0.55)] to-transparent" />
+      </div>
+
+      {/* Left content */}
+      <div className="relative z-10 max-w-[1280px] mx-auto px-8 py-20 w-full">
+        <div className="max-w-[580px] flex flex-col gap-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-[#ebf7fc] border border-[#bae4f5] rounded-full px-[17px] py-[9px] self-start">
-            <div className="w-2 h-2 rounded-full bg-[#1e9fd4] opacity-88" />
-            <p className="text-[#1e9fd4] text-[12px] font-semibold">35+ Years of Execution Excellence</p>
+          <div className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.12)] border border-[rgba(30,159,212,0.35)] rounded-full px-4 py-2 self-start">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
+            <p className="text-[#1e9fd4] text-[11px] font-semibold tracking-wide">35+ Years of Execution Excellence</p>
           </div>
 
-          {/* Headline — fluid type size */}
-          <h1 className="font-extrabold leading-[1.15] tracking-[-1px] text-[#1e9fd4]" style={{ fontSize: 'clamp(28px, 5vw, 52px)' }}>
+          {/* Headline */}
+          <h1 className="font-extrabold leading-[1.1] tracking-[-1.5px] text-white" style={{ fontSize: 'clamp(30px, 4.5vw, 56px)' }}>
             India&apos;s On-Ground<br />
-            <span className="text-white">Brand Growth</span>{' '}
-            <span className="text-[#1e9fd4]">Partner</span>
+            <span className="text-[#1e9fd4]">Brand Growth</span> Partner
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-white text-[18px] font-medium leading-7">
+          <p className="text-[#cbd5e1] text-[16px] font-medium leading-7">
             From Strategy to Execution. Anywhere in India.
           </p>
 
           {/* Body */}
-          <p className="text-[#e2e2e2] text-[15px] font-normal leading-[1.625] max-w-[584px]">
+          <p className="text-[#94a3b8] text-[14px] font-normal leading-[1.7]">
             Helping brands execute BTL campaigns, retail branding, rural activation, employee engagement, event IPs, and corporate experiences with one trusted execution partner across India.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 pt-0">
-            {/* Primary — clean single solid button */}
-            <a href="#contact" className="bg-[#1e9fd4] text-white text-[13px] font-bold px-7 py-4 rounded-2xl flex items-center gap-3 shadow-[0_4px_20px_rgba(30,159,212,0.35)] hover:bg-[#1a8fbe] hover:shadow-[0_6px_28px_rgba(30,159,212,0.5)] transition-all duration-200">
+          <div className="flex flex-wrap gap-4">
+            <a href="#contact" className="bg-[#1e9fd4] text-white text-[13px] font-bold px-6 py-3.5 rounded-xl flex items-center gap-2.5 shadow-[0_4px_20px_rgba(30,159,212,0.4)] hover:bg-[#1a8fbe] hover:shadow-[0_6px_28px_rgba(30,159,212,0.6)] transition-all duration-200">
               Book Strategy Consultation
-              <span className="bg-[rgba(255,255,255,0.2)] rounded-lg p-1 flex items-center justify-center">
-                <img src={imgHeroArrow} alt="" className="w-3.5 h-3.5" />
+              <span className="bg-[rgba(255,255,255,0.2)] rounded-md p-1">
+                <img src={imgHeroArrow} alt="" className="w-3 h-3" />
               </span>
             </a>
-            {/* Secondary — ghost underline */}
-            <a href="#opportunities" className="group relative flex items-center gap-2 text-white text-[13px] font-semibold px-1 py-4">
+            <a href="#opportunities" className="group relative flex items-center gap-2 text-[#cbd5e1] text-[13px] font-semibold px-1 py-3.5 hover:text-white transition-colors">
               Explore Opportunities
               <span className="text-[#1e9fd4]">→</span>
-              <span className="absolute bottom-2 left-0 w-0 h-[2px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-2 left-0 w-0 h-[1.5px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
             </a>
           </div>
 
-          {/* Stats — attractive card grid */}
-          <div ref={statsRef} className="border-t border-[rgba(255,255,255,0.15)] pt-8 grid grid-cols-2 gap-3">
-            <StatCard num={35} suffix="+" label="Years of Experience" gradient="from-[#1e9fd4] to-[#0e7ab0]" started={statsInView} />
-            <StatCard num={0} display="Pan India" label="Network Coverage" gradient="from-[#8dc63f] to-[#6aa62e]" started={statsInView} />
-            <StatCard num={100} suffix="%" label="Transparent Reporting" gradient="from-[#8dc63f] to-[#6aa62e]" started={statsInView} />
+          {/* Stats — compact horizontal strip */}
+          <div ref={statsRef} className="border-t border-[rgba(255,255,255,0.1)] pt-6 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <StatCard num={35} suffix="+" label="Years of Experience"          gradient="from-[#1e9fd4] to-[#0e7ab0]" started={statsInView} />
+            <StatCard num={0} display="Pan India" label="Network Coverage"     gradient="from-[#8dc63f] to-[#6aa62e]" started={statsInView} />
+            <StatCard num={100} suffix="%" label="Transparent Reporting"       gradient="from-[#8dc63f] to-[#6aa62e]" started={statsInView} />
             <StatCard num={0} display="1 Partner" label="Single Point Accountability" gradient="from-[#1e9fd4] to-[#0e7ab0]" started={statsInView} />
-          </div>
-        </div>
-
-        {/* Right column — hero image */}
-        <div className="flex-1 min-w-[300px]">
-          <div className="rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] relative">
-            <img
-              src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=900&q=90&fit=crop"
-              alt="Brand activation event"
-              className="w-full h-[520px] object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(15,23,42,0.3)] via-transparent to-transparent rounded-3xl" />
           </div>
         </div>
       </div>
@@ -611,30 +607,21 @@ const imgMechanic = "https://www.figma.com/api/mcp/asset/95ddf56f-6fff-476d-9a0d
 
 const caseStudies = [
   {
-    img: imgChyawan,
-    brandBg: 'bg-[#ae1d0b]',
-    brandLetter: 'D',
-    brand: 'Dabur',
-    title: 'Chyawanprash Winter Campaign',
-    location: '12 States',
+    img: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80&fit=crop',
+    brandBg: 'bg-[#ae1d0b]', brandLetter: 'D', brand: 'Dabur',
+    title: 'Chyawanprash Winter Campaign', location: '12 States',
     stats: [{ value: '2.4 Cr+', label: 'People Reached' }, { value: '340+', label: 'Cities' }, { value: '4.2x', label: 'ROI', green: true }],
   },
   {
-    img: imgDealer,
-    brandBg: 'bg-[#00108f]',
-    brandLetter: 'C',
-    brand: 'CEAT Tyres',
-    title: 'Dealer Meet & Product Launch',
-    location: 'Pan India',
+    img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&fit=crop',
+    brandBg: 'bg-[#00108f]', brandLetter: 'C', brand: 'CEAT Tyres',
+    title: 'Dealer Meet & Product Launch', location: 'Pan India',
     stats: [{ value: '18,000+', label: 'People Reached' }, { value: '85', label: 'Cities' }, { value: '3.8x', label: 'ROI', green: true }],
   },
   {
-    img: imgMechanic,
-    brandBg: 'bg-[#052f6d]',
-    brandLetter: 'C',
-    brand: 'CEAT Tyres',
-    title: 'Rural Mechanic Meet',
-    location: 'UP, MP, Rajasthan',
+    img: 'https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=600&q=80&fit=crop',
+    brandBg: 'bg-[#052f6d]', brandLetter: 'C', brand: 'CEAT Tyres',
+    title: 'Rural Mechanic Meet', location: 'UP, MP, Rajasthan',
     stats: [{ value: '45,000+', label: 'People Reached' }, { value: '120+', label: 'Cities' }, { value: '5.1x', label: 'ROI', green: true }],
   },
 ];
