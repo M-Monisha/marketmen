@@ -239,87 +239,63 @@ function HeroSection() {
   const { ref: statsRef, inView: statsInView } = useInView();
   return (
     <section className="relative pt-20 min-h-screen flex items-center overflow-hidden">
-      {/* Full-bleed background image */}
+      {/* Full-bleed background */}
       <img
         src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=90&fit=crop"
         alt=""
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
-      {/* Dark overlay — stronger on left for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,10,30,0.92)] via-[rgba(15,10,30,0.75)] to-[rgba(15,10,30,0.35)]" />
+      <div className="absolute inset-0 bg-[rgba(10,6,24,0.78)]" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-8 py-24 w-full grid lg:grid-cols-2 gap-16 items-center">
+      {/* Centred content */}
+      <div className="relative z-10 w-full max-w-[720px] mx-auto px-6 py-24 flex flex-col items-center text-center gap-6">
 
-        {/* LEFT — text content */}
-        <div className="flex flex-col gap-6">
-          {/* Badge */}
-          <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5 self-start">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
-            <span className="text-[#1e9fd4] text-[11px] font-semibold tracking-widest uppercase">35+ Years of Execution Excellence</span>
-          </span>
+        {/* Badge */}
+        <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
+          <span className="text-[#1e9fd4] text-[11px] font-semibold tracking-widest uppercase">35+ Years of Execution Excellence</span>
+        </span>
 
-          {/* Headline */}
-          <h1 className="font-extrabold text-white leading-[1.08] tracking-[-1.5px]" style={{ fontSize: 'clamp(32px, 4vw, 58px)' }}>
-            India&apos;s On-Ground<br />
-            <span className="text-[#1e9fd4]">Brand Growth</span><br />
-            Partner
-          </h1>
+        {/* Headline */}
+        <h1 className="font-extrabold text-white leading-[1.08] tracking-[-1.5px]" style={{ fontSize: 'clamp(32px, 5vw, 60px)' }}>
+          India&apos;s On-Ground<br />
+          <span className="text-[#1e9fd4]">Brand Growth</span> Partner
+        </h1>
 
-          {/* Divider line */}
-          <div className="w-16 h-1 bg-[#1e9fd4] rounded-full" />
+        {/* Divider */}
+        <div className="w-14 h-1 bg-[#1e9fd4] rounded-full" />
 
-          {/* Sub + body */}
-          <div className="flex flex-col gap-3">
-            <p className="text-[#e2e8f0] text-[17px] font-semibold leading-7">
-              From Strategy to Execution. Anywhere in India.
-            </p>
-            <p className="text-[#e2e8f0] text-[14px] leading-[1.75] font-medium">
-              Helping brands execute BTL campaigns, retail branding, rural activation, employee engagement, event IPs, and corporate experiences with one trusted execution partner across India.
-            </p>
-          </div>
+        {/* Sub */}
+        <p className="text-[#e2e8f0] text-[17px] font-semibold leading-7">
+          From Strategy to Execution. Anywhere in India.
+        </p>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-4 pt-1">
-            <a href="#contact" className="bg-[#1e9fd4] text-white text-[13px] font-bold px-6 py-3.5 rounded-xl flex items-center gap-2.5 shadow-[0_4px_24px_rgba(30,159,212,0.45)] hover:bg-[#1a8fbe] hover:shadow-[0_6px_32px_rgba(30,159,212,0.65)] transition-all duration-200">
-              Book Strategy Consultation
-              <span className="bg-[rgba(255,255,255,0.2)] rounded-md p-1">
-                <img src={imgHeroArrow} alt="" className="w-3 h-3" />
-              </span>
-            </a>
-            <a href="#opportunities" className="group relative flex items-center gap-2 text-[#cbd5e1] text-[13px] font-semibold px-1 py-3.5 hover:text-white transition-colors">
-              Explore Opportunities
-              <span className="text-[#1e9fd4]">→</span>
-              <span className="absolute bottom-2 left-0 w-0 h-[1.5px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
-            </a>
-          </div>
+        {/* Body */}
+        <p className="text-[#e2e8f0] text-[14px] font-medium leading-[1.75] max-w-[580px]">
+          Helping brands execute BTL campaigns, retail branding, rural activation, employee engagement, event IPs, and corporate experiences with one trusted execution partner across India.
+        </p>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 pt-1">
+          <a href="#contact" className="bg-[#1e9fd4] text-white text-[13px] font-bold px-6 py-3.5 rounded-xl flex items-center gap-2.5 shadow-[0_4px_24px_rgba(30,159,212,0.45)] hover:bg-[#1a8fbe] transition-all duration-200">
+            Book Strategy Consultation
+            <span className="bg-[rgba(255,255,255,0.2)] rounded-md p-1">
+              <img src={imgHeroArrow} alt="" className="w-3 h-3" />
+            </span>
+          </a>
+          <a href="#opportunities" className="group relative flex items-center gap-2 text-[#cbd5e1] text-[13px] font-semibold px-1 py-3.5 hover:text-white transition-colors">
+            Explore Opportunities
+            <span className="text-[#1e9fd4]">→</span>
+            <span className="absolute bottom-2 left-0 w-0 h-[1.5px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
+          </a>
         </div>
 
-        {/* RIGHT — stats panel */}
-        <div ref={statsRef} className="hidden lg:flex flex-col gap-4 items-end">
-          {/* Large frosted card */}
-          <div className="bg-[rgba(255,255,255,0.06)] backdrop-blur-sm border border-[rgba(255,255,255,0.12)] rounded-3xl p-8 w-full max-w-[360px] flex flex-col gap-6">
-            <p className="text-[#94a3b8] text-[11px] font-bold uppercase tracking-[2px]">Why Brands Trust Us</p>
-            {[
-              { num: 35,  suffix: '+',  display: '',          label: 'Years of Execution Experience', gradient: 'from-[#1e9fd4] to-[#38bdf8]' },
-              { num: 0,   suffix: '',   display: 'Pan India', label: 'Network Coverage',              gradient: 'from-[#8dc63f] to-[#a3e635]' },
-              { num: 100, suffix: '%',  display: '',          label: 'Transparent Reporting',         gradient: 'from-[#8dc63f] to-[#a3e635]' },
-              { num: 0,   suffix: '',   display: '1 Partner', label: 'Single Point Accountability',   gradient: 'from-[#1e9fd4] to-[#38bdf8]' },
-            ].map((s, i) => (
-              <div key={i} className="flex items-center gap-4 border-b border-[rgba(255,255,255,0.07)] pb-4 last:border-0 last:pb-0">
-                <CounterDisplay num={s.num} suffix={s.suffix} display={s.display} gradient={s.gradient} started={statsInView} />
-                <p className="text-[#cbd5e1] text-[13px] font-medium leading-5">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile stats — shown only on small screens */}
-        <div ref={statsRef} className="lg:hidden grid grid-cols-2 gap-2 mt-2">
-          <StatCard num={35} suffix="+" label="Years of Experience"         gradient="from-[#1e9fd4] to-[#38bdf8]" started={statsInView} />
-          <StatCard num={0} display="Pan India" label="Network Coverage"    gradient="from-[#8dc63f] to-[#a3e635]" started={statsInView} />
-          <StatCard num={100} suffix="%" label="Transparent Reporting"      gradient="from-[#8dc63f] to-[#a3e635]" started={statsInView} />
-          <StatCard num={0} display="1 Partner" label="Single Point"        gradient="from-[#1e9fd4] to-[#38bdf8]" started={statsInView} />
+        {/* Stats — small chips in a row */}
+        <div ref={statsRef} className="border-t border-[rgba(255,255,255,0.12)] pt-6 w-full grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+          <StatCard num={35}  suffix="+"  label="Years Experience"          gradient="from-[#1e9fd4] to-[#38bdf8]" started={statsInView} />
+          <StatCard num={0}   display="Pan India" label="Network Coverage"  gradient="from-[#8dc63f] to-[#a3e635]" started={statsInView} />
+          <StatCard num={100} suffix="%"  label="Transparent Reporting"     gradient="from-[#8dc63f] to-[#a3e635]" started={statsInView} />
+          <StatCard num={0}   display="1 Partner" label="Single Point Accountability" gradient="from-[#1e9fd4] to-[#38bdf8]" started={statsInView} />
         </div>
       </div>
     </section>
