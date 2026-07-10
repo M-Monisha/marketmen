@@ -207,6 +207,20 @@ function Header() {
   );
 }
 
+// ── Stat Card (hero stats) ────────────────────────────────────────────────────
+function StatCard({ num, suffix = '', display, label, gradient, started }: {
+  num: number; suffix?: string; display?: string; label: string; gradient: string; started: boolean;
+}) {
+  const counted = useCountUp(num, 1400, started);
+  const val = display ?? `${counted}${suffix}`;
+  return (
+    <div className="bg-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.1)] rounded-2xl px-4 py-3.5 flex flex-col gap-1 hover:bg-[rgba(255,255,255,0.11)] transition-colors">
+      <span className={`bg-gradient-to-r ${gradient} bg-clip-text text-transparent font-extrabold text-[22px] leading-tight`}>{val}</span>
+      <p className="text-[#94a3b8] text-[11px] font-medium leading-4">{label}</p>
+    </div>
+  );
+}
+
 // ── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
   const { ref: statsRef, inView: statsInView } = useInView();
@@ -239,43 +253,40 @@ function HeroSection() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-3 pt-0">
-            {/* Primary — pill with separated arrow block */}
-            <a href="#contact" className="group flex items-center rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(30,159,212,0.35)] hover:shadow-[0_6px_28px_rgba(30,159,212,0.5)] transition-all duration-200">
-              <span className="bg-[#1e9fd4] text-white text-[13px] font-bold px-5 py-3.5 leading-none">
-                Book Strategy Consultation
-              </span>
-              <span className="bg-[#1a8fbe] text-white px-3.5 py-3.5 flex items-center self-stretch group-hover:bg-[#1680aa] transition-colors">
-                <img src={imgHeroArrow} alt="" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          <div className="flex flex-wrap gap-4 pt-0">
+            {/* Primary — clean single solid button */}
+            <a href="#contact" className="bg-[#1e9fd4] text-white text-[13px] font-bold px-7 py-4 rounded-2xl flex items-center gap-3 shadow-[0_4px_20px_rgba(30,159,212,0.35)] hover:bg-[#1a8fbe] hover:shadow-[0_6px_28px_rgba(30,159,212,0.5)] transition-all duration-200">
+              Book Strategy Consultation
+              <span className="bg-[rgba(255,255,255,0.2)] rounded-lg p-1 flex items-center justify-center">
+                <img src={imgHeroArrow} alt="" className="w-3.5 h-3.5" />
               </span>
             </a>
-            {/* Secondary — ghost with bottom-line animation */}
-            <a href="#opportunities" className="group relative flex items-center gap-2 text-white text-[13px] font-semibold px-1 py-3.5">
+            {/* Secondary — ghost underline */}
+            <a href="#opportunities" className="group relative flex items-center gap-2 text-white text-[13px] font-semibold px-1 py-4">
               Explore Opportunities
               <span className="text-[#1e9fd4]">→</span>
               <span className="absolute bottom-2 left-0 w-0 h-[2px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
             </a>
           </div>
 
-          {/* Stats with animated counters */}
-          <div ref={statsRef} className="border-t border-[#e2e8f0] pt-8 grid grid-cols-2 gap-y-5">
-            <StatItem value="35+" label="Years Experience" color="bg-[#1e9fd4]" started={statsInView} />
-            <StatItem value="Pan India" label="Network" color="bg-[#8dc63f]" started={statsInView} />
-            <StatItem value="100%" label="Transparent Reporting" color="bg-[#8dc63f]" started={statsInView} />
-            <StatItem value="1 Partner" label="Single Point Accountability" color="bg-[#1e9fd4]" started={statsInView} />
+          {/* Stats — attractive card grid */}
+          <div ref={statsRef} className="border-t border-[rgba(255,255,255,0.15)] pt-8 grid grid-cols-2 gap-3">
+            <StatCard num={35} suffix="+" label="Years of Experience" gradient="from-[#1e9fd4] to-[#0e7ab0]" started={statsInView} />
+            <StatCard num={0} display="Pan India" label="Network Coverage" gradient="from-[#8dc63f] to-[#6aa62e]" started={statsInView} />
+            <StatCard num={100} suffix="%" label="Transparent Reporting" gradient="from-[#8dc63f] to-[#6aa62e]" started={statsInView} />
+            <StatCard num={0} display="1 Partner" label="Single Point Accountability" gradient="from-[#1e9fd4] to-[#0e7ab0]" started={statsInView} />
           </div>
         </div>
 
         {/* Right column — hero image */}
         <div className="flex-1 min-w-[300px]">
-          <div className="rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] relative">
+          <div className="rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] relative">
             <img
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=90&fit=crop"
+              src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=900&q=90&fit=crop"
               alt="Brand activation event"
               className="w-full h-[520px] object-cover"
             />
-            {/* subtle gradient overlay at bottom */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(15,23,42,0.45)] via-transparent to-transparent rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(15,23,42,0.3)] via-transparent to-transparent rounded-3xl" />
           </div>
         </div>
       </div>
