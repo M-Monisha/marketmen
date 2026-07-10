@@ -178,92 +178,176 @@ img.broken-image-fallback {
   flex-shrink: 0;
 }
 
-/* ── Responsive Fix: Override Figma hardcoded widths ── */
+/* ── Mobile Responsiveness ── */
 
-/* Root wrappers */
+/* ── 1. Root containers always fluid ── */
 .home,
-.home > div,
-header.header {
+.home .body,
+.home .layout,
+.home .homepage {
   width: 100% !important;
   max-width: 100% !important;
-  min-width: 0 !important;
   height: auto !important;
   overflow-x: hidden !important;
 }
 
-/* All fixed 1280px inner containers become fluid with max-width */
-.home div[style*="width: 1280px"],
-.home div[style*="width: 1562px"],
-.home section[style*="width: 1562px"],
-.home header[style*="width: 1562px"],
-.home header[style*="width: 1280px"] {
+/* ── 2. All inner 1280px/1562px/1216px fixed containers become fluid ── */
+.home .container-margin > div,
+.home .container-margin > section,
+.home .container-align > div {
   width: 100% !important;
   max-width: 1280px !important;
-  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 
-/* Remove fixed height on homepage container */
-div.homepage {
-  height: auto !important;
-}
-
-body, #__next {
-  overflow-x: hidden !important;
+/* ── 3. Header — full width, not absolute ── */
+.home header.header {
   width: 100% !important;
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  z-index: 100 !important;
+}
+.home header.header > div {
+  width: 100% !important;
+  max-width: 1280px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
 }
 
-/* ── Mobile Responsiveness ── */
-@media (max-width: 1024px) {
-  /* Padding on sections */
-  section[class="section"] {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-}
-
-@media (max-width: 768px) {
-
-  /* Hero section height */
-  section[style*="height: 910px"] {
+/* ── 4. HERO SECTION — stack text + image on mobile ── */
+@media (max-width: 900px) {
+  /* hero container: make relative+auto instead of fixed 1280×858 */
+  .home section.section:first-of-type > div > div {
+    width: 100% !important;
     height: auto !important;
-    min-height: auto !important;
-    padding-top: 100px !important;
-    padding-bottom: 40px !important;
+    position: relative !important;
+    padding: 32px 24px 48px !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
-  /* All row flex containers wrap on mobile */
+  /* hero text column — was absolute 584px */
+  .home section.section:first-of-type > div > div > div:first-child {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  /* hero image panel — was absolute at left:664px */
+  .home section.section:first-of-type > div > div > div:last-child {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    left: auto !important;
+    top: auto !important;
+    margin-top: 32px !important;
+  }
+
+  /* hero section fixed height */
+  .home section.section:first-of-type {
+    height: auto !important;
+    min-height: unset !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* ── 5. SERVICES CARDS — was 5 absolute cards at left:0/259/518/777/1036px ── */
+@media (max-width: 1100px) {
+  /* The container holding absolute service cards */
+  .home section.section > div.container-margin > div > div[style*="position: relative"][style*="height"] {
+    position: relative !important;
+    height: auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    padding: 0 !important;
+  }
+
+  /* Each absolute-positioned card becomes inline */
+  .home section.section > div.container-margin > div > div[style*="position: relative"] > div[style*="position: absolute"] {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: calc(50% - 8px) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .home section.section > div.container-margin > div > div[style*="position: relative"] > div[style*="position: absolute"] {
+    width: 100% !important;
+  }
+}
+
+/* ── 6. All fixed pixel widths on text spans / heading divs become fluid ── */
+@media (max-width: 900px) {
+  .home span[style*="width:"],
+  .home div[style*="width: 584px"],
+  .home div[style*="width: 608px"],
+  .home div[style*="width: 787px"],
+  .home div[style*="width: 1280px"],
+  .home div[style*="width: 1216px"],
+  .home div[style*="width: 769px"],
+  .home div[style*="width: 896px"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* text wrapping */
+  .home span {
+    white-space: normal !important;
+  }
+}
+
+/* ── 7. Flex rows that should stack on mobile ── */
+@media (max-width: 768px) {
   .home div[style*="flex-direction: row"],
-  .home header[style*="flex-direction: row"] {
+  .home section[style*="flex-direction: row"] {
     flex-wrap: wrap !important;
   }
 
-  /* Section padding */
-  .home section {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  /* Insights, Case Studies, Opportunities card rows */
+  .home div[style*="justify-content: space-between"][style*="flex-direction: row"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
   }
 
-  /* Marquee logos: scale down on mobile */
-  .marquee-wrapper {
-    height: 120px !important;
-  }
-  .marquee-track {
-    height: 120px !important;
-    gap: 16px !important;
-  }
-  .marquee-track > div {
-    width: 120px !important;
-    height: 60px !important;
+  /* Font sizes down on mobile */
+  .home span[style*="font-size: 44px"] { font-size: 28px !important; line-height: 1.3 !important; }
+  .home span[style*="font-size: 40px"] { font-size: 26px !important; line-height: 1.3 !important; }
+  .home span[style*="font-size: 32px"] { font-size: 22px !important; line-height: 1.3 !important; }
+  .home span[style*="font-size: 28px"] { font-size: 20px !important; line-height: 1.3 !important; }
+  .home span[style*="font-size: 24px"] { font-size: 18px !important; line-height: 1.4 !important; }
+  .home span[style*="font-size: 20px"] { font-size: 16px !important; }
+
+  /* Section padding smaller on mobile */
+  .home section[style*="padding-top: 80px"] {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 
-  /* Nav links: hide on small screens */
-  header nav,
-  header .navigation {
+  /* Nav hide on mobile */
+  .home header.navigation {
     display: none !important;
   }
 
-  /* WhatsApp bar text */
-  .planning-an-event-let-s-talk-directly {
-    font-size: 12px !important;
+  /* Marquee logos smaller */
+  .marquee-wrapper { height: 80px !important; }
+  .marquee-track { height: 80px !important; gap: 12px !important; }
+  .marquee-track > div { width: 120px !important; height: 60px !important; padding: 8px !important; }
+
+  /* Footer columns stack */
+  .home footer div[style*="flex-direction: row"] {
+    flex-direction: column !important;
+  }
+
+  /* CTA banner text */
+  .home div[style*="max-width: 896px"] {
+    max-width: 100% !important;
+    padding: 0 20px !important;
   }
 }
