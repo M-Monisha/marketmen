@@ -98,19 +98,14 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
-function ServiceCard({ icon, title, desc, bg, cover }: { icon: string; title: string; desc: string; bg: string; cover: string }) {
+function ServiceCard({ icon, title, desc, bg }: { icon: string; title: string; desc: string; bg: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
-      <div className="h-28 shrink-0 overflow-hidden">
-        <img src={cover} alt={title} className="w-full h-full object-cover" />
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-5 flex flex-col gap-3 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
+      <div className={`${bg} rounded-xl w-11 h-11 flex items-center justify-center shrink-0`}>
+        <img src={icon} alt={title} className="w-[18px] h-[18px] object-contain" />
       </div>
-      <div className="p-4 flex flex-col gap-2">
-        <div className={`${bg} rounded-xl w-9 h-9 flex items-center justify-center shrink-0`}>
-          <img src={icon} alt={title} className="w-4 h-4 object-contain" />
-        </div>
-        <p className="text-[#0f172a] font-bold text-[13px] leading-5">{title}</p>
-        <p className="text-[#64748b] text-[12px] leading-5">{desc}</p>
-      </div>
+      <p className="text-[#0f172a] font-bold text-[13px] leading-5">{title}</p>
+      <p className="text-[#64748b] text-[12px] leading-5">{desc}</p>
     </div>
   );
 }
@@ -242,10 +237,11 @@ function HeroSection() {
             Helping brands execute BTL campaigns, retail branding, rural activation, employee engagement, event IPs, and corporate experiences with one trusted execution partner across India.
           </p>
 
-          {/* Tag pills */}
+          {/* Tag pills — clean outlined style */}
           <div className="flex flex-wrap gap-2">
             {tags.map(tag => (
-              <span key={tag} className="bg-[rgba(241,245,249,0.1)] border border-[rgba(226,232,240,0.2)] rounded-full px-[13px] py-[7px] text-white text-[11px] font-semibold">
+              <span key={tag} className="flex items-center gap-1.5 border border-[rgba(30,159,212,0.4)] text-[#1e9fd4] bg-[rgba(30,159,212,0.08)] rounded-lg px-3 py-1.5 text-[11px] font-semibold tracking-wide hover:bg-[rgba(30,159,212,0.18)] transition-colors cursor-default">
+                <span className="w-1 h-1 rounded-full bg-[#1e9fd4] inline-block" />
                 {tag}
               </span>
             ))}
@@ -253,12 +249,20 @@ function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-3 pt-0">
-            <a href="#contact" className="bg-[#1e9fd4] text-white text-[14px] font-bold px-6 py-[14px] rounded-[14px] flex items-center gap-2 hover:bg-[#1a8fbe] transition-colors">
-              Book Strategy Consultation
-              <img src={imgHeroArrow} alt="" className="w-4 h-4" />
+            {/* Primary — pill with separated arrow block */}
+            <a href="#contact" className="group flex items-center rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(30,159,212,0.35)] hover:shadow-[0_6px_28px_rgba(30,159,212,0.5)] transition-all duration-200">
+              <span className="bg-[#1e9fd4] text-white text-[13px] font-bold px-5 py-3.5 leading-none">
+                Book Strategy Consultation
+              </span>
+              <span className="bg-[#1a8fbe] text-white px-3.5 py-3.5 flex items-center self-stretch group-hover:bg-[#1680aa] transition-colors">
+                <img src={imgHeroArrow} alt="" className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </a>
-            <a href="#opportunities" className="border-2 border-[#e2e8f0] text-white text-[14px] font-semibold px-[26px] py-[14px] rounded-[14px] hover:bg-[rgba(255,255,255,0.08)] transition-colors">
+            {/* Secondary — ghost with bottom-line animation */}
+            <a href="#opportunities" className="group relative flex items-center gap-2 text-white text-[13px] font-semibold px-1 py-3.5">
               Explore Opportunities
+              <span className="text-[#1e9fd4]">→</span>
+              <span className="absolute bottom-2 left-0 w-0 h-[2px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
             </a>
           </div>
 
@@ -284,16 +288,16 @@ function HeroSection() {
 
 // ── What We Do ────────────────────────────────────────────────────────────────
 const services = [
-  { icon: imgSvcBrand,    title: 'Brand Activation',     desc: 'High-impact on-ground activations that connect brands directly with consumers across India.', bg: 'bg-[#ebf7fc]', cover: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=160&fit=crop' },
-  { icon: imgSvcRetail,   title: 'Retail Branding',      desc: 'Transforming retail spaces with impactful branding solutions that drive footfall and sales.', bg: 'bg-[#f3fae8]', cover: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop' },
-  { icon: imgSvcCorpEvt,  title: 'Corporate Events',     desc: 'End-to-end corporate event management with flawless execution at any scale.', bg: 'bg-[#ebf7fc]', cover: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=160&fit=crop' },
-  { icon: imgSvcEmpEng,   title: 'Employee Engagement',  desc: 'Meaningful engagement programs that build culture, morale, and team spirit.', bg: 'bg-[#f3fae8]', cover: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=160&fit=crop' },
-  { icon: imgSvcRural,    title: 'Rural Marketing',      desc: 'Deep rural reach through haats, village meets, and targeted rural activation formats.', bg: 'bg-[#ebf7fc]', cover: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop' },
-  { icon: imgSvcEvent,    title: 'Event IPs',            desc: 'Proprietary event formats and intellectual properties for recurring brand experiences.', bg: 'bg-[#f3fae8]', cover: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=160&fit=crop' },
-  { icon: imgSvcMedia,    title: 'Media & Production',   desc: 'Comprehensive media planning, space booking, and large-scale production services.', bg: 'bg-[#ebf7fc]', cover: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=160&fit=crop' },
-  { icon: imgSvcPermit,   title: 'Permissions & Liaison',desc: 'Expert handling of government permissions and stakeholder coordination.', bg: 'bg-[#f3fae8]', cover: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=160&fit=crop' },
-  { icon: imgSvcVideo,    title: 'Video Production',     desc: 'Professional video content that captures campaign stories and brand narratives.', bg: 'bg-[#ebf7fc]', cover: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=160&fit=crop' },
-  { icon: imgSvcCreative, title: 'Creative Design',      desc: 'Striking visual communication that elevates brand identity across all touchpoints.', bg: 'bg-[#f3fae8]', cover: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=160&fit=crop' },
+  { icon: imgSvcBrand,    title: 'Brand Activation',     desc: 'High-impact on-ground activations that connect brands directly with consumers across India.', bg: 'bg-[#ebf7fc]' },
+  { icon: imgSvcRetail,   title: 'Retail Branding',      desc: 'Transforming retail spaces with impactful branding solutions that drive footfall and sales.', bg: 'bg-[#f3fae8]' },
+  { icon: imgSvcCorpEvt,  title: 'Corporate Events',     desc: 'End-to-end corporate event management with flawless execution at any scale.', bg: 'bg-[#ebf7fc]' },
+  { icon: imgSvcEmpEng,   title: 'Employee Engagement',  desc: 'Meaningful engagement programs that build culture, morale, and team spirit.', bg: 'bg-[#f3fae8]' },
+  { icon: imgSvcRural,    title: 'Rural Marketing',      desc: 'Deep rural reach through haats, village meets, and targeted rural activation formats.', bg: 'bg-[#ebf7fc]' },
+  { icon: imgSvcEvent,    title: 'Event IPs',            desc: 'Proprietary event formats and intellectual properties for recurring brand experiences.', bg: 'bg-[#f3fae8]' },
+  { icon: imgSvcMedia,    title: 'Media & Production',   desc: 'Comprehensive media planning, space booking, and large-scale production services.', bg: 'bg-[#ebf7fc]' },
+  { icon: imgSvcPermit,   title: 'Permissions & Liaison',desc: 'Expert handling of government permissions and stakeholder coordination.', bg: 'bg-[#f3fae8]' },
+  { icon: imgSvcVideo,    title: 'Video Production',     desc: 'Professional video content that captures campaign stories and brand narratives.', bg: 'bg-[#ebf7fc]' },
+  { icon: imgSvcCreative, title: 'Creative Design',      desc: 'Striking visual communication that elevates brand identity across all touchpoints.', bg: 'bg-[#f3fae8]' },
 ];
 
 function WhatWeDoSection() {
@@ -366,14 +370,10 @@ function FadeIn({ children, className = '' }: { children: React.ReactNode; class
 }
 
 // ── Insights Section ──────────────────────────────────────────────────────────
-const imgInsight1 = "https://www.figma.com/api/mcp/asset/bd7a97a2-017a-4cc5-ba86-02d99b0ee033";
-const imgInsight2 = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9ba6-2c4084a1a495";
-const imgInsight3 = "https://www.figma.com/api/mcp/asset/b0eddc1c-dfc5-4114-b3e9-cac1c7176cfe";
-
 const insights = [
-  { date: 'Dec 12, 2024', title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',          img: imgInsight1 },
-  { date: 'Nov 28, 2024', title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',    img: imgInsight2 },
-  { date: 'Nov 15, 2024', title: 'Shop-in-Shop Branding: A Complete Playbook',             img: imgInsight3 },
+  { date: 'Dec 12, 2024', title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',          img: imgGanesh },
+  { date: 'Nov 28, 2024', title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',    img: imgRuralCamp },
+  { date: 'Nov 15, 2024', title: 'Shop-in-Shop Branding: A Complete Playbook',             img: imgRetailExp },
 ];
 
 function InsightsSection() {
