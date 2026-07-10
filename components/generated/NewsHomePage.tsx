@@ -361,10 +361,14 @@ function FadeIn({ children, className = '' }: { children: React.ReactNode; class
 }
 
 // ── Insights Section ──────────────────────────────────────────────────────────
+const imgInsight1 = "https://www.figma.com/api/mcp/asset/bd7a97a2-017a-4cc5-ba86-02d99b0ee033";
+const imgInsight2 = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9ba6-2c4084a1a495";
+const imgInsight3 = "https://www.figma.com/api/mcp/asset/b0eddc1c-dfc5-4114-b3e9-cac1c7176cfe";
+
 const insights = [
-  { date: 'Dec 12, 2024', title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',          img: imgGanesh },
-  { date: 'Nov 28, 2024', title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',    img: imgRuralCamp },
-  { date: 'Nov 15, 2024', title: 'Shop-in-Shop Branding: A Complete Playbook',             img: imgRetailExp },
+  { date: 'Dec 12, 2024', title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',          img: imgInsight1 },
+  { date: 'Nov 28, 2024', title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',    img: imgInsight2 },
+  { date: 'Nov 15, 2024', title: 'Shop-in-Shop Branding: A Complete Playbook',             img: imgInsight3 },
 ];
 
 function InsightsSection() {
