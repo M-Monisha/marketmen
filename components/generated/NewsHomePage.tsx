@@ -157,8 +157,10 @@ function Header() {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[rgba(27,20,45,0.85)] backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.25)]' : 'bg-gradient-to-r from-[#2b1f3a] to-[#142f4c]'}`}>
       <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="shrink-0">
-          <img src={imgLogo} alt="MarketMen" className="h-12 object-contain" />
+        <a href="/" className="shrink-0 group">
+          <div className="bg-white rounded-xl px-3 py-2 shadow-[0_0_20px_rgba(30,159,212,0.4)] group-hover:shadow-[0_0_28px_rgba(30,159,212,0.65)] transition-shadow duration-300">
+            <img src={imgLogo} alt="MarketMen" className="h-10 w-auto object-contain" />
+          </div>
         </a>
 
         {/* Desktop Nav */}
