@@ -1,6 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+// ── Animated counter hook ─────────────────────────────────────────────────────
+function useCountUp(target: number, duration = 1500, started = false) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!started) return;
+    let start = 0;
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      setVal(Math.floor(progress * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [started, target, duration]);
+  return val;
+}
+
+// ── Intersection observer hook ────────────────────────────────────────────────
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
 
 // ── Asset URLs from Figma (valid for 7 days) ──────────────────────────────────
 const imgLogo        = "https://www.figma.com/api/mcp/asset/3c49f5af-41d0-4316-9b1d-27b9adb8072c";
@@ -71,7 +100,7 @@ function SectionLabel({ children }: { children: string }) {
 
 function ServiceCard({ icon, title, desc, bg }: { icon: string; title: string; desc: string; bg: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-5 flex flex-col gap-3">
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-5 flex flex-col gap-3 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
       <div className={`${bg} rounded-xl w-11 h-11 flex items-center justify-center shrink-0`}>
         <img src={icon} alt={title} className="w-[18px] h-[18px] object-contain" />
       </div>
@@ -83,7 +112,7 @@ function ServiceCard({ icon, title, desc, bg }: { icon: string; title: string; d
 
 function WhyCard({ icon, title, desc, bg }: { icon: string; title: string; desc: string; bg: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-[17px] flex flex-col gap-2">
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-[17px] flex flex-col gap-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
       <div className={`${bg} rounded-xl w-9 h-9 flex items-center justify-center shrink-0`}>
         <img src={icon} alt={title} className="w-4 h-4 object-contain" />
       </div>
@@ -93,12 +122,20 @@ function WhyCard({ icon, title, desc, bg }: { icon: string; title: string; desc:
   );
 }
 
-function StatItem({ value, label, color }: { value: string; label: string; color: string }) {
+function StatItem({ value, label, color, started }: { value: string; label: string; color: string; started?: boolean }) {
+  // Extract numeric part for counting, keep suffix
+  const match = value.match(/^([\d.]+)(.*)$/);
+  const numeric = match ? parseFloat(match[1]) : 0;
+  const suffix = match ? match[2] : value;
+  const isNumeric = !!match && !isNaN(numeric);
+  const counted = useCountUp(Math.floor(numeric), 1400, started ?? false);
+  const display = isNumeric ? `${counted}${suffix}` : value;
+
   return (
     <div className="flex items-center gap-2">
       <div className={`${color} w-1.5 h-8 rounded-full shrink-0`} />
       <div>
-        <p className="text-[#1e9fd4] font-extrabold text-[15px] leading-[22.5px]">{value}</p>
+        <p className="text-[#1e9fd4] font-extrabold text-[15px] leading-[22.5px]">{display}</p>
         <p className="text-[#64748b] text-[11px] leading-[16.5px]">{label}</p>
       </div>
     </div>
@@ -108,10 +145,16 @@ function StatItem({ value, label, color }: { value: string; label: string; color
 // ── Header ────────────────────────────────────────────────────────────────────
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navLinks = ['About Us', 'Opportunities', 'Case Studies', 'Contact Us'];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#2b1f3a] to-[#142f4c] shadow-[0_10px_7.5px_rgba(0,0,0,0.1),0_4px_3px_rgba(0,0,0,0.1)]">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[rgba(27,20,45,0.85)] backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.25)]' : 'bg-gradient-to-r from-[#2b1f3a] to-[#142f4c]'}`}>
       <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="shrink-0">
@@ -165,6 +208,7 @@ function Header() {
 // ── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
   const tags = ['Brand Activations','BTL Marketing','Retail Branding','Rural Marketing','Employee Engagement','Corporate Events','Event IPs','Video Production'];
+  const { ref: statsRef, inView: statsInView } = useInView();
   return (
     <section className="bg-gradient-to-r from-[#2b1f3a] to-[#142f4c] pt-20">
       <div className="max-w-[1280px] mx-auto px-8 py-16 flex flex-wrap items-center gap-10">
@@ -176,8 +220,8 @@ function HeroSection() {
             <p className="text-[#1e9fd4] text-[12px] font-semibold">35+ Years of Execution Excellence</p>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-[52px] font-extrabold leading-[1.15] tracking-[-1px] text-[#1e9fd4]">
+          {/* Headline — fluid type size */}
+          <h1 className="font-extrabold leading-[1.15] tracking-[-1px] text-[#1e9fd4]" style={{ fontSize: 'clamp(28px, 5vw, 52px)' }}>
             India&apos;s On-Ground<br />
             <span className="text-white">Brand Growth</span>{' '}
             <span className="text-[#1e9fd4]">Partner</span>
@@ -213,12 +257,12 @@ function HeroSection() {
             </a>
           </div>
 
-          {/* Stats */}
-          <div className="border-t border-[#e2e8f0] pt-8 grid grid-cols-2 gap-y-5">
-            <StatItem value="35+" label="Years Experience" color="bg-[#1e9fd4]" />
-            <StatItem value="Pan India" label="Network" color="bg-[#8dc63f]" />
-            <StatItem value="100%" label="Transparent Reporting" color="bg-[#8dc63f]" />
-            <StatItem value="1 Partner" label="Single Point Accountability" color="bg-[#1e9fd4]" />
+          {/* Stats with animated counters */}
+          <div ref={statsRef} className="border-t border-[#e2e8f0] pt-8 grid grid-cols-2 gap-y-5">
+            <StatItem value="35+" label="Years Experience" color="bg-[#1e9fd4]" started={statsInView} />
+            <StatItem value="Pan India" label="Network" color="bg-[#8dc63f]" started={statsInView} />
+            <StatItem value="100%" label="Transparent Reporting" color="bg-[#8dc63f]" started={statsInView} />
+            <StatItem value="1 Partner" label="Single Point Accountability" color="bg-[#1e9fd4]" started={statsInView} />
           </div>
         </div>
 
@@ -306,7 +350,77 @@ function WhyUsSection() {
   );
 }
 
-// ── Opportunities ─────────────────────────────────────────────────────────────
+// ── Fade-in wrapper ───────────────────────────────────────────────────────────
+function FadeIn({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const { ref, inView } = useInView(0.1);
+  return (
+    <div ref={ref} className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+// ── Insights Section ──────────────────────────────────────────────────────────
+const insights = [
+  { date: 'Dec 12, 2024', title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',          img: imgGanesh },
+  { date: 'Nov 28, 2024', title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',    img: imgRuralCamp },
+  { date: 'Nov 15, 2024', title: 'Shop-in-Shop Branding: A Complete Playbook',             img: imgRetailExp },
+];
+
+function InsightsSection() {
+  return (
+    <section className="bg-white py-20 px-8" id="insights">
+      <div className="max-w-[1280px] mx-auto">
+        <FadeIn>
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+            <div>
+              <SectionLabel>Insights</SectionLabel>
+              <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[60px]">
+                Insights That Help Brands Stay Ahead
+              </h2>
+            </div>
+            <a href="#" className="text-[#1e9fd4] font-bold text-[14px] flex items-center gap-1 hover:underline">
+              All Articles →
+            </a>
+          </div>
+        </FadeIn>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {insights.map((a, i) => (
+            <FadeIn key={i}>
+              <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                <div className="h-44 overflow-hidden">
+                  <img src={a.img} alt={a.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-5 flex flex-col gap-2">
+                  <p className="text-[#64748b] text-[11px]">{a.date}</p>
+                  <p className="text-[#0f172a] font-bold text-[13px] leading-5">{a.title}</p>
+                  <a href="#" className="text-[#1e9fd4] font-bold text-[12px] flex items-center gap-1 mt-1">Read Article →</a>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Floating WhatsApp Button ───────────────────────────────────────────────────
+function FloatingWhatsApp() {
+  return (
+    <a
+      href="https://wa.me/919821103919"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-6 right-6 z-50 bg-[#25d366] w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(37,211,102,0.5)] hover:scale-110 transition-transform duration-200"
+      aria-label="Chat on WhatsApp"
+    >
+      <svg viewBox="0 0 32 32" className="w-7 h-7 fill-white">
+        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.47.675 4.783 1.85 6.766L2 30l7.447-1.822A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.56 11.56 0 01-5.9-1.617l-.423-.25-4.42 1.082 1.116-4.302-.276-.44A11.6 11.6 0 014.4 16C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 16 22.4 27.6 16 27.6zm6.362-8.668c-.348-.174-2.06-1.016-2.38-1.132-.318-.116-.55-.174-.78.174-.232.348-.898 1.132-1.102 1.364-.202.232-.404.26-.752.086-.348-.174-1.47-.542-2.8-1.728-1.034-.922-1.732-2.06-1.936-2.408-.202-.348-.022-.536.152-.71.156-.154.348-.404.522-.606.174-.202.232-.348.348-.58.116-.232.058-.434-.028-.608-.088-.174-.78-1.884-1.07-2.578-.28-.676-.566-.584-.78-.594l-.664-.012c-.232 0-.608.086-.926.434-.318.348-1.216 1.188-1.216 2.896s1.244 3.36 1.418 3.592c.174.232 2.45 3.738 5.94 5.24.83.358 1.478.572 1.982.732.832.264 1.59.226 2.188.138.668-.1 2.06-.842 2.35-1.656.29-.814.29-1.51.202-1.656-.086-.146-.318-.232-.666-.406z"/>
+      </svg>
+    </a>
+  );
+}
 const imgOppArrow    = "https://www.figma.com/api/mcp/asset/31095440-83d8-48d8-bba2-36db45b85940";
 const imgOppReadMore = "https://www.figma.com/api/mcp/asset/f8729e5b-012d-4708-a647-374ebb9a60b5";
 
@@ -319,20 +433,23 @@ const imgRuralCamp   = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9
 const imgCSR         = "https://www.figma.com/api/mcp/asset/5626d768-c94c-4666-8999-b2a4d3673869";
 
 const opportunities = [
-  { img: imgGanesh,   title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
-  { img: imgGarbha,   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
-  { img: imgEmpCal,   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.' },
-  { img: imgRetailExp,title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.' },
-  { img: imgCollege,  title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.' },
-  { img: imgRuralCamp,title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.' },
-  { img: imgCSR,      title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.' },
+  { img: imgGanesh,   title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.',        tag: 'Festival' },
+  { img: imgGarbha,   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.',              tag: 'Events' },
+  { img: imgEmpCal,   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.',                  tag: 'Corporate' },
+  { img: imgRetailExp,title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.',                tag: 'Retail' },
+  { img: imgCollege,  title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.',                        tag: 'Youth' },
+  { img: imgRuralCamp,title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.',         tag: 'Rural' },
+  { img: imgCSR,      title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.', tag: 'CSR' },
 ];
 
-function OpportunityCard({ img, title, desc }: { img: string; title: string; desc: string }) {
+function OpportunityCard({ img, title, desc, tag }: { img: string; title: string; desc: string; tag: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col">
-      <div className="h-48 shrink-0 overflow-hidden">
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+      <div className="h-48 shrink-0 overflow-hidden relative">
         <img src={img} alt={title} className="w-full h-full object-cover" />
+        <span className="absolute top-3 left-3 bg-[#1e9fd4] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+          {tag}
+        </span>
       </div>
       <div className="p-5 flex flex-col gap-2 flex-1">
         <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
@@ -731,15 +848,17 @@ export function NewsHomePage() {
   return (
     <div className="home w-full overflow-x-hidden font-['Montserrat',sans-serif]">
       <Header />
+      <FloatingWhatsApp />
       <main>
         <HeroSection />
-        <WhatWeDoSection />
-        <WhyUsSection />
-        <OpportunitiesSection />
-        <DivisionsSection />
-        <CaseStudiesSection />
-        <TrustedBySection />
-        <CTASection />
+        <FadeIn><WhatWeDoSection /></FadeIn>
+        <FadeIn><WhyUsSection /></FadeIn>
+        <FadeIn><OpportunitiesSection /></FadeIn>
+        <FadeIn><DivisionsSection /></FadeIn>
+        <FadeIn><CaseStudiesSection /></FadeIn>
+        <FadeIn><TrustedBySection /></FadeIn>
+        <FadeIn><InsightsSection /></FadeIn>
+        <FadeIn><CTASection /></FadeIn>
       </main>
       <Footer />
     </div>
