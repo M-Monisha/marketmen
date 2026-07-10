@@ -209,7 +209,6 @@ function Header() {
 
 // ── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
-  const tags = ['Brand Activations','BTL Marketing','Retail Branding','Rural Marketing','Employee Engagement','Corporate Events','Event IPs','Video Production'];
   const { ref: statsRef, inView: statsInView } = useInView();
   return (
     <section className="bg-gradient-to-r from-[#2b1f3a] to-[#142f4c] pt-20">
@@ -238,16 +237,6 @@ function HeroSection() {
           <p className="text-[#e2e2e2] text-[15px] font-normal leading-[1.625] max-w-[584px]">
             Helping brands execute BTL campaigns, retail branding, rural activation, employee engagement, event IPs, and corporate experiences with one trusted execution partner across India.
           </p>
-
-          {/* Tag pills — clean outlined style */}
-          <div className="flex flex-wrap gap-2">
-            {tags.map(tag => (
-              <span key={tag} className="flex items-center gap-1.5 border border-[rgba(30,159,212,0.4)] text-[#1e9fd4] bg-[rgba(30,159,212,0.08)] rounded-lg px-3 py-1.5 text-[11px] font-semibold tracking-wide hover:bg-[rgba(30,159,212,0.18)] transition-colors cursor-default">
-                <span className="w-1 h-1 rounded-full bg-[#1e9fd4] inline-block" />
-                {tag}
-              </span>
-            ))}
-          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-3 pt-0">
@@ -279,8 +268,14 @@ function HeroSection() {
 
         {/* Right column — hero image */}
         <div className="flex-1 min-w-[300px]">
-          <div className="rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
-            <img src={imgHeroImg} alt="MarketMen event execution" className="w-full h-[500px] object-cover" />
+          <div className="rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] relative">
+            <img
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=90&fit=crop"
+              alt="Brand activation event"
+              className="w-full h-[520px] object-cover"
+            />
+            {/* subtle gradient overlay at bottom */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(15,23,42,0.45)] via-transparent to-transparent rounded-3xl" />
           </div>
         </div>
       </div>
