@@ -226,9 +226,11 @@ export function Footer() {
           </div>
           <p className="text-[#8dc63f] text-[11px] font-bold tracking-[1.1px] uppercase mb-3">Info</p>
           <div className="flex flex-col gap-2">
-            {['Partner With MarketMen','Cities & Coverage','FAQs','Privacy Policy','Terms & Conditions'].map(l => (
-              <a key={l} href="#" className="text-[#64748b] text-[12px] hover:text-white transition-colors">{l}</a>
-            ))}
+            <Link href="/partner" className="text-[#64748b] text-[12px] hover:text-white transition-colors">Partner With MarketMen</Link>
+            <Link href="/cities" className="text-[#64748b] text-[12px] hover:text-white transition-colors">Cities &amp; Coverage</Link>
+            <Link href="/faqs" className="text-[#64748b] text-[12px] hover:text-white transition-colors">FAQs</Link>
+            <Link href="/privacy-policy" className="text-[#64748b] text-[12px] hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-[#64748b] text-[12px] hover:text-white transition-colors">Terms &amp; Conditions</Link>
           </div>
         </div>
       </div>
@@ -238,9 +240,9 @@ export function Footer() {
         <div className="max-w-[1280px] mx-auto px-8 py-5 flex flex-wrap items-center justify-between gap-4">
           <p className="text-[#475569] text-[12px]">Copyright © Market Men Consumer Connect &amp; Events Pvt. Ltd. · All Rights Reserved</p>
           <div className="flex gap-5">
-            {['Privacy Policy','Terms & Conditions','FAQs'].map(l => (
-              <a key={l} href="#" className="text-[#475569] text-[12px] hover:text-white transition-colors">{l}</a>
-            ))}
+            <Link href="/privacy-policy" className="text-[#475569] text-[12px] hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-[#475569] text-[12px] hover:text-white transition-colors">Terms &amp; Conditions</Link>
+            <Link href="/faqs" className="text-[#475569] text-[12px] hover:text-white transition-colors">FAQs</Link>
           </div>
         </div>
       </div>
