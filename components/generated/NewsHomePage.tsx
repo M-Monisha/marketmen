@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1500, started = false) {
@@ -154,7 +155,16 @@ function StatItem({ value, label, color, started }: { value: string; label: stri
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const navLinks = ['About Us', 'Opportunities', 'Case Studies', 'Contact Us'];
+
+  const navLinks = [
+    { label: 'Home',          href: '/' },
+    { label: 'About Us',      href: '/about' },
+    { label: 'Events',        href: '/events', hasArrow: true },
+    { label: 'Opportunities', href: '/opportunities' },
+    { label: 'Case Studies',  href: '/case-studies' },
+    { label: 'Contact Us',    href: '/contact' },
+  ];
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
@@ -165,28 +175,31 @@ function Header() {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[rgba(27,20,45,0.85)] backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.25)]' : 'bg-gradient-to-r from-[#2b1f3a] to-[#142f4c]'}`}>
       <div className="max-w-[1280px] mx-auto px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="shrink-0 group">
+        <Link href="/" className="shrink-0 group">
           <div className="bg-white rounded-xl px-4 py-2.5 shadow-[0_0_28px_rgba(30,159,212,0.55)] group-hover:shadow-[0_0_40px_rgba(30,159,212,0.8)] transition-shadow duration-300">
-          <img src={imgLogo} alt="MarketMen" className="h-14 w-auto object-contain" />
+            <img src={imgLogo} alt="MarketMen" className="h-14 w-auto object-contain" />
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
-          <a href="/" className="bg-[rgba(235,247,252,0.1)] text-white text-[13px] font-medium px-3 py-2 rounded-[10px]">Home</a>
           {navLinks.map(link => (
-            <a key={link} href="#" className="text-white text-[13px] font-medium px-3 py-2 rounded-[10px] hover:bg-[rgba(255,255,255,0.08)] transition-colors flex items-center gap-1">
-              {link}
-              {link === 'Events' && <img src={imgNavArrow} alt="" className="w-3 h-3" />}
-            </a>
+            <Link
+              key={link.label}
+              href={link.href}
+              className="text-white text-[13px] font-medium px-3 py-2 rounded-[10px] hover:bg-[rgba(255,255,255,0.08)] transition-colors flex items-center gap-1"
+            >
+              {link.label}
+              {link.hasArrow && <img src={imgNavArrow} alt="" className="w-3 h-3" />}
+            </Link>
           ))}
         </nav>
 
         {/* CTA */}
-        <a href="#contact" className="hidden md:flex bg-white text-[#2b1f3a] text-[13px] font-semibold px-5 py-2.5 rounded-[14px] items-center gap-2 hover:bg-gray-100 transition-colors">
+        <Link href="/contact" className="hidden md:flex bg-white text-[#2b1f3a] text-[13px] font-semibold px-5 py-2.5 rounded-[14px] items-center gap-2 hover:bg-gray-100 transition-colors">
           Let&apos;s Connect
           <img src={imgNavConnect} alt="" className="w-3 h-3" />
-        </a>
+        </Link>
 
         {/* Mobile menu toggle */}
         <button
@@ -203,12 +216,14 @@ function Header() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-[#1a1030] px-6 py-4 flex flex-col gap-3">
-          {['Home', ...navLinks].map(link => (
-            <a key={link} href="#" className="text-white text-[14px] font-medium py-1">{link}</a>
+          {navLinks.map(link => (
+            <Link key={link.label} href={link.href} className="text-white text-[14px] font-medium py-1" onClick={() => setMenuOpen(false)}>
+              {link.label}
+            </Link>
           ))}
-          <a href="#contact" className="bg-white text-[#2b1f3a] text-[13px] font-semibold px-4 py-2 rounded-[14px] text-center mt-2">
+          <Link href="/contact" className="bg-white text-[#2b1f3a] text-[13px] font-semibold px-4 py-2 rounded-[14px] text-center mt-2" onClick={() => setMenuOpen(false)}>
             Let&apos;s Connect
-          </a>
+          </Link>
         </div>
       )}
     </header>
@@ -748,7 +763,14 @@ function CTASection() {
 // ── Footer ────────────────────────────────────────────────────────────────────
 function Footer() {
   const [email, setEmail] = useState('');
-  const quickLinks   = ['Home','About Us','Events','Opportunities','Case Studies','Contact Us'];
+  const quickLinks = [
+    { label: 'Home',          href: '/' },
+    { label: 'About Us',      href: '/about' },
+    { label: 'Events',        href: '/events' },
+    { label: 'Opportunities', href: '/opportunities' },
+    { label: 'Case Studies',  href: '/case-studies' },
+    { label: 'Contact Us',    href: '/contact' },
+  ];
   const eventServices = ['Corporate Events','Employee Engagement','Brand & Public Events','Event IPs','Exhibition & Fabrication','Event Production','Rural Marketing'];
   const socialIcons  = [
     { src: imgFooterFB, alt: 'Facebook' },
@@ -810,7 +832,7 @@ function Footer() {
           <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Quick Links</p>
           <div className="flex flex-col gap-2.5">
             {quickLinks.map(l => (
-              <a key={l} href="#" className="text-[#94a3b8] text-[13px] hover:text-white transition-colors">{l}</a>
+              <Link key={l.label} href={l.href} className="text-[#94a3b8] text-[13px] hover:text-white transition-colors">{l.label}</Link>
             ))}
           </div>
         </div>
