@@ -267,6 +267,8 @@ function HeroSection() {
         src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=90&fit=crop"
         alt=""
         className="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+        fetchPriority="high"
       />
       <div className="absolute inset-0 bg-[rgba(10,6,24,0.78)]" />
 

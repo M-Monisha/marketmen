@@ -99,7 +99,7 @@ export default function CaseStudiesPage() {
     <PageLayout>
       {/* ── Hero ── */}
       <section className="relative flex items-center overflow-hidden" style={{ minHeight: '420px' }}>
-        <img src={imgStage} alt="Case Studies" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={imgStage} alt="Case Studies" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" fetchPriority="high" />
         <div className="absolute inset-0 bg-gradient-to-b from-[rgba(248,250,252,0.92)] to-[rgba(248,250,252,0.75)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20">
           <div className="flex items-center gap-2 mb-4">

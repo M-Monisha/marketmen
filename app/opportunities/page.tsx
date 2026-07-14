@@ -163,7 +163,7 @@ export default function OpportunitiesPage() {
     <PageLayout>
       {/* ── Hero ── */}
       <section className="relative flex items-center overflow-hidden" style={{ minHeight: '580px' }}>
-        <img src={imgRuralHero} alt="Rural Activation" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <img src={imgRuralHero} alt="Rural Activation" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" fetchPriority="high" />
         <div className="absolute inset-0 bg-[rgba(10,6,24,0.75)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20">
           <span className="inline-flex items-center gap-2 bg-[rgba(141,198,63,0.15)] border border-[rgba(141,198,63,0.4)] rounded-full px-4 py-1.5 mb-6">
