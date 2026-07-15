@@ -272,9 +272,12 @@ function HeroSection() {
         preload="auto"
         poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
       >
+        {/* Large stage event with crowd and lights */}
+        <source src="https://videos.pexels.com/video-files/3998033/3998033-hd_1920_1080_30fps.mp4" type="video/mp4" />
+        {/* Conference + stage presentation */}
+        <source src="https://videos.pexels.com/video-files/857150/857150-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Brainstorming conference fallback */}
         <source src="https://videos.pexels.com/video-files/7647790/7647790-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        <source src="https://cdn.coverr.co/videos/coverr-a-business-conference-2966/1080p.mp4" type="video/mp4" />
-        {/* Fallback image if video fails */}
         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover" />
       </video>
       <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
