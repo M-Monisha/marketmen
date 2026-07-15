@@ -260,79 +260,84 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 
 // ── Sequential Video Background ──────────────────────────────────────────────
 // Sequence: stage (3s) → rural meet (6s) → retail branding (6s) → loop
-const heroVideos = [
+const heroClips = [
   {
     srcs: [
       'https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4',
       'https://videos.pexels.com/video-files/4317187/4317187-hd_1280_720_25fps.mp4',
     ],
-    duration: 3000, // cut at 3s — stage lights
+    duration: 3500,
   },
   {
     srcs: ['/2.mp4'],
-    duration: 6000, // rural meet — 6s
+    duration: 6000,
   },
   {
     srcs: ['/3.mp4'],
-    duration: 6000, // retail branding — 6s
+    duration: 6000,
   },
 ];
 
 function SequentialVideoBackground() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // Two video elements — we crossfade between them (A/B swap)
+  const videoA = useRef<HTMLVideoElement>(null);
+  const videoB = useRef<HTMLVideoElement>(null);
+  const [activeSlot, setActiveSlot] = useState<'A' | 'B'>('A'); // which slot is visible
   const [idx, setIdx] = useState(0);
-  const [visible, setVisible] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const srcIdxRef = useRef(0);
+  const FADE = 800; // crossfade duration ms
 
-  const advance = () => {
-    setVisible(false);
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setTimeout(() => {
-      srcIdxRef.current = 0;
-      setIdx(prev => (prev + 1) % heroVideos.length);
-      setVisible(true);
-    }, 350);
-  };
-
-  const tryNextSrc = () => {
-    const video = videoRef.current;
+  const loadIntoSlot = (slot: 'A' | 'B', clipIdx: number) => {
+    const video = slot === 'A' ? videoA.current : videoB.current;
     if (!video) return;
-    const clip = heroVideos[idx];
-    srcIdxRef.current += 1;
-    if (srcIdxRef.current < clip.srcs.length) {
-      video.src = clip.srcs[srcIdxRef.current];
-      video.load();
-      video.play().catch(() => {});
-    } else {
-      advance();
-    }
-  };
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    srcIdxRef.current = 0;
-    const clip = heroVideos[idx];
+    const clip = heroClips[clipIdx];
     video.src = clip.srcs[0];
     video.load();
-    video.play().catch(() => {});
+    video.play().catch(() => {
+      // try fallback src
+      if (clip.srcs[1]) { video.src = clip.srcs[1]; video.load(); video.play().catch(() => {}); }
+    });
+  };
+
+  // On mount: start clip 0 in slot A
+  useEffect(() => {
+    loadIntoSlot('A', 0);
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(advance, clip.duration);
+    timerRef.current = setTimeout(() => advance(0, 'A'), heroClips[0].duration);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [idx]);
+  }, []);
+
+  const advance = (currentIdx: number, currentSlot: 'A' | 'B') => {
+    const nextIdx = (currentIdx + 1) % heroClips.length;
+    const nextSlot: 'A' | 'B' = currentSlot === 'A' ? 'B' : 'A';
+    // Preload next clip into the hidden slot
+    loadIntoSlot(nextSlot, nextIdx);
+    // After a tiny buffer for load, flip active slot (triggers crossfade)
+    setTimeout(() => {
+      setActiveSlot(nextSlot);
+      setIdx(nextIdx);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => advance(nextIdx, nextSlot), heroClips[nextIdx].duration);
+    }, 300);
+  };
+
+  const aVisible = activeSlot === 'A';
 
   return (
-    <video
-      ref={videoRef}
-      className="absolute inset-0 w-full h-full object-cover object-center"
-      style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }}
-      muted
-      playsInline
-      preload="auto"
-      poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
-      onError={tryNextSrc}
-    />
+    <>
+      <video
+        ref={videoA}
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{ opacity: aVisible ? 1 : 0, transition: `opacity ${FADE}ms ease-in-out`, zIndex: aVisible ? 2 : 1 }}
+        muted playsInline preload="auto"
+      />
+      <video
+        ref={videoB}
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        style={{ opacity: aVisible ? 0 : 1, transition: `opacity ${FADE}ms ease-in-out`, zIndex: aVisible ? 1 : 2 }}
+        muted playsInline preload="auto"
+      />
+    </>
   );
 }
 
