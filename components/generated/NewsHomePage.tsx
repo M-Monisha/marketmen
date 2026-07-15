@@ -395,8 +395,6 @@ function WhyUsSection() {
             From Fortune 500 companies to homegrown brands, we have been the trusted on-ground execution partner for campaigns that demand scale, transparency, and measurable results.
           </p>
           <a href="#approach" className="flex items-center gap-2 text-[#1e9fd4] font-bold text-[14px]">
-            Learn about our approach
-            <img src={imgWhyLink} alt="" className="w-4 h-4" />
           </a>
         </div>
 
@@ -506,9 +504,6 @@ function OpportunityCard({ img, title, desc, tag }: { img: string; title: string
     <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
       <div className="h-48 shrink-0 overflow-hidden relative">
         <img src={img} alt={title} className="w-full h-full object-cover" />
-        <span className="absolute top-3 left-3 bg-[#1e9fd4] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
-          {tag}
-        </span>
       </div>
       <div className="p-5 flex flex-col gap-2 flex-1">
         <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
@@ -835,12 +830,18 @@ function Footer() {
           </div>
         </div>
 
-        {/* Column 3 — event services */}
+        {/* Column 3 — info links (moved here) */}
         <div>
-          <p className="text-[#8dc63f] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Event Services</p>
+          <p className="text-[#8dc63f] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Info</p>
           <div className="flex flex-col gap-2.5">
-            {eventServices.map(l => (
-              <a key={l} href="#" className="text-[#94a3b8] text-[13px] hover:text-white transition-colors">{l}</a>
+            {[
+              { label: 'Partner With MarketMen', href: '/partner' },
+              { label: 'Cities & Coverage',       href: '/cities' },
+              { label: 'FAQs',                    href: '/faqs' },
+              { label: 'Privacy Policy',          href: '/privacy-policy' },
+              { label: 'Terms & Conditions',      href: '/terms' },
+            ].map(l => (
+              <a key={l.label} href={l.href} className="text-[#94a3b8] text-[13px] hover:text-white transition-colors">{l.label}</a>
             ))}
           </div>
         </div>
@@ -848,7 +849,7 @@ function Footer() {
         {/* Column 4 — contact */}
         <div>
           <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Contact Us</p>
-          <div className="flex flex-col gap-4 mb-8">
+          <div className="flex flex-col gap-4">
             <div className="flex gap-2.5 items-start">
               <img src={imgFooterPin} alt="" className="w-3.5 h-3.5 mt-0.5 shrink-0" />
               <p className="text-[#94a3b8] text-[12px] leading-5">Thacker Compound, 274, B. Bharucha Road, Marzban Parsi Colony, Grant Road (East), Mumbai – 400 007</p>
@@ -861,12 +862,6 @@ function Footer() {
               <img src={imgFooterMail} alt="" className="w-3.5 h-3.5 shrink-0" />
               <span className="text-[#94a3b8] text-[13px]">connect@marketmen.in</span>
             </a>
-          </div>
-          <p className="text-[#8dc63f] text-[11px] font-bold tracking-[1.1px] uppercase mb-3">Info</p>
-          <div className="flex flex-col gap-2">
-            {['Partner With MarketMen','Cities & Coverage','FAQs','Privacy Policy','Terms & Conditions'].map(l => (
-              <a key={l} href="#" className="text-[#64748b] text-[12px] hover:text-white transition-colors">{l}</a>
-            ))}
           </div>
         </div>
       </div>
