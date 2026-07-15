@@ -273,16 +273,15 @@ function HeroSection() {
         preload="auto"
         poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
       >
-        {/* Stage setup with lights and crowd — event preparation */}
-        <source src="https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        {/* Corporate event stage with audience */}
+        {/* Illuminated event stage hall — colorful lights, chairs, stage ready */}
+        <source src="https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Theater stage setup timelapse — workers preparing stage */}
+        <source src="https://videos.pexels.com/video-files/3975494/3975494-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Event stage with dramatic lighting — second illuminated hall */}
+        <source src="https://videos.pexels.com/video-files/4317188/4317188-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Corporate conference stage with audience */}
         <source src="https://videos.pexels.com/video-files/3998033/3998033-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        {/* Conference stage preparation */}
-        <source src="https://videos.pexels.com/video-files/857150/857150-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Stage lights and event ambience */}
-        <source src="https://videos.pexels.com/video-files/7330718/7330718-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Crowd arriving at event */}
-        <source src="https://videos.pexels.com/video-files/5473791/5473791-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Fallback poster image */}
         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover" />
       </video>
       <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
