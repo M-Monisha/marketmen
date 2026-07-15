@@ -513,10 +513,6 @@ function OpportunityCard({ img, title, desc, tag }: { img: string; title: string
       <div className="p-5 flex flex-col gap-2 flex-1">
         <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
         <p className="text-[#64748b] text-[12px] leading-5 flex-1">{desc}</p>
-        <a href="#" className="flex items-center gap-1 text-[#1e9fd4] font-bold text-[12px] mt-1">
-          Read More
-          <img src={imgOppReadMore} alt="" className="w-3 h-3" />
-        </a>
       </div>
     </div>
   );
@@ -647,22 +643,12 @@ function DivisionsSection() {
 }
 
 // ── Case Studies ──────────────────────────────────────────────────────────────
-const imgChyawan  = "https://www.figma.com/api/mcp/asset/a3d2831a-8b5f-4f58-a904-16a66618aeb3";
-const imgDealer   = "https://www.figma.com/api/mcp/asset/27cfaa09-54aa-4a35-a7bd-5d579bd48241";
-const imgMechanic = "https://www.figma.com/api/mcp/asset/95ddf56f-6fff-476d-9a0d-89153323d97d";
-
 const caseStudies = [
   {
     img: '/chyawanprash.jpeg',
     brandBg: 'bg-[#ae1d0b]', brandLetter: 'D', brand: 'Dabur',
     title: 'Chyawanprash Winter Campaign', location: '12 States',
     stats: [{ value: '2.4 Cr+', label: 'People Reached' }, { value: '340+', label: 'Cities' }, { value: '4.2x', label: 'ROI', green: true }],
-  },
-  {
-    img: '/dealer%20meet.jpeg',
-    brandBg: 'bg-[#00108f]', brandLetter: 'C', brand: 'CEAT Tyres',
-    title: 'Dealer Meet & Product Launch', location: 'Pan India',
-    stats: [{ value: '18,000+', label: 'People Reached' }, { value: '85', label: 'Cities' }, { value: '3.8x', label: 'ROI', green: true }],
   },
   {
     img: '/rural%20meet%20.jpeg',

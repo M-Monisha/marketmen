@@ -4,19 +4,19 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import PageLayout from '@/components/shared/PageLayout';
 
-// ── Figma image assets ────────────────────────────────────────────────────────
-const imgRuralHero  = "https://www.figma.com/api/mcp/asset/62d6ee6b-1abb-45a5-b1d1-1b2cde03f15d";
-const imgMobileVan  = "https://www.figma.com/api/mcp/asset/116e8e64-4688-4f53-8b4b-331c59a9c099";
-const imgVillage    = "https://www.figma.com/api/mcp/asset/491c9b59-d802-471b-91a3-415837169e41";
-const imgHaat       = "https://www.figma.com/api/mcp/asset/d848ab41-1ef2-42cd-a3e6-888861ac052a";
-const imgSampling   = "https://www.figma.com/api/mcp/asset/74d2fa38-f98a-4c4d-8b01-77bf6634b34d";
-const imgNukkad     = "https://www.figma.com/api/mcp/asset/91d2ffe0-d4e8-4ad3-92e8-97bb3d36774c";
-const imgDealer     = "https://www.figma.com/api/mcp/asset/5872b69a-2bb4-4b6e-98d6-31e70ed69231";
-const imgDabur      = "https://www.figma.com/api/mcp/asset/3d4fd321-4d94-449f-ac2f-6b6e0a7a2a45";
-const imgTVS        = "https://www.figma.com/api/mcp/asset/dc3b643d-715a-4dae-9f5f-a2d98bc2b5fe";
-const imgCEAT       = "https://www.figma.com/api/mcp/asset/4a19382a-a7c8-4674-ae9e-42000589b99e";
-const imgParivartan = "https://www.figma.com/api/mcp/asset/1346f6c0-928e-4a62-94e0-5d7bc7465f90";
-const imgYESBank    = "https://www.figma.com/api/mcp/asset/cd81ed8f-a816-4cfd-b997-8df10d26da85";
+// ── Figma image assets replaced with fast Unsplash CDN ───────────────────────
+const imgRuralHero  = "https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=1400&q=85&fit=crop";
+const imgMobileVan  = "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80&fit=crop";
+const imgVillage    = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80&fit=crop";
+const imgHaat       = "https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80&fit=crop";
+const imgSampling   = "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80&fit=crop";
+const imgNukkad     = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&fit=crop";
+const imgDealer     = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&fit=crop";
+const imgDabur      = "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80&fit=crop";
+const imgTVS        = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop";
+const imgCEAT       = "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=600&q=80&fit=crop";
+const imgParivartan = "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80&fit=crop";
+const imgYESBank    = "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80&fit=crop";
 
 // ── Why Choose Us features ────────────────────────────────────────────────────
 const whyFeatures = [
