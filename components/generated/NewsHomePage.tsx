@@ -259,35 +259,24 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 }
 
 // ── Sequential Video Background ──────────────────────────────────────────────
-// 3 clips, each capped at 6 seconds, loop forever: stage → rural → retail
+// Sequence: stage (3s) → rural meet (6s) → retail branding (6s) → loop
 const heroVideos = [
   {
-    // Stage with lights — illuminated event hall
     srcs: [
       'https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4',
       'https://videos.pexels.com/video-files/4317187/4317187-hd_1280_720_25fps.mp4',
     ],
+    duration: 3000, // cut at 3s — stage lights
   },
   {
-    // Rural India — busy street market with vendors and people
-    srcs: [
-      'https://videos.pexels.com/video-files/853993/853993-hd_1920_1080_25fps.mp4',
-      'https://videos.pexels.com/video-files/853993/853993-hd_1280_720_25fps.mp4',
-      'https://videos.pexels.com/video-files/4218537/4218537-hd_1920_1080_25fps.mp4',
-      'https://videos.pexels.com/video-files/4218537/4218537-hd_1280_720_25fps.mp4',
-    ],
+    srcs: ['/2.mp4'],
+    duration: 6000, // rural meet — 6s
   },
   {
-    // Retail branding — people shopping at branded stores
-    srcs: [
-      'https://videos.pexels.com/video-files/3814684/3814684-hd_1920_1080_25fps.mp4',
-      'https://videos.pexels.com/video-files/3814684/3814684-hd_1280_720_25fps.mp4',
-      'https://videos.pexels.com/video-files/2835485/2835485-hd_1920_1080_25fps.mp4',
-      'https://videos.pexels.com/video-files/2835485/2835485-hd_1280_720_25fps.mp4',
-    ],
+    srcs: ['/3.mp4'],
+    duration: 6000, // retail branding — 6s
   },
 ];
-const CLIP_DURATION = 6000; // cut each clip at 6 seconds
 
 function SequentialVideoBackground() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -316,7 +305,6 @@ function SequentialVideoBackground() {
       video.load();
       video.play().catch(() => {});
     } else {
-      // all srcs failed — skip to next clip
       advance();
     }
   };
@@ -330,7 +318,7 @@ function SequentialVideoBackground() {
     video.load();
     video.play().catch(() => {});
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(advance, CLIP_DURATION);
+    timerRef.current = setTimeout(advance, clip.duration);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [idx]);
 
