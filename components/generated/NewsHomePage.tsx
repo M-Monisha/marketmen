@@ -259,7 +259,6 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 }
 
 // ── Sequential Video Background ──────────────────────────────────────────────
-// Sequence: stage (3s) → rural meet (6s) → retail branding (6s) → loop
 const heroClips = [
   {
     srcs: [
@@ -268,73 +267,103 @@ const heroClips = [
     ],
     duration: 3500,
   },
-  {
-    srcs: ['/2.mp4'],
-    duration: 6000,
-  },
-  {
-    srcs: ['/3.mp4'],
-    duration: 6000,
-  },
+  { srcs: ['/2.mp4'], duration: 6000 },
+  { srcs: ['/3.mp4'], duration: 6000 },
 ];
 
 function SequentialVideoBackground() {
-  // Two video elements — we crossfade between them (A/B swap)
   const videoA = useRef<HTMLVideoElement>(null);
   const videoB = useRef<HTMLVideoElement>(null);
-  const [activeSlot, setActiveSlot] = useState<'A' | 'B'>('A'); // which slot is visible
-  const [idx, setIdx] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const FADE = 800; // crossfade duration ms
+  // which slot is the ACTIVE (visible) one
+  const active = useRef<'A' | 'B'>('A');
+  const clipIdx = useRef(0);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // opacity state for CSS — A slot opacity
+  const [aOpacity, setAOpacity] = useState(1);
 
-  const loadIntoSlot = (slot: 'A' | 'B', clipIdx: number) => {
-    const video = slot === 'A' ? videoA.current : videoB.current;
-    if (!video) return;
-    const clip = heroClips[clipIdx];
-    video.src = clip.srcs[0];
-    video.load();
-    video.play().catch(() => {
-      // try fallback src
-      if (clip.srcs[1]) { video.src = clip.srcs[1]; video.load(); video.play().catch(() => {}); }
+  const getSlot = (slot: 'A' | 'B') => slot === 'A' ? videoA.current : videoB.current;
+
+  // Load a clip into a slot, return promise that resolves when ready to play
+  const loadClip = (slot: 'A' | 'B', idx: number): Promise<void> => {
+    return new Promise(resolve => {
+      const video = getSlot(slot);
+      if (!video) { resolve(); return; }
+      const clip = heroClips[idx];
+      video.src = clip.srcs[0];
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+      const onReady = () => { video.removeEventListener('canplay', onReady); resolve(); };
+      video.addEventListener('canplay', onReady);
+      // fallback: resolve after 1.5s even if canplay never fires
+      setTimeout(resolve, 1500);
+      video.load();
     });
   };
 
-  // On mount: start clip 0 in slot A
-  useEffect(() => {
-    loadIntoSlot('A', 0);
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => advance(0, 'A'), heroClips[0].duration);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, []);
-
-  const advance = (currentIdx: number, currentSlot: 'A' | 'B') => {
-    const nextIdx = (currentIdx + 1) % heroClips.length;
-    const nextSlot: 'A' | 'B' = currentSlot === 'A' ? 'B' : 'A';
-    // Preload next clip into the hidden slot
-    loadIntoSlot(nextSlot, nextIdx);
-    // After a tiny buffer for load, flip active slot (triggers crossfade)
-    setTimeout(() => {
-      setActiveSlot(nextSlot);
-      setIdx(nextIdx);
-      if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => advance(nextIdx, nextSlot), heroClips[nextIdx].duration);
-    }, 300);
+  const startSequence = async () => {
+    // Load clip 0 into slot A, start playing
+    await loadClip('A', 0);
+    const vA = videoA.current;
+    if (vA) vA.play().catch(() => {});
+    setAOpacity(1);
+    active.current = 'A';
+    scheduleNext(0, 'A');
   };
 
-  const aVisible = activeSlot === 'A';
+  const scheduleNext = (currentIdx: number, currentSlot: 'A' | 'B') => {
+    if (timer.current) clearTimeout(timer.current);
+    const clip = heroClips[currentIdx];
+    timer.current = setTimeout(() => crossfadeTo(currentIdx, currentSlot), clip.duration);
+  };
+
+  const crossfadeTo = async (currentIdx: number, currentSlot: 'A' | 'B') => {
+    const nextIdx = (currentIdx + 1) % heroClips.length;
+    const nextSlot: 'A' | 'B' = currentSlot === 'A' ? 'B' : 'A';
+
+    // Preload next clip silently into hidden slot BEFORE starting fade
+    await loadClip(nextSlot, nextIdx);
+    const nextVideo = getSlot(nextSlot);
+    if (nextVideo) {
+      nextVideo.currentTime = 0;
+      nextVideo.play().catch(() => {});
+    }
+
+    // Now crossfade: bring nextSlot to full opacity, fade current out
+    // We do this by toggling aOpacity (A=1 means A visible, A=0 means B visible)
+    setAOpacity(nextSlot === 'A' ? 1 : 0);
+    active.current = nextSlot;
+
+    scheduleNext(nextIdx, nextSlot);
+  };
+
+  useEffect(() => {
+    startSequence();
+    return () => { if (timer.current) clearTimeout(timer.current); };
+  }, []);
 
   return (
     <>
+      {/* Slot A */}
       <video
         ref={videoA}
         className="absolute inset-0 w-full h-full object-cover object-center"
-        style={{ opacity: aVisible ? 1 : 0, transition: `opacity ${FADE}ms ease-in-out`, zIndex: aVisible ? 2 : 1 }}
+        style={{
+          opacity: aOpacity,
+          transition: 'opacity 1s ease-in-out',
+          zIndex: aOpacity > 0 ? 2 : 1,
+        }}
         muted playsInline preload="auto"
       />
+      {/* Slot B */}
       <video
         ref={videoB}
         className="absolute inset-0 w-full h-full object-cover object-center"
-        style={{ opacity: aVisible ? 0 : 1, transition: `opacity ${FADE}ms ease-in-out`, zIndex: aVisible ? 1 : 2 }}
+        style={{
+          opacity: aOpacity > 0 ? 0 : 1,
+          transition: 'opacity 1s ease-in-out',
+          zIndex: aOpacity > 0 ? 1 : 2,
+        }}
         muted playsInline preload="auto"
       />
     </>
