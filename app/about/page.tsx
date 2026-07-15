@@ -137,16 +137,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-
-          {/* Brand visual */}
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <img
-              src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=85&fit=crop"
-              alt="MarketMen Events"
-              className="w-full h-72 object-cover object-center"
-              loading="lazy"
-            />
-          </div>
         </div>
       </section>
 

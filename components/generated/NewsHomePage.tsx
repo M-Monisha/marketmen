@@ -162,6 +162,7 @@ function Header() {
     { label: 'Events',        href: '/events', hasArrow: true },
     { label: 'Opportunities', href: '/opportunities' },
     { label: 'Case Studies',  href: '/case-studies' },
+    { label: 'Blogs',         href: '/blogs' },
     { label: 'Contact Us',    href: '/contact' },
   ];
 
@@ -272,12 +273,16 @@ function HeroSection() {
         preload="auto"
         poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
       >
-        {/* Large stage event with crowd and lights */}
+        {/* Stage setup with lights and crowd — event preparation */}
+        <source src="https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4" type="video/mp4" />
+        {/* Corporate event stage with audience */}
         <source src="https://videos.pexels.com/video-files/3998033/3998033-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        {/* Conference + stage presentation */}
+        {/* Conference stage preparation */}
         <source src="https://videos.pexels.com/video-files/857150/857150-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Brainstorming conference fallback */}
-        <source src="https://videos.pexels.com/video-files/7647790/7647790-hd_1920_1080_30fps.mp4" type="video/mp4" />
+        {/* Stage lights and event ambience */}
+        <source src="https://videos.pexels.com/video-files/7330718/7330718-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Crowd arriving at event */}
+        <source src="https://videos.pexels.com/video-files/5473791/5473791-hd_1920_1080_25fps.mp4" type="video/mp4" />
         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover" />
       </video>
       <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
@@ -419,43 +424,98 @@ function FadeIn({ children, className = '' }: { children: React.ReactNode; class
 
 // ── Insights Section ──────────────────────────────────────────────────────────
 const insights = [
-  { date: 'Dec 12, 2024', title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',          img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80&fit=crop' },
-  { date: 'Nov 28, 2024', title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',    img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80&fit=crop' },
-  { date: 'Nov 15, 2024', title: 'Shop-in-Shop Branding: A Complete Playbook',             img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80&fit=crop' },
+  {
+    date: 'Dec 12, 2024',
+    category: 'Strategy',
+    title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',
+    excerpt: 'Why growing brands are shifting budget to on-ground — and what makes it measurable now.',
+    img: '/blog 1.jpeg',
+    slug: 'btl-vs-atl-why-on-ground-is-winning-in-2024',
+  },
+  {
+    date: 'Nov 28, 2024',
+    category: 'Rural Marketing',
+    title: 'How to Plan a Haat Bazaar Campaign for FMCG Brands',
+    excerpt: 'The underrated channel that delivers sampling, trial, and sales in a single day.',
+    img: '/blog 2.jpeg',
+    slug: 'how-to-plan-a-haat-bazaar-campaign-for-fmcg-brands',
+  },
+  {
+    date: 'Nov 15, 2024',
+    category: 'Retail Branding',
+    title: 'Shop-in-Shop Branding: A Complete Playbook',
+    excerpt: 'From site selection to maintenance — how to turn a shelf into a mini-showroom.',
+    img: '/blog 3.jpeg',
+    slug: 'shop-in-shop-branding-a-complete-playbook',
+  },
 ];
 
 function InsightsSection() {
   return (
-    <section className="bg-white py-20 px-8" id="insights">
+    <section className="bg-[#f8fafc] py-20 px-8" id="insights">
       <div className="max-w-[1280px] mx-auto">
         <FadeIn>
           <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
             <div>
               <SectionLabel>Insights</SectionLabel>
-              <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[60px]">
-                Insights That Help Brands Stay Ahead
+              <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[1.2]">
+                Ideas That Move<br className="hidden sm:block" /> Brands Forward
               </h2>
             </div>
-            <a href="#" className="text-[#1e9fd4] font-bold text-[14px] flex items-center gap-1 hover:underline">
+            <Link href="/blogs" className="text-[#1e9fd4] font-bold text-[14px] flex items-center gap-1 hover:underline shrink-0">
               All Articles →
-            </a>
+            </Link>
           </div>
         </FadeIn>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {insights.map((a, i) => (
-            <FadeIn key={i}>
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div className="h-44 overflow-hidden">
-                  <img src={a.img} alt={a.title} className="w-full h-full object-cover" />
-                </div>
-                <div className="p-5 flex flex-col gap-2">
-                  <p className="text-[#64748b] text-[11px]">{a.date}</p>
-                  <p className="text-[#0f172a] font-bold text-[13px] leading-5">{a.title}</p>
-                  <a href="#" className="text-[#1e9fd4] font-bold text-[12px] flex items-center gap-1 mt-1">Read Article →</a>
-                </div>
+
+        {/* Featured large card + 2 small cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Featured */}
+          <FadeIn className="lg:col-span-3">
+            <Link href={`/blogs/${insights[0].slug}`} className="group block bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full">
+              <div className="h-64 overflow-hidden relative">
+                <img src={insights[0].img} alt={insights[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <span className="absolute top-4 left-4 bg-[#1e9fd4] text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                  {insights[0].category}
+                </span>
               </div>
-            </FadeIn>
-          ))}
+              <div className="p-6 flex flex-col gap-3">
+                <p className="text-[#94a3b8] text-[12px]">{insights[0].date}</p>
+                <h3 className="text-[#0f172a] font-extrabold text-[20px] leading-snug tracking-[-0.3px] group-hover:text-[#1e9fd4] transition-colors">
+                  {insights[0].title}
+                </h3>
+                <p className="text-[#64748b] text-[13px] leading-6">{insights[0].excerpt}</p>
+                <span className="text-[#1e9fd4] font-bold text-[13px] flex items-center gap-1 mt-1 group-hover:gap-2 transition-all">
+                  Read Article →
+                </span>
+              </div>
+            </Link>
+          </FadeIn>
+
+          {/* 2 stacked small cards */}
+          <div className="lg:col-span-2 flex flex-col gap-6">
+            {insights.slice(1).map((a, i) => (
+              <FadeIn key={i}>
+                <Link href={`/blogs/${a.slug}`} className="group flex gap-4 bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-32 shrink-0 overflow-hidden">
+                    <img src={a.img} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                  <div className="py-4 pr-4 flex flex-col gap-2 justify-center">
+                    <div className="flex items-center gap-2">
+                      <span className="bg-[#f3fae8] text-[#5a8a1a] text-[10px] font-bold px-2.5 py-1 rounded-full">{a.category}</span>
+                    </div>
+                    <p className="text-[#94a3b8] text-[11px]">{a.date}</p>
+                    <h3 className="text-[#0f172a] font-bold text-[13px] leading-snug group-hover:text-[#1e9fd4] transition-colors line-clamp-2">
+                      {a.title}
+                    </h3>
+                    <span className="text-[#1e9fd4] font-bold text-[12px] flex items-center gap-1 group-hover:gap-2 transition-all">
+                      Read →
+                    </span>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -640,16 +700,10 @@ function DivisionsSection() {
 // ── Case Studies ──────────────────────────────────────────────────────────────
 const caseStudies = [
   {
-    img: '/chyawanprash.jpeg',
+    img: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80&fit=crop',
     brandBg: 'bg-[#ae1d0b]', brandLetter: 'D', brand: 'Dabur',
     title: 'Chyawanprash Winter Campaign', location: '12 States',
     stats: [{ value: '2.4 Cr+', label: 'People Reached' }, { value: '340+', label: 'Cities' }, { value: '4.2x', label: 'ROI', green: true }],
-  },
-  {
-    img: '/rural%20meet%20.jpeg',
-    brandBg: 'bg-[#052f6d]', brandLetter: 'C', brand: 'CEAT Tyres',
-    title: 'Rural Mechanic Meet', location: 'UP, MP, Rajasthan',
-    stats: [{ value: '45,000+', label: 'People Reached' }, { value: '120+', label: 'Cities' }, { value: '5.1x', label: 'ROI', green: true }],
   },
 ];
 

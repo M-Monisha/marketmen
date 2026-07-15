@@ -35,6 +35,7 @@ export function Header() {
     { label: 'Events',       href: '/events', hasArrow: true },
     { label: 'Opportunities',href: '/opportunities' },
     { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Blogs',        href: '/blogs' },
     { label: 'Contact Us',   href: '/contact' },
   ];
 
@@ -124,6 +125,7 @@ export function Footer() {
     { label: 'Events',       href: '/events' },
     { label: 'Opportunities',href: '/opportunities' },
     { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Blogs',        href: '/blogs' },
     { label: 'Contact Us',   href: '/contact' },
   ];
 
