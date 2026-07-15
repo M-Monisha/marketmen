@@ -261,9 +261,31 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 // ── Sequential Video Background ──────────────────────────────────────────────
 // 3 clips, each capped at 6 seconds, loop forever: stage → rural → retail
 const heroVideos = [
-  'https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4',   // 1. Illuminated event stage with lights
-  'https://videos.pexels.com/video-files/12544665/12544665-hd_1920_1080_25fps.mp4', // 2. Local market in India — rural meet
-  'https://videos.pexels.com/video-files/3026357/3026357-hd_1920_1080_25fps.mp4',  // 3. Commercial street — retail branding
+  {
+    // Stage with lights — illuminated event hall
+    srcs: [
+      'https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4',
+      'https://videos.pexels.com/video-files/4317187/4317187-hd_1280_720_25fps.mp4',
+    ],
+  },
+  {
+    // Rural India — busy street market with vendors and people
+    srcs: [
+      'https://videos.pexels.com/video-files/853993/853993-hd_1920_1080_25fps.mp4',
+      'https://videos.pexels.com/video-files/853993/853993-hd_1280_720_25fps.mp4',
+      'https://videos.pexels.com/video-files/4218537/4218537-hd_1920_1080_25fps.mp4',
+      'https://videos.pexels.com/video-files/4218537/4218537-hd_1280_720_25fps.mp4',
+    ],
+  },
+  {
+    // Retail branding — people shopping at branded stores
+    srcs: [
+      'https://videos.pexels.com/video-files/3814684/3814684-hd_1920_1080_25fps.mp4',
+      'https://videos.pexels.com/video-files/3814684/3814684-hd_1280_720_25fps.mp4',
+      'https://videos.pexels.com/video-files/2835485/2835485-hd_1920_1080_25fps.mp4',
+      'https://videos.pexels.com/video-files/2835485/2835485-hd_1280_720_25fps.mp4',
+    ],
+  },
 ];
 const CLIP_DURATION = 6000; // cut each clip at 6 seconds
 
@@ -272,25 +294,42 @@ function SequentialVideoBackground() {
   const [idx, setIdx] = useState(0);
   const [visible, setVisible] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const srcIdxRef = useRef(0);
 
   const advance = () => {
     setVisible(false);
+    if (timerRef.current) clearTimeout(timerRef.current);
     setTimeout(() => {
+      srcIdxRef.current = 0;
       setIdx(prev => (prev + 1) % heroVideos.length);
       setVisible(true);
     }, 350);
   };
 
-  // When index changes, load + play the new video, start cut timer
+  const tryNextSrc = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const clip = heroVideos[idx];
+    srcIdxRef.current += 1;
+    if (srcIdxRef.current < clip.srcs.length) {
+      video.src = clip.srcs[srcIdxRef.current];
+      video.load();
+      video.play().catch(() => {});
+    } else {
+      // all srcs failed — skip to next clip
+      advance();
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    video.src = heroVideos[idx];
+    srcIdxRef.current = 0;
+    const clip = heroVideos[idx];
+    video.src = clip.srcs[0];
     video.load();
     video.play().catch(() => {});
-    // Clear any existing timer
     if (timerRef.current) clearTimeout(timerRef.current);
-    // Cut clip after CLIP_DURATION
     timerRef.current = setTimeout(advance, CLIP_DURATION);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [idx]);
@@ -304,6 +343,7 @@ function SequentialVideoBackground() {
       playsInline
       preload="auto"
       poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
+      onError={tryNextSrc}
     />
   );
 }
