@@ -120,12 +120,12 @@ function FAQ({ question, answer }: { question: string; answer: string }) {
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function OpportunitiesPage() {
   const formats = [
-    { img: imgMobileVan,  title: 'Mobile Van Campaigns',  desc: 'Branded vans that travel village-to-village delivering demos, sampling and brand messaging.' },
-    { img: imgVillage,    title: 'Village Meets',          desc: 'Community gatherings in villages creating intimate brand-consumer connections.' },
-    { img: imgHaat,       title: 'Haat Bazaar Activations',desc: 'Weekly rural market activations reaching high-footfall haat bazaars across states.' },
-    { img: imgSampling,   title: 'Product Sampling',       desc: 'Targeted product trials at consumer touchpoints in Tier 3 and rural markets.' },
-    { img: imgNukkad,     title: 'Nukkad Shows',           desc: 'Street-level performances and live demonstrations driving awareness and trials.' },
-    { img: imgDealer,     title: 'Dealer & Retailer Meets',desc: 'Channel engagement programs building loyalty and driving sell-through in rural trade.' },
+    { img: '/mobile%20van%20campaigns.jpeg',  title: 'Mobile Van Campaigns',  desc: 'Branded vans that travel village-to-village delivering demos, sampling and brand messaging.' },
+    { img: '/rural%20meets.jpeg',             title: 'Village Meets',          desc: 'Community gatherings in villages creating intimate brand-consumer connections.' },
+    { img: imgHaat,                           title: 'Haat Bazaar Activations',desc: 'Weekly rural market activations reaching high-footfall haat bazaars across states.' },
+    { img: imgSampling,                       title: 'Product Sampling',       desc: 'Targeted product trials at consumer touchpoints in Tier 3 and rural markets.' },
+    { img: imgNukkad,                         title: 'Nukkad Shows',           desc: 'Street-level performances and live demonstrations driving awareness and trials.' },
+    { img: '/dealer%20meet.jpeg',             title: 'Dealer & Retailer Meets',desc: 'Channel engagement programs building loyalty and driving sell-through in rural trade.' },
   ];
 
   const caseStudies = [
@@ -166,10 +166,6 @@ export default function OpportunitiesPage() {
         <img src={imgRuralHero} alt="Rural Activation" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" fetchPriority="high" />
         <div className="absolute inset-0 bg-[rgba(10,6,24,0.75)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20">
-          <span className="inline-flex items-center gap-2 bg-[rgba(141,198,63,0.15)] border border-[rgba(141,198,63,0.4)] rounded-full px-4 py-1.5 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#8dc63f]" />
-            <span className="text-[#8dc63f] text-[11px] font-semibold tracking-widest uppercase">Rural India Specialists Since 1989</span>
-          </span>
           <h1 className="font-extrabold text-white leading-[1.1] tracking-[-1.5px] mb-6 max-w-[700px]" style={{ fontSize: 'clamp(28px, 4.5vw, 56px)' }}>
             Rural Activation That Drives{' '}
             <span className="text-[#8dc63f]">Real Brand Growth</span>
@@ -203,7 +199,7 @@ export default function OpportunitiesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {whyFeatures.map(f => (
               <div key={f.title} className="bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow">
-                <span className="text-[32px]">{f.icon}</span>
+                <div className="w-8 h-1 rounded-full bg-[#8dc63f]" />
                 <p className="text-[#0f172a] font-bold text-[13px] leading-5">{f.title}</p>
                 <p className="text-[#64748b] text-[12px] leading-5">{f.desc}</p>
               </div>

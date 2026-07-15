@@ -92,13 +92,9 @@ export default function EventsPage() {
     <PageLayout>
       {/* ── Hero ── */}
       <section className="relative flex items-center overflow-hidden" style={{ minHeight: '520px' }}>
-        <img src={imgHero} alt="Events" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" fetchPriority="high" />
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=90&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
         <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20">
-          <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
-            <span className="text-[#1e9fd4] text-[11px] font-semibold tracking-widest uppercase">35+ Years of Event Excellence</span>
-          </span>
           <h1 className="font-extrabold text-white leading-[1.1] tracking-[-1.5px] mb-4" style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}>
             Events
           </h1>
@@ -132,28 +128,6 @@ export default function EventsPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {categories.map(c => <CategoryCard key={c.title} {...c} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Gallery ── */}
-      <section className="bg-[#f8fafc] py-20 px-8">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="flex flex-col items-center mb-12 text-center">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-0.5 rounded-full bg-[#1e9fd4]" />
-              <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase">Our Work</p>
-            </div>
-            <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[1.3]">
-              Featured Gallery
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4" style={{ gridAutoRows: '200px' }}>
-            <GalleryImg src={imgCorporate}  alt="Corporate Event" tall />
-            <GalleryImg src={imgBrand}      alt="Brand Event" />
-            <GalleryImg src={imgExhibition} alt="Exhibition" />
-            <GalleryImg src={imgEmployee}   alt="Employee Engagement" />
-            <GalleryImg src={imgHero}       alt="Large Event" />
           </div>
         </div>
       </section>

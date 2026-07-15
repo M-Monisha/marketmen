@@ -30,23 +30,23 @@ function SectionLabel({ text, color = 'text-[#1e9fd4]', lineColor = 'bg-[#1e9fd4
 }
 
 // ── Feature Card ──────────────────────────────────────────────────────────────
-function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function FeatureCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow">
-      <span className="text-[32px]">{icon}</span>
-      <p className="text-[#0f172a] font-bold text-[15px]">{title}</p>
-      <p className="text-[#64748b] text-[13px] leading-6">{desc}</p>
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 flex flex-col gap-1.5 hover:shadow-md transition-shadow">
+      <div className="w-1 h-6 bg-[#1e9fd4] rounded-full" />
+      <p className="text-[#0f172a] font-bold text-[13px]">{title}</p>
+      <p className="text-[#64748b] text-[11px] leading-5">{desc}</p>
     </div>
   );
 }
 
 // ── Core Value Card ────────────────────────────────────────────────────────────
-function CoreValueCard({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function CoreValueCard({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
-    <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-6 flex flex-col gap-3 hover:shadow-md transition-shadow">
-      <span className="text-[28px]">{icon}</span>
-      <p className="text-[#0f172a] font-bold text-[14px]">{title}</p>
-      <p className="text-[#64748b] text-[13px] leading-6">{desc}</p>
+    <div className="bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-4 flex flex-col gap-1.5 hover:shadow-md transition-shadow">
+      <span className="text-[#1e9fd4] text-[11px] font-extrabold">{num}</span>
+      <p className="text-[#0f172a] font-bold text-[12px]">{title}</p>
+      <p className="text-[#64748b] text-[12px] leading-5">{desc}</p>
     </div>
   );
 }
@@ -54,21 +54,21 @@ function CoreValueCard({ icon, title, desc }: { icon: string; title: string; des
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
   const whyCards = [
-    { icon: '🎨', title: 'Creative & Professional', desc: 'Concepts that combine creative thinking with flawless professional execution.' },
-    { icon: '🗺️', title: 'Pan-India Network', desc: 'Operations across 200+ cities, metros, Tier 2, Tier 3 cities and rural India.' },
-    { icon: '📈', title: 'Scalable Events', desc: 'From intimate 50-person gatherings to multi-city campaigns touching millions.' },
-    { icon: '⚙️', title: 'End-to-End Execution', desc: 'Complete ownership from concept and production to on-ground delivery and reporting.' },
-    { icon: '💡', title: '100% Transparent', desc: 'Complete visibility at every step — no surprises, no hidden costs, clear accountability.' },
-    { icon: '🏆', title: '37 Years of Trust', desc: 'Three and a half decades of delivering results for India\'s most trusted brands.' },
+    { title: 'Creative & Professional', desc: 'Concepts that combine creative thinking with flawless professional execution.' },
+    { title: 'Pan-India Network', desc: 'Operations across 200+ cities, metros, Tier 2, Tier 3 cities and rural India.' },
+    { title: 'Scalable Events', desc: 'From intimate 50-person gatherings to multi-city campaigns touching millions.' },
+    { title: 'End-to-End Execution', desc: 'Complete ownership from concept and production to on-ground delivery and reporting.' },
+    { title: '100% Transparent', desc: 'Complete visibility at every step — no surprises, no hidden costs, clear accountability.' },
+    { title: '37 Years of Trust', desc: 'Three and a half decades of delivering results for India\'s most trusted brands.' },
   ];
 
   const coreValues = [
-    { icon: '⭐', title: 'Excellence in Execution', desc: 'Every event, every time — delivering to the highest standard of quality.' },
-    { icon: '👥', title: 'People-First Culture', desc: 'Our team and partners are the backbone of everything we build.' },
-    { icon: '🌐', title: 'Pan-India Reach', desc: 'Taking brands to every corner of India with local knowledge and national scale.' },
-    { icon: '🤝', title: 'Client-Centric Approach', desc: 'Your objectives shape our strategy. Your success is our success.' },
-    { icon: '🏘️', title: 'Community Impact', desc: 'Events that create value not just for brands but for communities.' },
-    { icon: '✅', title: '100% Accountability', desc: 'Single-point responsibility from brief to final execution report.' },
+    { num: '01', title: 'Excellence in Execution', desc: 'Every event, every time — delivering to the highest standard of quality.' },
+    { num: '02', title: 'People-First Culture', desc: 'Our team and partners are the backbone of everything we build.' },
+    { num: '03', title: 'Pan-India Reach', desc: 'Taking brands to every corner of India with local knowledge and national scale.' },
+    { num: '04', title: 'Client-Centric Approach', desc: 'Your objectives shape our strategy. Your success is our success.' },
+    { num: '05', title: 'Community Impact', desc: 'Events that create value not just for brands but for communities.' },
+    { num: '06', title: '100% Accountability', desc: 'Single-point responsibility from brief to final execution report.' },
   ];
 
   const timeline = [
@@ -82,17 +82,12 @@ export default function AboutPage() {
   return (
     <PageLayout>
       {/* ── Hero ── */}
-      <section className="relative flex items-center overflow-hidden bg-gradient-to-br from-[#2b1f3a] via-[#1a1832] to-[#142f4c]" style={{ minHeight: '560px' }}>
-        <div className="absolute top-0 left-1/3 w-96 h-96 bg-[rgba(30,159,212,0.08)] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[rgba(141,198,63,0.06)] rounded-full blur-3xl pointer-events-none" />
-
+      <section className="relative flex items-center overflow-hidden" style={{ minHeight: '560px' }}>
+        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=1400&q=90&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20 flex flex-wrap items-center gap-12">
           {/* Text */}
           <div className="flex-1 min-w-[280px]">
-            <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
-              <span className="text-[#1e9fd4] text-[11px] font-semibold tracking-widest uppercase">About MarketMen</span>
-            </span>
             <h1 className="font-extrabold text-white leading-[1.1] tracking-[-1.5px] mb-4" style={{ fontSize: 'clamp(32px, 4.5vw, 56px)' }}>
               Build Experiences<br />that <span className="text-[#1e9fd4]">matter</span>
             </h1>
@@ -100,29 +95,13 @@ export default function AboutPage() {
               MarketMen is India&apos;s trusted pure-play events company — delivering corporate events, brand activations, and experiential campaigns across the country since 1987.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
-                href="https://wa.me/919821103919"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#25d366] text-white font-bold text-[14px] px-6 py-3.5 rounded-[14px] flex items-center gap-2.5 hover:bg-[#1fb85a] transition-colors"
-              >
-                <WhatsAppIcon />
-                Chat on WhatsApp
+              <a href="https://wa.me/919821103919" target="_blank" rel="noopener noreferrer"
+                className="bg-[#25d366] text-white font-bold text-[14px] px-6 py-3.5 rounded-[14px] flex items-center gap-2.5 hover:bg-[#1fb85a] transition-colors">
+                <WhatsAppIcon />Chat on WhatsApp
               </a>
               <Link href="/events" className="border-2 border-[rgba(255,255,255,0.4)] text-white font-semibold text-[14px] px-6 py-3.5 rounded-[14px] hover:bg-[rgba(255,255,255,0.08)] transition-colors">
                 Explore Services
               </Link>
-            </div>
-          </div>
-
-          {/* 2x2 Image Grid */}
-          <div className="flex-1 min-w-[260px] max-w-[420px]">
-            <div className="grid grid-cols-2 gap-3">
-              {[imgEvent1, imgEvent2, imgEvent3, imgEvent4].map((src, i) => (
-                <div key={i} className="rounded-2xl overflow-hidden aspect-square">
-                  <img src={src} alt={`Event ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-                </div>
-              ))}
             </div>
           </div>
         </div>
@@ -159,11 +138,15 @@ export default function AboutPage() {
             ))}
           </div>
 
-          {/* Experience at a Glance image */}
-          <div className="rounded-2xl overflow-hidden">
-            <img src={imgEvent3} alt="Our Experience at a Glance" className="w-full h-[360px] object-cover" />
+          {/* Brand visual */}
+          <div className="rounded-2xl overflow-hidden shadow-xl">
+            <img
+              src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&q=85&fit=crop"
+              alt="MarketMen Events"
+              className="w-full h-72 object-cover object-center"
+              loading="lazy"
+            />
           </div>
-          <p className="text-center text-[#94a3b8] text-[13px] mt-3 font-medium">Our Experience at a Glance</p>
         </div>
       </section>
 
@@ -221,25 +204,6 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {coreValues.map(v => <CoreValueCard key={v.title} {...v} />)}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Photo Gallery ── */}
-      <section className="bg-white py-20 px-8">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="flex flex-col items-center mb-10 text-center">
-            <SectionLabel text="Our Work" />
-            <h2 className="text-[36px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[1.3]">
-              Photo Gallery
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[imgEvent1, imgEvent2, imgEvent3, imgEvent4].map((src, i) => (
-              <div key={i} className="rounded-2xl overflow-hidden aspect-square">
-                <img src={src} alt={`Gallery ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-              </div>
-            ))}
           </div>
         </div>
       </section>

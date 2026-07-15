@@ -490,13 +490,13 @@ const imgRuralCamp   = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9
 const imgCSR         = "https://www.figma.com/api/mcp/asset/5626d768-c94c-4666-8999-b2a4d3673869";
 
 const opportunities = [
-  { img: imgGanesh,   title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.',        tag: 'Festival' },
-  { img: imgGarbha,   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.',              tag: 'Events' },
-  { img: imgEmpCal,   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.',                  tag: 'Corporate' },
-  { img: imgRetailExp,title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.',                tag: 'Retail' },
-  { img: imgCollege,  title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.',                        tag: 'Youth' },
-  { img: imgRuralCamp,title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.',         tag: 'Rural' },
-  { img: imgCSR,      title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.', tag: 'CSR' },
+  { img: '/ganesh%20chaturti%20brand%20activation.jpeg', title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.',        tag: 'Festival' },
+  { img: '/garba.jpeg',                                   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.',              tag: 'Events' },
+  { img: '/employee%20engagement.jpeg',                  title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.',                  tag: 'Corporate' },
+  { img: '/retail%20expansion.jpeg',                     title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.',                tag: 'Retail' },
+  { img: '/college%20festival%20branding.jpeg',          title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.',                        tag: 'Youth' },
+  { img: '/rural%20meets.jpeg',                          title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.',         tag: 'Rural' },
+  { img: imgCSR,                                         title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.', tag: 'CSR' },
 ];
 
 function OpportunityCard({ img, title, desc, tag }: { img: string; title: string; desc: string; tag: string }) {

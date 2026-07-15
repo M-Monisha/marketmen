@@ -99,17 +99,17 @@ export default function CaseStudiesPage() {
     <PageLayout>
       {/* ── Hero ── */}
       <section className="relative flex items-center overflow-hidden" style={{ minHeight: '420px' }}>
-        <img src={imgStage} alt="Case Studies" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" fetchPriority="high" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(248,250,252,0.92)] to-[rgba(248,250,252,0.75)]" />
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=85&fit=crop" alt="Case Studies" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-6 h-0.5 rounded-full bg-[#1e9fd4]" />
             <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase">Proven Results</p>
           </div>
-          <h1 className="font-extrabold text-[#0f172a] leading-[1.1] tracking-[-1.5px] mb-4" style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}>
+          <h1 className="font-extrabold text-white leading-[1.1] tracking-[-1.5px] mb-4" style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}>
             Case Studies
           </h1>
-          <p className="text-[#475569] text-[17px] font-medium max-w-[560px] leading-7">
+          <p className="text-[#e2e8f0] text-[17px] font-medium max-w-[560px] leading-7">
             Real campaigns. Measurable outcomes. See how India&apos;s leading brands trust MarketMen to deliver.
           </p>
         </div>

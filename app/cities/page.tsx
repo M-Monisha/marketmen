@@ -13,16 +13,16 @@ function WhatsAppIcon() {
 }
 
 const majorCities = [
-  { emoji: '🏙️', name: 'Mumbai' },
-  { emoji: '🏛️', name: 'Pune' },
-  { emoji: '🏛️', name: 'Delhi NCR' },
-  { emoji: '🌿', name: 'Bengaluru' },
-  { emoji: '🕌', name: 'Hyderabad' },
-  { emoji: '🎭', name: 'Chennai' },
-  { emoji: '🏗️', name: 'Ahmedabad' },
-  { emoji: '🌉', name: 'Kolkata' },
-  { emoji: '🏰', name: 'Jaipur' },
-  { emoji: '🌳', name: 'Chandigarh' },
+  { name: 'Mumbai' },
+  { name: 'Pune' },
+  { name: 'Delhi NCR' },
+  { name: 'Bengaluru' },
+  { name: 'Hyderabad' },
+  { name: 'Chennai' },
+  { name: 'Ahmedabad' },
+  { name: 'Kolkata' },
+  { name: 'Jaipur' },
+  { name: 'Chandigarh' },
 ];
 
 const additionalCities = [
@@ -44,26 +44,22 @@ const services = [
 ];
 
 const supports = [
-  { icon: '🗺️', title: 'Pan-India rollout planning' },
-  { icon: '🎯', title: 'Centralised coordination' },
-  { icon: '👥', title: 'Vendor & manpower deployment' },
-  { icon: '📊', title: 'Reporting & supervision' },
-  { icon: '🏙️', title: 'City-wise customization' },
+  { title: 'Pan-India rollout planning' },
+  { title: 'Centralised coordination' },
+  { title: 'Vendor & manpower deployment' },
+  { title: 'Reporting & supervision' },
+  { title: 'City-wise customization' },
 ];
 
 export default function CitiesPage() {
   return (
     <PageLayout>
       {/* ── Hero ── */}
-      <section className="relative flex items-center overflow-hidden bg-gradient-to-br from-[#2b1f3a] via-[#1a1832] to-[#142f4c]" style={{ minHeight: '480px' }}>
-        <div className="absolute top-0 left-1/3 w-96 h-96 bg-[rgba(30,159,212,0.08)] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[rgba(141,198,63,0.06)] rounded-full blur-3xl pointer-events-none" />
+      <section className="relative flex items-center overflow-hidden" style={{ minHeight: '480px' }}>
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&q=80&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
+        <div className="absolute inset-0 bg-[rgba(10,6,24,0.75)]" />
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-8 py-20 flex flex-wrap items-center gap-12">
           <div className="flex-1 min-w-[280px]">
-            <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
-              <span className="text-[#1e9fd4] text-[11px] font-semibold tracking-widest uppercase">Cities &amp; Coverage</span>
-            </span>
             <h1 className="font-extrabold text-white leading-[1.1] tracking-[-1.5px] mb-4" style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}>
               Delivering Events &amp; Experiences <span className="text-[#1e9fd4]">Across India</span>
             </h1>
@@ -78,11 +74,6 @@ export default function CitiesPage() {
               <Link href="/contact" className="border-2 border-[rgba(255,255,255,0.4)] text-white font-semibold text-[14px] px-6 py-3.5 rounded-[14px] hover:bg-[rgba(255,255,255,0.08)] transition-colors">
                 Connect With Us
               </Link>
-            </div>
-          </div>
-          <div className="flex-1 min-w-[200px] flex justify-center">
-            <div className="w-48 h-48 bg-[rgba(30,159,212,0.12)] border border-[rgba(30,159,212,0.25)] rounded-full flex items-center justify-center">
-              <span className="text-[80px]">🗺️</span>
             </div>
           </div>
         </div>
@@ -100,8 +91,8 @@ export default function CitiesPage() {
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-14">
             {majorCities.map(city => (
-              <div key={city.name} className="bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-5 flex flex-col items-center gap-3 hover:shadow-md hover:border-[#1e9fd4] transition-all cursor-default">
-                <span className="text-[36px]">{city.emoji}</span>
+              <div key={city.name} className="bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-5 flex flex-col items-center justify-center gap-2 hover:shadow-md hover:border-[#1e9fd4] transition-all cursor-default">
+                <div className="w-8 h-1 rounded-full bg-[#1e9fd4]" />
                 <span className="font-bold text-[14px] text-[#0f172a] text-center">{city.name}</span>
               </div>
             ))}
@@ -161,7 +152,7 @@ export default function CitiesPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {supports.map(s => (
               <div key={s.title} className="bg-[rgba(255,255,255,0.07)] border border-[rgba(255,255,255,0.1)] rounded-2xl p-6 flex flex-col gap-3 hover:bg-[rgba(255,255,255,0.1)] transition-colors">
-                <span className="text-[32px]">{s.icon}</span>
+                <div className="w-8 h-1 rounded-full bg-[#8dc63f]" />
                 <p className="text-white font-semibold text-[14px] leading-snug">{s.title}</p>
               </div>
             ))}
