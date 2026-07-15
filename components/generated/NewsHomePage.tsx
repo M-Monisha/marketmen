@@ -790,33 +790,71 @@ function DivisionsSection() {
 }
 
 // ── Case Studies ──────────────────────────────────────────────────────────────
+// Figma asset images (valid 7 days)
+const imgCSDabur   = "https://www.figma.com/api/mcp/asset/3df0db78-8046-4618-8b3f-9526259b3ef3";
+const imgCSDealer  = "https://www.figma.com/api/mcp/asset/0f2abfb9-8545-4388-82c5-691b58d0aa0a";
+const imgCSRural   = "https://www.figma.com/api/mcp/asset/5e564b03-d042-4565-837d-59df1cc10ef8";
+
 const caseStudies = [
   {
-    img: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80&fit=crop',
+    img: imgCSDabur,
     brandBg: 'bg-[#ae1d0b]', brandLetter: 'D', brand: 'Dabur',
     title: 'Chyawanprash Winter Campaign', location: '12 States',
-    stats: [{ value: '2.4 Cr+', label: 'People Reached' }, { value: '340+', label: 'Cities' }, { value: '4.2x', label: 'ROI', green: true }],
+    stats: [
+      { value: '2.4 Cr+', label: 'People Reached', green: false },
+      { value: '340+',    label: 'Cities',          green: false },
+      { value: '4.2x',   label: 'ROI',              green: true  },
+    ],
+  },
+  {
+    img: imgCSDealer,
+    brandBg: 'bg-[#00108f]', brandLetter: 'C', brand: 'CEAT Tyres',
+    title: 'Dealer Meet & Product Launch', location: 'Pan India',
+    stats: [
+      { value: '18,000+', label: 'People Reached', green: false },
+      { value: '85',      label: 'Cities',          green: false },
+      { value: '3.8x',   label: 'ROI',              green: true  },
+    ],
+  },
+  {
+    img: imgCSRural,
+    brandBg: 'bg-[#052f6d]', brandLetter: 'C', brand: 'CEAT Tyres',
+    title: 'Rural Mechanic Meet', location: 'UP, MP, Rajasthan',
+    stats: [
+      { value: '45,000+', label: 'People Reached', green: false },
+      { value: '120+',    label: 'Cities',          green: false },
+      { value: '5.1x',   label: 'ROI',              green: true  },
+    ],
   },
 ];
 
 function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stats }: typeof caseStudies[0]) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col">
-      <div className="h-52 shrink-0 overflow-hidden">
-        <img src={img} alt={title} className="w-full h-full object-cover" />
+    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+      {/* Image */}
+      <div className="h-[208px] shrink-0 overflow-hidden">
+        <img
+          src={img}
+          alt={title}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
       </div>
-      <div className="p-6 flex flex-col gap-3 flex-1">
+      {/* Content */}
+      <div className="p-6 flex flex-col gap-0 flex-1">
         {/* Brand row */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-3">
           <div className={`${brandBg} w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0`}>
             <span className="text-white font-extrabold text-[11px]">{brandLetter}</span>
           </div>
           <span className="text-[#0f172a] font-bold text-[13px]">{brand}</span>
         </div>
-        <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
-        <p className="text-[#64748b] text-[12px]">{location}</p>
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-2">
+        {/* Title */}
+        <p className="text-[#0f172a] font-bold text-[14px] leading-[21px] mb-1">{title}</p>
+        {/* Location */}
+        <p className="text-[#64748b] text-[12px] leading-[18px] mb-4">{location}</p>
+        {/* Stats — 3 pills */}
+        <div className="grid grid-cols-3 gap-2 mb-4">
           {stats.map(s => (
             <div key={s.label} className="bg-[#f8fafc] rounded-[14px] p-2 flex flex-col items-center">
               <span className={`font-extrabold text-[14px] leading-[21px] ${s.green ? 'text-[#8dc63f]' : 'text-[#1e9fd4]'}`}>{s.value}</span>
@@ -824,7 +862,7 @@ function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stat
             </div>
           ))}
         </div>
-        {/* CTA */}
+        {/* CTA button */}
         <button className="w-full border border-[#1e9fd4] rounded-[14px] h-10 text-[#1e9fd4] font-bold text-[12px] hover:bg-[#ebf7fc] transition-colors mt-auto">
           View Case Study →
         </button>
