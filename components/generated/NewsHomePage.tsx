@@ -258,32 +258,61 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
   );
 }
 
+// ── Sequential Video Background ──────────────────────────────────────────────
+const heroVideos = [
+  // 1. Illuminated event stage hall — stage lights, colorful, ready for event
+  'https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4',
+  // 2. Theater stage setup — workers preparing, timelapse
+  'https://videos.pexels.com/video-files/3975494/3975494-hd_1920_1080_25fps.mp4',
+  // 3. Rural village market / community meet scene
+  'https://videos.pexels.com/video-files/6394064/6394064-hd_1920_1080_25fps.mp4',
+  // 4. Retail store branding / shopping floor
+  'https://videos.pexels.com/video-files/3194524/3194524-hd_1920_1080_30fps.mp4',
+];
+
+function SequentialVideoBackground() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [opacity, setOpacity] = useState(1);
+
+  const goToNext = () => {
+    // Fade out
+    setOpacity(0);
+    setTimeout(() => {
+      setCurrentIndex(prev => (prev + 1) % heroVideos.length);
+      setOpacity(1);
+    }, 400);
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.src = heroVideos[currentIndex];
+    video.load();
+    video.play().catch(() => {});
+  }, [currentIndex]);
+
+  return (
+    <video
+      ref={videoRef}
+      className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500"
+      style={{ opacity }}
+      muted
+      playsInline
+      preload="auto"
+      poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
+      onEnded={goToNext}
+    />
+  );
+}
+
 // ── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
   const { ref: statsRef, inView: statsInView } = useInView();
   return (
     <section className="relative pt-20 flex items-center overflow-hidden" style={{ minHeight: 'min(100svh, 700px)' }}>
-      {/* Full-bleed background video */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
-      >
-        {/* Illuminated event stage hall — colorful lights, chairs, stage ready */}
-        <source src="https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Theater stage setup timelapse — workers preparing stage */}
-        <source src="https://videos.pexels.com/video-files/3975494/3975494-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Event stage with dramatic lighting — second illuminated hall */}
-        <source src="https://videos.pexels.com/video-files/4317188/4317188-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Corporate conference stage with audience */}
-        <source src="https://videos.pexels.com/video-files/3998033/3998033-hd_1920_1080_30fps.mp4" type="video/mp4" />
-        {/* Fallback poster image */}
-        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover" />
-      </video>
+      {/* Sequential video background */}
+      <SequentialVideoBackground />
       <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
 
       {/* Centred content */}
