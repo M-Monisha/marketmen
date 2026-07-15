@@ -262,15 +262,22 @@ function HeroSection() {
   const { ref: statsRef, inView: statsInView } = useInView();
   return (
     <section className="relative pt-20 flex items-center overflow-hidden" style={{ minHeight: 'min(100svh, 700px)' }}>
-      {/* Full-bleed background */}
-      <img
-        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=90&fit=crop"
-        alt=""
+      {/* Full-bleed background video */}
+      <video
         className="absolute inset-0 w-full h-full object-cover object-center"
-        loading="eager"
-        fetchPriority="high"
-      />
-      <div className="absolute inset-0 bg-[rgba(10,6,24,0.78)]" />
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop"
+      >
+        <source src="https://videos.pexels.com/video-files/7647790/7647790-hd_1920_1080_30fps.mp4" type="video/mp4" />
+        <source src="https://cdn.coverr.co/videos/coverr-a-business-conference-2966/1080p.mp4" type="video/mp4" />
+        {/* Fallback image if video fails */}
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover" />
+      </video>
+      <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
 
       {/* Centred content */}
       <div className="relative z-10 w-full max-w-[720px] mx-auto px-6 py-12 md:py-20 flex flex-col items-center text-center gap-5">
