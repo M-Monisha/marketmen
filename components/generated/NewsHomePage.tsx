@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { Search, User, Menu, X as XIcon, Play, ChevronLeft, ChevronRight, Star, Clock, Calendar } from 'lucide-react';
 
 // ── Animated counter hook ─────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1500, started = false) {
@@ -258,178 +259,200 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
   );
 }
 
-// ── Sequential Video Background ──────────────────────────────────────────────
-const heroClips = [
-  {
-    srcs: [
-      'https://videos.pexels.com/video-files/4317187/4317187-hd_1920_1080_25fps.mp4',
-      'https://videos.pexels.com/video-files/4317187/4317187-hd_1280_720_25fps.mp4',
-    ],
-    duration: 3500,
-  },
-  { srcs: ['/2.mp4'], duration: 6000 },
-  { srcs: ['/3.mp4'], duration: 6000 },
-];
+// ── Cinematic Hero Section ────────────────────────────────────────────────────
+const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4';
 
-function SequentialVideoBackground() {
-  const videoA = useRef<HTMLVideoElement>(null);
-  const videoB = useRef<HTMLVideoElement>(null);
-  // which slot is the ACTIVE (visible) one
-  const active = useRef<'A' | 'B'>('A');
-  const clipIdx = useRef(0);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // opacity state for CSS — A slot opacity
-  const [aOpacity, setAOpacity] = useState(1);
-
-  const getSlot = (slot: 'A' | 'B') => slot === 'A' ? videoA.current : videoB.current;
-
-  // Load a clip into a slot, return promise that resolves when ready to play
-  const loadClip = (slot: 'A' | 'B', idx: number): Promise<void> => {
-    return new Promise(resolve => {
-      const video = getSlot(slot);
-      if (!video) { resolve(); return; }
-      const clip = heroClips[idx];
-      video.src = clip.srcs[0];
-      video.muted = true;
-      video.playsInline = true;
-      video.preload = 'auto';
-      const onReady = () => { video.removeEventListener('canplay', onReady); resolve(); };
-      video.addEventListener('canplay', onReady);
-      // fallback: resolve after 1.5s even if canplay never fires
-      setTimeout(resolve, 1500);
-      video.load();
-    });
-  };
-
-  const startSequence = async () => {
-    // Load clip 0 into slot A, start playing
-    await loadClip('A', 0);
-    const vA = videoA.current;
-    if (vA) vA.play().catch(() => {});
-    setAOpacity(1);
-    active.current = 'A';
-    scheduleNext(0, 'A');
-  };
-
-  const scheduleNext = (currentIdx: number, currentSlot: 'A' | 'B') => {
-    if (timer.current) clearTimeout(timer.current);
-    const clip = heroClips[currentIdx];
-    timer.current = setTimeout(() => crossfadeTo(currentIdx, currentSlot), clip.duration);
-  };
-
-  const crossfadeTo = async (currentIdx: number, currentSlot: 'A' | 'B') => {
-    const nextIdx = (currentIdx + 1) % heroClips.length;
-    const nextSlot: 'A' | 'B' = currentSlot === 'A' ? 'B' : 'A';
-
-    // Preload next clip silently into hidden slot BEFORE starting fade
-    await loadClip(nextSlot, nextIdx);
-    const nextVideo = getSlot(nextSlot);
-    if (nextVideo) {
-      nextVideo.currentTime = 0;
-      nextVideo.play().catch(() => {});
-    }
-
-    // Now crossfade: bring nextSlot to full opacity, fade current out
-    // We do this by toggling aOpacity (A=1 means A visible, A=0 means B visible)
-    setAOpacity(nextSlot === 'A' ? 1 : 0);
-    active.current = nextSlot;
-
-    scheduleNext(nextIdx, nextSlot);
-  };
-
-  useEffect(() => {
-    startSequence();
-    return () => { if (timer.current) clearTimeout(timer.current); };
-  }, []);
-
-  return (
-    <>
-      {/* Slot A */}
-      <video
-        ref={videoA}
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        style={{
-          opacity: aOpacity,
-          transition: 'opacity 1s ease-in-out',
-          zIndex: aOpacity > 0 ? 2 : 1,
-        }}
-        muted playsInline preload="auto"
-      />
-      {/* Slot B */}
-      <video
-        ref={videoB}
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        style={{
-          opacity: aOpacity > 0 ? 0 : 1,
-          transition: 'opacity 1s ease-in-out',
-          zIndex: aOpacity > 0 ? 1 : 2,
-        }}
-        muted playsInline preload="auto"
-      />
-    </>
-  );
-}
-
-// ── Hero Section ──────────────────────────────────────────────────────────────
 function HeroSection() {
-  const { ref: statsRef, inView: statsInView } = useInView();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: 'Home',          href: '/',             delay: 100 },
+    { label: 'About Us',      href: '/about',         delay: 150 },
+    { label: 'Events',        href: '/events',        delay: 200 },
+    { label: 'Opportunities', href: '/opportunities', delay: 250 },
+    { label: 'Case Studies',  href: '/case-studies',  delay: 300 },
+    { label: 'Blogs',         href: '/blogs',         delay: 300 },
+    { label: 'Contact Us',    href: '/contact',       delay: 300 },
+  ];
+
   return (
-    <section className="relative pt-20 flex items-center overflow-hidden" style={{ minHeight: 'min(100svh, 700px)' }}>
-      {/* Sequential video background */}
-      <SequentialVideoBackground />
-      <div className="absolute inset-0 bg-[rgba(10,6,24,0.72)]" />
+    <div className="relative w-full h-screen overflow-hidden bg-black" style={{ fontFamily: "'Inter', 'Montserrat', sans-serif" }}>
 
-      {/* Centred content */}
-      <div className="relative z-10 w-full max-w-[720px] mx-auto px-6 py-12 md:py-20 flex flex-col items-center text-center gap-5">
+      {/* ── Background Video ── */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0 }}
+        src={HERO_VIDEO}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
 
-        {/* Badge */}
-        <span className="inline-flex items-center gap-2 bg-[rgba(30,159,212,0.15)] border border-[rgba(30,159,212,0.4)] rounded-full px-4 py-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#1e9fd4]" />
-          <span className="text-[#1e9fd4] text-[11px] font-semibold tracking-widest uppercase">35+ Years of Execution Excellence</span>
-        </span>
+      {/* ── Bottom blur-only overlay (mask fades blur from bottom up, no dark gradient) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 1,
+          WebkitBackdropFilter: 'blur(24px)',
+          backdropFilter: 'blur(24px)',
+          WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 45%)',
+          maskImage: 'linear-gradient(to top, black 0%, transparent 45%)',
+        }}
+      />
 
-        {/* Headline */}
-        <h1 className="font-extrabold text-white leading-[1.08] tracking-[-1.5px]" style={{ fontSize: 'clamp(32px, 5vw, 60px)' }}>
-          India&apos;s On-Ground <span className="text-[#1e9fd4]">Brand Growth</span> Partner
-        </h1>
+      {/* ── Navbar ── */}
+      <nav className="relative flex items-center justify-between px-4 sm:px-6 md:px-12 py-4 md:py-6" style={{ zIndex: 50 }}>
+        {/* Logo */}
+        <Link href="/" className="animate-blur-fade-up shrink-0 group" style={{ animationDelay: '0ms' }}>
+          <div className="bg-white rounded-xl px-3 py-2 shadow-[0_0_28px_rgba(30,159,212,0.55)] group-hover:shadow-[0_0_40px_rgba(30,159,212,0.8)] transition-shadow duration-300">
+            <img src={imgLogo} alt="MarketMen" className="h-10 md:h-12 w-auto object-contain" />
+          </div>
+        </Link>
 
-        {/* Divider */}
-        <div className="w-14 h-1 bg-[#1e9fd4] rounded-full" />
-
-        {/* Sub */}
-        <p className="text-[#e2e8f0] text-[17px] font-semibold leading-7">
-          From Strategy to Execution. Anywhere in India.
-        </p>
-
-        {/* Body */}
-        <p className="text-[#e2e8f0] text-[14px] font-medium leading-[1.75] max-w-[580px]">
-          Helping brands execute BTL campaigns, retail branding, rural activation, employee engagement, event IPs, and corporate experiences with one trusted execution partner across India.
-        </p>
-
-        {/* Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 pt-1">
-          <a href="#contact" className="bg-[#1e9fd4] text-white text-[13px] font-bold px-6 py-3.5 rounded-xl flex items-center gap-2.5 shadow-[0_4px_24px_rgba(30,159,212,0.45)] hover:bg-[#1a8fbe] transition-all duration-200">
-            Book Strategy Consultation
-            <span className="bg-[rgba(255,255,255,0.2)] rounded-md p-1">
-              <img src={imgHeroArrow} alt="" className="w-3 h-3" />
-            </span>
-          </a>
-          <a href="#opportunities" className="group relative flex items-center gap-2 text-[#cbd5e1] text-[13px] font-semibold px-1 py-3.5 hover:text-white transition-colors">
-            Explore Opportunities
-            <span className="text-[#1e9fd4]">→</span>
-            <span className="absolute bottom-2 left-0 w-0 h-[1.5px] bg-[#1e9fd4] rounded-full group-hover:w-full transition-all duration-300" />
-          </a>
+        {/* Desktop nav links */}
+        <div className="hidden lg:flex items-center gap-1">
+          {navLinks.map(link => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="animate-blur-fade-up text-white text-sm font-medium px-3 py-2 rounded-[10px] hover:text-gray-300 transition-colors"
+              style={{ animationDelay: `${link.delay}ms` }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Stats — small chips in a row */}
-        <div ref={statsRef} className="border-t border-[rgba(255,255,255,0.12)] pt-6 w-full grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
-          <StatCard num={35}  suffix="+"  label="Years Experience"          gradient="from-[#1e9fd4] to-[#38bdf8]" started={statsInView} />
-          <StatCard num={0}   display="Pan India" label="Network Coverage"  gradient="from-[#8dc63f] to-[#a3e635]" started={statsInView} />
-          <StatCard num={100} suffix="%"  label="Transparent Reporting"     gradient="from-[#8dc63f] to-[#a3e635]" started={statsInView} />
-          <StatCard num={0}   display="1 Partner" label="Single Point Accountability" gradient="from-[#1e9fd4] to-[#38bdf8]" started={statsInView} />
+        {/* Right buttons */}
+        <div className="flex items-center gap-2">
+          {/* Search */}
+          <button
+            className="animate-blur-fade-up liquid-glass hidden sm:flex items-center gap-2 rounded-full px-4 md:px-6 py-2 text-white text-sm font-medium"
+            style={{ animationDelay: '350ms' }}
+          >
+            <Search size={18} />
+            <span className="hidden md:inline">Search</span>
+          </button>
+          {/* User */}
+          <button
+            className="animate-blur-fade-up liquid-glass hidden sm:flex items-center justify-center w-10 h-10 rounded-full text-white"
+            style={{ animationDelay: '400ms' }}
+          >
+            <User size={18} />
+          </button>
+          {/* Hamburger */}
+          <button
+            onClick={() => setMenuOpen(o => !o)}
+            className="animate-blur-fade-up liquid-glass lg:hidden flex items-center justify-center w-10 h-10 rounded-full text-white relative"
+            style={{ animationDelay: '350ms' }}
+            aria-label="Menu"
+          >
+            <span className={`absolute transition-all duration-500 ease-out ${menuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-180 scale-50'}`}>
+              <XIcon size={20} />
+            </span>
+            <span className={`absolute transition-all duration-500 ease-out ${menuOpen ? 'opacity-0 rotate-180 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
+              <Menu size={20} />
+            </span>
+          </button>
+        </div>
+      </nav>
+
+      {/* ── Mobile Menu ── */}
+      <div
+        className={`absolute left-0 right-0 lg:hidden bg-gray-900/95 backdrop-blur-lg border-t border-b border-gray-800 shadow-2xl transition-all duration-500 ease-out ${menuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+        style={{ zIndex: 40, top: '72px' }}
+      >
+        <div className="flex flex-col py-2 px-4">
+          {navLinks.map((link, i) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-white text-sm font-medium py-3 px-3 rounded-lg hover:bg-gray-800/50 transition-all duration-300"
+              style={{ transitionDelay: menuOpen ? `${i * 50}ms` : '0ms', transform: menuOpen ? 'translateX(0)' : 'translateX(-12px)', opacity: menuOpen ? 1 : 0 }}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="flex gap-2 pt-3 pb-2 mt-1 border-t border-gray-800 sm:hidden">
+            <button className="liquid-glass flex items-center gap-2 rounded-full px-5 py-2 text-white text-sm font-medium flex-1 justify-center">
+              <Search size={16} /> Search
+            </button>
+            <button className="liquid-glass flex items-center justify-center w-10 h-10 rounded-full text-white shrink-0">
+              <User size={16} />
+            </button>
+          </div>
         </div>
       </div>
-    </section>
+
+      {/* ── Hero Content (bottom of viewport) ── */}
+      <div className="absolute inset-0 flex flex-col justify-end px-4 sm:px-6 md:px-12 pb-8 md:pb-16" style={{ zIndex: 10 }}>
+        <div className="flex flex-col md:flex-row items-end gap-8">
+          {/* Left */}
+          <div className="flex-1">
+            {/* Metadata */}
+            <div className="animate-blur-fade-up flex flex-wrap items-center gap-3 sm:gap-6 mb-6 md:mb-8 text-white text-xs sm:text-sm" style={{ animationDelay: '300ms' }}>
+              <span className="flex items-center gap-1.5 font-medium">
+                <Star size={16} className="fill-white" />
+                35+ Years of Trust
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock size={16} />
+                500+ Events
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Calendar size={16} />
+                Pan India
+              </span>
+            </div>
+            {/* Title */}
+            <h1
+              className="animate-blur-fade-up text-white font-normal mb-4 md:mb-6"
+              style={{ fontSize: 'clamp(30px, 6vw, 72px)', letterSpacing: '-0.04em', lineHeight: 1.05, animationDelay: '400ms' }}
+            >
+              India&apos;s On-Ground<br />
+              <span className="text-[#1e9fd4]">Brand Growth</span> Partner
+            </h1>
+            {/* Description */}
+            <p className="animate-blur-fade-up text-gray-400 text-base sm:text-lg md:text-xl mb-6 md:mb-12 max-w-2xl" style={{ animationDelay: '500ms' }}>
+              From Strategy to Execution. Anywhere in India — BTL campaigns, retail branding, rural activation, and corporate experiences.
+            </p>
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 sm:gap-4">
+              <Link
+                href="/contact"
+                className="animate-blur-fade-up bg-white text-black rounded-full font-medium px-6 sm:px-8 py-2.5 sm:py-3 flex items-center gap-2 hover:bg-gray-200 transition-colors"
+                style={{ animationDelay: '600ms' }}
+              >
+                <Play size={18} className="fill-black" />
+                Book a Strategy Call
+              </Link>
+              <Link
+                href="/about"
+                className="animate-blur-fade-up liquid-glass text-white rounded-full font-medium px-6 sm:px-8 py-2.5 sm:py-3"
+                style={{ animationDelay: '700ms' }}
+              >
+                Learn More
+              </Link>
+            </div>
+          </div>
+
+          {/* Right — arrows */}
+          <div className="flex md:flex-col gap-3 items-end">
+            <button className="animate-blur-fade-up liquid-glass text-white rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2 font-medium" style={{ animationDelay: '800ms' }}>
+              <ChevronLeft size={18} />
+              <span className="text-sm">Previous</span>
+            </button>
+            <button className="animate-blur-fade-up liquid-glass text-white rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2 font-medium" style={{ animationDelay: '900ms' }}>
+              <span className="text-sm">Next</span>
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1069,7 +1092,6 @@ function Footer() {
 export function NewsHomePage() {
   return (
     <div className="home w-full overflow-x-hidden font-['Montserrat',sans-serif]">
-      <Header />
       <FloatingWhatsApp />
       <main>
         <HeroSection />
