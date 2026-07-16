@@ -694,16 +694,19 @@ const opportunities = [
 
 function OpportunityCard({ img, title, desc }: { img: string; title: string; desc: string }) {
   return (
-    <div className="relative rounded-xl overflow-hidden border border-[#e2e8f0] flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer group" style={{ minHeight: '160px' }}>
+    <div className="relative rounded-xl overflow-hidden border border-[#1e9fd4]/20 flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer group" style={{ height: '180px' }}>
       {/* Full-bleed background image */}
-      <div className="absolute inset-0">
-        <img src={img} alt={title} className="w-full h-full object-cover" loading="lazy" />
-        {/* Dark overlay — darkens on hover */}
-        <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-all duration-200" />
-      </div>
-      {/* Text on top */}
-      <div className="relative p-4 flex flex-col justify-end h-full" style={{ minHeight: '160px' }}>
-        <p className="text-white font-bold text-[13px] leading-snug mb-1">{title}</p>
+      <img
+        src={img}
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+      {/* Dark gradient overlay — stronger at bottom for text */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 group-hover:from-black/90 transition-all duration-200" />
+      {/* Text pinned to bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-3">
+        <p className="text-white font-bold text-[13px] leading-snug mb-0.5">{title}</p>
         <p className="text-gray-300 text-[11px] leading-4">{desc}</p>
       </div>
     </div>
