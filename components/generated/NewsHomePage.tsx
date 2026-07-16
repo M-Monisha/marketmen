@@ -428,87 +428,47 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* ── Hero Content ── */}
+      {/* ── Hero Content — centred, all screen sizes ── */}
       <div
-        className="absolute inset-0 flex flex-col px-6 md:px-12 lg:px-16 pb-12 lg:pb-16"
+        className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 text-center"
         style={{ zIndex: 10 }}
       >
-        {/* On mobile: push content down past navbar (~84px) then show text near top.
-            On desktop: push all the way to the bottom. */}
-        <div className="flex flex-col" style={{ paddingTop: '84px', height: '100%' }}>
-          <div className="lg:hidden flex flex-col pt-4">
-            {/* Mobile: heading at top, then description and buttons below */}
-            <h1
-              className="text-white font-normal mb-5 text-5xl"
-              style={{ letterSpacing: '-0.04em' }}
-            >
-              <AnimatedHeading
-                lines={["India's On-Ground", "Brand Growth Partner"]}
-                initialDelay={200}
-                charDelay={30}
-              />
-            </h1>
-            <FadeInHero delay={800} duration={1000}>
-              <p className="text-base text-gray-200 mb-6 max-w-sm">
-                Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
-              </p>
-            </FadeInHero>
-            <FadeInHero delay={1200} duration={1000}>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/contact" className="bg-white text-black px-7 py-3 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
-                  Start a Chat
-                </Link>
-                <Link href="/opportunities" className="liquid-glass border border-white/20 text-white px-7 py-3 rounded-lg text-sm font-medium">
-                  Explore Now
-                </Link>
-              </div>
-            </FadeInHero>
-          </div>
+        {/* Heading */}
+        <h1
+          className="text-white font-normal mb-6"
+          style={{ fontSize: 'clamp(36px, 7vw, 80px)', letterSpacing: '-0.04em', lineHeight: 1.05 }}
+        >
+          <AnimatedHeading
+            lines={["India's On-Ground", "Brand Growth Partner"]}
+            initialDelay={200}
+            charDelay={25}
+          />
+        </h1>
 
-          {/* Desktop: spacer pushes content to bottom */}
-          <div className="hidden lg:flex flex-1 flex-col justify-end">
-            <div className="lg:grid lg:grid-cols-2 lg:items-end gap-8">
-              {/* Left column */}
-              <div>
-                <h1
-                  className="text-white font-normal mb-4 text-5xl lg:text-5xl xl:text-6xl"
-                  style={{ letterSpacing: '-0.04em' }}
-                >
-                  <AnimatedHeading
-                    lines={["India's On-Ground", "Brand Growth Partner"]}
-                    initialDelay={200}
-                    charDelay={30}
-                  />
-                </h1>
-                <FadeInHero delay={800} duration={1000}>
-                  <p className="text-base md:text-lg text-gray-300 mb-5 max-w-xl">
-                    Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
-                  </p>
-                </FadeInHero>
-                <FadeInHero delay={1200} duration={1000}>
-                  <div className="flex flex-wrap gap-4">
-                    <Link href="/contact" className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
-                      Start a Chat
-                    </Link>
-                    <Link href="/opportunities" className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-colors">
-                      Explore Now
-                    </Link>
-                  </div>
-                </FadeInHero>
-              </div>
-              {/* Right column — tag */}
-              <div className="flex items-end justify-end">
-                <FadeInHero delay={1400} duration={1000}>
-                  <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
-                    <p className="text-white text-xl lg:text-2xl font-light">
-                      Brand Activation. Rural Marketing. Corporate Events.
-                    </p>
-                  </div>
-                </FadeInHero>
-              </div>
-            </div>
+        {/* Description */}
+        <FadeInHero delay={800} duration={1000}>
+          <p className="text-gray-200 mb-8 max-w-2xl" style={{ fontSize: 'clamp(15px, 2vw, 20px)', lineHeight: 1.7 }}>
+            Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
+          </p>
+        </FadeInHero>
+
+        {/* Buttons */}
+        <FadeInHero delay={1200} duration={1000}>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/contact"
+              className="bg-white text-black px-8 py-3.5 rounded-lg font-medium hover:bg-gray-100 transition-colors text-sm md:text-base"
+            >
+              Start a Chat
+            </Link>
+            <Link
+              href="/opportunities"
+              className="liquid-glass border border-white/20 text-white px-8 py-3.5 rounded-lg font-medium hover:bg-white hover:text-black transition-colors text-sm md:text-base"
+            >
+              Explore Now
+            </Link>
           </div>
-        </div>
+        </FadeInHero>
       </div>
     </div>
   );
