@@ -432,11 +432,11 @@ function HeroSection() {
         {/* On mobile: push content down past navbar (~84px) then show text near top.
             On desktop: push all the way to the bottom. */}
         <div className="flex flex-col" style={{ paddingTop: '84px', height: '100%' }}>
-          <div className="lg:hidden">
-            {/* Mobile: heading right below navbar */}
+          <div className="lg:hidden flex flex-col justify-center" style={{ height: 'calc(100vh - 84px)' }}>
+            {/* Mobile: heading centred in the video */}
             <h1
               className="text-white font-normal mb-4 text-4xl"
-              style={{ letterSpacing: '-0.04em' }}
+              style={{ letterSpacing: '-0.04em', textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,1)' }}
             >
               <AnimatedHeading
                 lines={["India's On-Ground", "Brand Growth Partner"]}
@@ -445,7 +445,7 @@ function HeroSection() {
               />
             </h1>
             <FadeInHero delay={800} duration={1000}>
-              <p className="text-sm text-gray-300 mb-5 max-w-xs">
+              <p className="text-sm text-gray-200 mb-5 max-w-xs" style={{ textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
                 Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences across India.
               </p>
             </FadeInHero>
