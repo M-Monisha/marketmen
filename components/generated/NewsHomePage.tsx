@@ -338,15 +338,10 @@ function HeroSection() {
       className="relative w-full h-screen overflow-hidden bg-black"
       style={{ fontFamily: "'Inter', 'Montserrat', sans-serif" }}
     >
-      {/* ── Background Video — raw, NO overlay ── */}
+      {/* ── Background Video ── */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
-        style={{
-          zIndex: 0,
-          willChange: 'transform',
-          transform: 'translateZ(0)',
-          WebkitTransform: 'translateZ(0)',
-        }}
+        style={{ zIndex: 0, willChange: 'transform', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
         autoPlay
         muted
         loop
@@ -354,11 +349,11 @@ function HeroSection() {
         preload="auto"
         disablePictureInPicture
       >
-        {/* Local file (if uploaded) */}
-        <source src="/hero.mp4" type="video/mp4" />
-        {/* Working fallback — brand activation / event crowd */}
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4" />
+        <source src="/herooooo.mp4" type="video/mp4" />
       </video>
+
+      {/* ── Dark overlay so text is readable ── */}
+      <div className="absolute inset-0 bg-black/55" style={{ zIndex: 1 }} />
 
       {/* ── Navbar ── */}
       <div className="relative px-6 md:px-12 lg:px-16 pt-6" style={{ zIndex: 50 }}>
@@ -445,7 +440,7 @@ function HeroSection() {
             {/* Mobile: heading centred in the video — larger text */}
             <h1
               className="text-white font-normal mb-5 text-5xl"
-              style={{ letterSpacing: '-0.04em', textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,1)' }}
+              style={{ letterSpacing: '-0.04em' }}
             >
               <AnimatedHeading
                 lines={["India's On-Ground", "Brand Growth Partner"]}
@@ -454,7 +449,7 @@ function HeroSection() {
               />
             </h1>
             <FadeInHero delay={800} duration={1000}>
-              <p className="text-base text-gray-200 mb-6 max-w-sm" style={{ textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
+              <p className="text-base text-gray-200 mb-6 max-w-sm">
                 Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
               </p>
             </FadeInHero>
