@@ -435,3 +435,15 @@ img.broken-image-fallback {
   mask-composite: exclude;
   pointer-events: none;
 }
+
+/* ── Force full-quality video rendering on all devices ── */
+video {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Prevent mobile browsers from applying low-quality scaling */
+  image-rendering: auto;
+  -webkit-image-rendering: auto;
+}

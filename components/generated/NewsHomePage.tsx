@@ -341,13 +341,21 @@ function HeroSection() {
       {/* ── Background Video — raw, NO overlay ── */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
+        style={{
+          zIndex: 0,
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
+          imageRendering: 'auto',
+        }}
         src={HERO_VIDEO}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
+        disablePictureInPicture
+        x-webkit-airplay="deny"
       />
 
       {/* ── Navbar ── */}
