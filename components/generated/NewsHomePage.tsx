@@ -260,25 +260,86 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 }
 
 // ── Cinematic Hero Section ────────────────────────────────────────────────────
-const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4';
+const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4';
+
+// ── FadeIn wrapper ────────────────────────────────────────────────────────────
+function FadeInHero({ children, delay = 0, duration = 1000, className = '' }: {
+  children: React.ReactNode; delay?: number; duration?: number; className?: string;
+}) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(t);
+  }, [delay]);
+  return (
+    <div
+      className={`transition-opacity ${className}`}
+      style={{ opacity: visible ? 1 : 0, transitionDuration: `${duration}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ── Animated Heading (character by character) ─────────────────────────────────
+function AnimatedHeading({ lines, initialDelay = 200, charDelay = 30 }: {
+  lines: string[]; initialDelay?: number; charDelay?: number;
+}) {
+  const [started, setStarted] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), initialDelay);
+    return () => clearTimeout(t);
+  }, [initialDelay]);
+
+  return (
+    <>
+      {lines.map((line, li) => {
+        // offset = all chars in previous lines
+        const prevChars = lines.slice(0, li).reduce((s, l) => s + l.length, 0);
+        return (
+          <span key={li} className="block">
+            {line.split('').map((ch, ci) => {
+              const delay = (prevChars + ci) * charDelay;
+              return (
+                <span
+                  key={ci}
+                  className="inline-block"
+                  style={{
+                    opacity: started ? 1 : 0,
+                    transform: started ? 'translateX(0)' : 'translateX(-18px)',
+                    transition: `opacity 500ms ease ${delay}ms, transform 500ms ease ${delay}ms`,
+                  }}
+                >
+                  {ch === ' ' ? '\u00A0' : ch}
+                </span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </>
+  );
+}
 
 function HeroSection() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home',          href: '/',             delay: 100 },
-    { label: 'About Us',      href: '/about',         delay: 150 },
-    { label: 'Events',        href: '/events',        delay: 200 },
-    { label: 'Opportunities', href: '/opportunities', delay: 250 },
-    { label: 'Case Studies',  href: '/case-studies',  delay: 300 },
-    { label: 'Blogs',         href: '/blogs',         delay: 300 },
-    { label: 'Contact Us',    href: '/contact',       delay: 300 },
+    { label: 'Home',          href: '/' },
+    { label: 'About Us',      href: '/about' },
+    { label: 'Events',        href: '/events' },
+    { label: 'Opportunities', href: '/opportunities' },
+    { label: 'Case Studies',  href: '/case-studies' },
+    { label: 'Blogs',         href: '/blogs' },
+    { label: 'Contact Us',    href: '/contact' },
   ];
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black" style={{ fontFamily: "'Inter', 'Montserrat', sans-serif" }}>
-
-      {/* ── Background Video ── */}
+    <div
+      className="relative w-full h-screen overflow-hidden bg-black"
+      style={{ fontFamily: "'Inter', 'Montserrat', sans-serif" }}
+    >
+      {/* ── Background Video — raw, NO overlay ── */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: 0 }}
@@ -290,165 +351,138 @@ function HeroSection() {
         preload="auto"
       />
 
-      {/* ── Bottom blur-only overlay (mask fades blur from bottom up, no dark gradient) ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 1,
-          WebkitBackdropFilter: 'blur(24px)',
-          backdropFilter: 'blur(24px)',
-          WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 45%)',
-          maskImage: 'linear-gradient(to top, black 0%, transparent 45%)',
-        }}
-      />
-
       {/* ── Navbar ── */}
-      <nav className="relative flex items-center justify-between px-4 sm:px-6 md:px-12 py-4 md:py-6" style={{ zIndex: 50 }}>
-        {/* Logo */}
-        <Link href="/" className="animate-blur-fade-up shrink-0 group" style={{ animationDelay: '0ms' }}>
-          <div className="bg-white rounded-xl px-3 py-2 shadow-[0_0_28px_rgba(30,159,212,0.55)] group-hover:shadow-[0_0_40px_rgba(30,159,212,0.8)] transition-shadow duration-300">
-            <img src={imgLogo} alt="MarketMen" className="h-10 md:h-12 w-auto object-contain" />
+      <div className="relative px-6 md:px-12 lg:px-16 pt-6" style={{ zIndex: 50 }}>
+        <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="shrink-0 group">
+            <div className="bg-white rounded-lg px-3 py-1.5 shadow-[0_0_20px_rgba(30,159,212,0.4)] group-hover:shadow-[0_0_32px_rgba(30,159,212,0.7)] transition-shadow duration-300">
+              <img src={imgLogo} alt="MarketMen" className="h-9 w-auto object-contain" />
+            </div>
+          </Link>
+
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map(link => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-white text-sm hover:text-gray-300 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
-        </Link>
 
-        {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map(link => (
+          {/* Right CTA */}
+          <div className="flex items-center gap-2">
             <Link
-              key={link.label}
-              href={link.href}
-              className="animate-blur-fade-up text-white text-sm font-medium px-3 py-2 rounded-[10px] hover:text-gray-300 transition-colors"
-              style={{ animationDelay: `${link.delay}ms` }}
+              href="/contact"
+              className="hidden sm:inline-flex bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
             >
-              {link.label}
+              Start a Chat
             </Link>
-          ))}
-        </div>
+            {/* Hamburger */}
+            <button
+              onClick={() => setMenuOpen(o => !o)}
+              className="liquid-glass md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-white relative"
+              aria-label="Menu"
+            >
+              <span className={`absolute transition-all duration-300 ${menuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                <XIcon size={18} />
+              </span>
+              <span className={`absolute transition-all duration-300 ${menuOpen ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
+                <Menu size={18} />
+              </span>
+            </button>
+          </div>
+        </nav>
 
-        {/* Right buttons */}
-        <div className="flex items-center gap-2">
-          {/* Search */}
-          <button
-            className="animate-blur-fade-up liquid-glass hidden sm:flex items-center gap-2 rounded-full px-4 md:px-6 py-2 text-white text-sm font-medium"
-            style={{ animationDelay: '350ms' }}
-          >
-            <Search size={18} />
-            <span className="hidden md:inline">Search</span>
-          </button>
-          {/* User */}
-          <button
-            className="animate-blur-fade-up liquid-glass hidden sm:flex items-center justify-center w-10 h-10 rounded-full text-white"
-            style={{ animationDelay: '400ms' }}
-          >
-            <User size={18} />
-          </button>
-          {/* Hamburger */}
-          <button
-            onClick={() => setMenuOpen(o => !o)}
-            className="animate-blur-fade-up liquid-glass lg:hidden flex items-center justify-center w-10 h-10 rounded-full text-white relative"
-            style={{ animationDelay: '350ms' }}
-            aria-label="Menu"
-          >
-            <span className={`absolute transition-all duration-500 ease-out ${menuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-180 scale-50'}`}>
-              <XIcon size={20} />
-            </span>
-            <span className={`absolute transition-all duration-500 ease-out ${menuOpen ? 'opacity-0 rotate-180 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
-              <Menu size={20} />
-            </span>
-          </button>
-        </div>
-      </nav>
-
-      {/* ── Mobile Menu ── */}
-      <div
-        className={`absolute left-0 right-0 lg:hidden bg-gray-900/95 backdrop-blur-lg border-t border-b border-gray-800 shadow-2xl transition-all duration-500 ease-out ${menuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
-        style={{ zIndex: 40, top: '72px' }}
-      >
-        <div className="flex flex-col py-2 px-4">
-          {navLinks.map((link, i) => (
+        {/* Mobile menu */}
+        <div
+          className={`md:hidden mt-1 liquid-glass rounded-xl overflow-hidden transition-all duration-300 ease-out ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+        >
+          <div className="flex flex-col py-2 px-4">
+            {navLinks.map(link => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-white text-sm py-2.5 px-2 rounded-lg hover:bg-white/10 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
-              key={link.label}
-              href={link.href}
+              href="/contact"
               onClick={() => setMenuOpen(false)}
-              className="text-white text-sm font-medium py-3 px-3 rounded-lg hover:bg-gray-800/50 transition-all duration-300"
-              style={{ transitionDelay: menuOpen ? `${i * 50}ms` : '0ms', transform: menuOpen ? 'translateX(0)' : 'translateX(-12px)', opacity: menuOpen ? 1 : 0 }}
+              className="mt-2 mb-1 bg-white text-black px-6 py-2 rounded-lg text-sm font-medium text-center hover:bg-gray-100 transition-colors"
             >
-              {link.label}
+              Start a Chat
             </Link>
-          ))}
-          <div className="flex gap-2 pt-3 pb-2 mt-1 border-t border-gray-800 sm:hidden">
-            <button className="liquid-glass flex items-center gap-2 rounded-full px-5 py-2 text-white text-sm font-medium flex-1 justify-center">
-              <Search size={16} /> Search
-            </button>
-            <button className="liquid-glass flex items-center justify-center w-10 h-10 rounded-full text-white shrink-0">
-              <User size={16} />
-            </button>
           </div>
         </div>
       </div>
 
-      {/* ── Hero Content (bottom of viewport) ── */}
-      <div className="absolute inset-0 flex flex-col justify-end px-4 sm:px-6 md:px-12 pb-8 md:pb-16" style={{ zIndex: 10 }}>
-        <div className="flex flex-col md:flex-row items-end gap-8">
-          {/* Left */}
-          <div className="flex-1">
-            {/* Metadata */}
-            <div className="animate-blur-fade-up flex flex-wrap items-center gap-3 sm:gap-6 mb-6 md:mb-8 text-white text-xs sm:text-sm" style={{ animationDelay: '300ms' }}>
-              <span className="flex items-center gap-1.5 font-medium">
-                <Star size={16} className="fill-white" />
-                35+ Years of Trust
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock size={16} />
-                500+ Events
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Calendar size={16} />
-                Pan India
-              </span>
-            </div>
-            {/* Title */}
+      {/* ── Hero Content ── */}
+      <div
+        className="absolute inset-0 flex flex-col px-6 md:px-12 lg:px-16 pb-12 lg:pb-16"
+        style={{ zIndex: 10 }}
+      >
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Bottom content — 2 col on lg */}
+        <div className="lg:grid lg:grid-cols-2 lg:items-end gap-8">
+          {/* Left column */}
+          <div>
+            {/* Animated heading */}
             <h1
-              className="animate-blur-fade-up text-white font-normal mb-4 md:mb-6"
-              style={{ fontSize: 'clamp(30px, 6vw, 72px)', letterSpacing: '-0.04em', lineHeight: 1.05, animationDelay: '400ms' }}
+              className="text-white font-normal mb-4 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              style={{ letterSpacing: '-0.04em' }}
             >
-              India&apos;s On-Ground<br />
-              <span className="text-[#1e9fd4]">Brand Growth</span> Partner
+              <AnimatedHeading
+                lines={["India's On-Ground", "Brand Growth Partner"]}
+                initialDelay={200}
+                charDelay={30}
+              />
             </h1>
-            {/* Description */}
-            <p className="animate-blur-fade-up text-gray-400 text-base sm:text-lg md:text-xl mb-6 md:mb-12 max-w-2xl" style={{ animationDelay: '500ms' }}>
-              From Strategy to Execution. Anywhere in India — BTL campaigns, retail branding, rural activation, and corporate experiences.
-            </p>
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              <Link
-                href="/contact"
-                className="animate-blur-fade-up bg-white text-black rounded-full font-medium px-6 sm:px-8 py-2.5 sm:py-3 flex items-center gap-2 hover:bg-gray-200 transition-colors"
-                style={{ animationDelay: '600ms' }}
-              >
-                <Play size={18} className="fill-black" />
-                Book a Strategy Call
-              </Link>
-              <Link
-                href="/about"
-                className="animate-blur-fade-up liquid-glass text-white rounded-full font-medium px-6 sm:px-8 py-2.5 sm:py-3"
-                style={{ animationDelay: '700ms' }}
-              >
-                Learn More
-              </Link>
-            </div>
+
+            {/* Subheading */}
+            <FadeInHero delay={800} duration={1000}>
+              <p className="text-base md:text-lg text-gray-300 mb-5 max-w-xl">
+                Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
+              </p>
+            </FadeInHero>
+
+            {/* Buttons */}
+            <FadeInHero delay={1200} duration={1000}>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/contact"
+                  className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                >
+                  Start a Chat
+                </Link>
+                <Link
+                  href="/opportunities"
+                  className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-colors"
+                >
+                  Explore Now
+                </Link>
+              </div>
+            </FadeInHero>
           </div>
 
-          {/* Right — arrows */}
-          <div className="flex md:flex-col gap-3 items-end">
-            <button className="animate-blur-fade-up liquid-glass text-white rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2 font-medium" style={{ animationDelay: '800ms' }}>
-              <ChevronLeft size={18} />
-              <span className="text-sm">Previous</span>
-            </button>
-            <button className="animate-blur-fade-up liquid-glass text-white rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2 font-medium" style={{ animationDelay: '900ms' }}>
-              <span className="text-sm">Next</span>
-              <ChevronRight size={18} />
-            </button>
+          {/* Right column — tag */}
+          <div className="flex items-end justify-start lg:justify-end mt-8 lg:mt-0">
+            <FadeInHero delay={1400} duration={1000}>
+              <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
+                <p className="text-white text-lg md:text-xl lg:text-2xl font-light">
+                  Brand Activation. Rural Marketing. Corporate Events.
+                </p>
+              </div>
+            </FadeInHero>
           </div>
         </div>
       </div>
