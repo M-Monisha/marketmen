@@ -260,7 +260,7 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
 }
 
 // ── Cinematic Hero Section ────────────────────────────────────────────────────
-const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4';
+const HERO_VIDEO = '/hero.mp4';
 
 // ── FadeIn wrapper ────────────────────────────────────────────────────────────
 function FadeInHero({ children, delay = 0, duration = 1000, className = '' }: {
@@ -348,7 +348,6 @@ function HeroSection() {
           WebkitTransform: 'translateZ(0)',
           imageRendering: 'auto',
         }}
-        src={HERO_VIDEO}
         autoPlay
         muted
         loop
@@ -356,7 +355,16 @@ function HeroSection() {
         preload="auto"
         disablePictureInPicture
         x-webkit-airplay="deny"
-      />
+      >
+        {/* Local file — brand activation / product launch crowd (download from Pexels & save as public/hero.mp4) */}
+        <source src="/hero.mp4" type="video/mp4" />
+        {/* Fallback: diverse audience clapping at business event */}
+        <source src="https://videos.pexels.com/video-files/32822009/32822009-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Fallback: concert crowd with energy */}
+        <source src="https://videos.pexels.com/video-files/26744705/26744705-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Fallback: people clapping in corporate conference */}
+        <source src="https://videos.pexels.com/video-files/7648408/7648408-hd_1920_1080_25fps.mp4" type="video/mp4" />
+      </video>
 
       {/* ── Navbar ── */}
       <div className="relative px-6 md:px-12 lg:px-16 pt-6" style={{ zIndex: 50 }}>
