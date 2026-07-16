@@ -436,8 +436,8 @@ function HeroSection() {
         {/* On mobile: push content down past navbar (~84px) then show text near top.
             On desktop: push all the way to the bottom. */}
         <div className="flex flex-col" style={{ paddingTop: '84px', height: '100%' }}>
-          <div className="lg:hidden flex flex-col justify-center" style={{ height: 'calc(100vh - 84px)' }}>
-            {/* Mobile: heading centred in the video — larger text */}
+          <div className="lg:hidden flex flex-col pt-4">
+            {/* Mobile: heading at top, then description and buttons below */}
             <h1
               className="text-white font-normal mb-5 text-5xl"
               style={{ letterSpacing: '-0.04em' }}
@@ -632,7 +632,7 @@ function InsightsSection() {
             <div>
               <SectionLabel>Insights</SectionLabel>
               <h2 className="text-[40px] font-extrabold text-[#0f172a] tracking-[-0.5px] leading-[1.2]">
-                Ideas That Move<br className="hidden sm:block" /> Brands Forward
+                Ideas That Move Brands Forward
               </h2>
             </div>
             <Link href="/blogs" className="text-[#1e9fd4] font-bold text-[14px] flex items-center gap-1 hover:underline shrink-0">
@@ -646,15 +646,15 @@ function InsightsSection() {
           {/* Featured */}
           <FadeIn className="lg:col-span-3">
             <Link href={`/blogs/${insights[0].slug}`} className="group block bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full">
-              <div className="h-64 overflow-hidden relative">
+              <div className="h-44 overflow-hidden relative">
                 <img src={insights[0].img} alt={insights[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                 <span className="absolute top-4 left-4 bg-[#1e9fd4] text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
                   {insights[0].category}
                 </span>
               </div>
-              <div className="p-6 flex flex-col gap-3">
+              <div className="p-4 flex flex-col gap-3">
                 <p className="text-[#94a3b8] text-[12px]">{insights[0].date}</p>
-                <h3 className="text-[#0f172a] font-extrabold text-[20px] leading-snug tracking-[-0.3px] group-hover:text-[#1e9fd4] transition-colors">
+                <h3 className="text-[#0f172a] font-extrabold text-[16px] leading-snug tracking-[-0.3px] group-hover:text-[#1e9fd4] transition-colors">
                   {insights[0].title}
                 </h3>
                 <p className="text-[#64748b] text-[13px] leading-6">{insights[0].excerpt}</p>
@@ -670,7 +670,7 @@ function InsightsSection() {
             {insights.slice(1).map((a, i) => (
               <FadeIn key={i}>
                 <Link href={`/blogs/${a.slug}`} className="group flex gap-4 bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <div className="w-32 shrink-0 overflow-hidden">
+                  <div className="w-24 shrink-0 overflow-hidden">
                     <img src={a.img} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   </div>
                   <div className="py-4 pr-4 flex flex-col gap-2 justify-center">
@@ -678,7 +678,7 @@ function InsightsSection() {
                       <span className="bg-[#f3fae8] text-[#5a8a1a] text-[10px] font-bold px-2.5 py-1 rounded-full">{a.category}</span>
                     </div>
                     <p className="text-[#94a3b8] text-[11px]">{a.date}</p>
-                    <h3 className="text-[#0f172a] font-bold text-[13px] leading-snug group-hover:text-[#1e9fd4] transition-colors line-clamp-2">
+                    <h3 className="text-[#0f172a] font-bold text-[12px] leading-snug group-hover:text-[#1e9fd4] transition-colors line-clamp-2">
                       {a.title}
                     </h3>
                     <span className="text-[#1e9fd4] font-bold text-[12px] flex items-center gap-1 group-hover:gap-2 transition-all">
@@ -735,12 +735,12 @@ const opportunities = [
 function OpportunityCard({ img, title, desc, tag }: { img: string; title: string; desc: string; tag: string }) {
   return (
     <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-      <div className="h-48 shrink-0 overflow-hidden relative">
-        <img src={img} alt={title} className="w-full h-full object-cover" />
+      <div className="h-36 shrink-0 overflow-hidden relative">
+        <img src={img} alt={title} className="object-cover w-full h-full" />
       </div>
-      <div className="p-5 flex flex-col gap-2 flex-1">
-        <p className="text-[#0f172a] font-bold text-[14px] leading-[21px]">{title}</p>
-        <p className="text-[#64748b] text-[12px] leading-5 flex-1">{desc}</p>
+      <div className="p-3 flex flex-col gap-2 flex-1">
+        <p className="text-[#0f172a] font-bold text-[12px] leading-[21px]">{title}</p>
+        <p className="text-[#64748b] text-[11px] leading-5 flex-1">{desc}</p>
       </div>
     </div>
   );
@@ -764,7 +764,7 @@ function OpportunitiesSection() {
           </a>
         </div>
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {opportunities.map(o => <OpportunityCard key={o.title} {...o} />)}
         </div>
       </div>
@@ -913,16 +913,17 @@ function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stat
   return (
     <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
       {/* Image */}
-      <div className="h-[208px] shrink-0 overflow-hidden">
+      <div className="h-36 shrink-0 overflow-hidden">
         <img
           src={img}
           alt={title}
           className="w-full h-full object-cover"
-          loading="lazy"
+          loading="eager"
+          fetchPriority="high"
         />
       </div>
       {/* Content */}
-      <div className="p-6 flex flex-col gap-0 flex-1">
+      <div className="p-4 flex flex-col gap-0 flex-1">
         {/* Brand row */}
         <div className="flex items-center gap-2 mb-3">
           <div className={`${brandBg} w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0`}>
@@ -937,14 +938,14 @@ function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stat
         {/* Stats — 3 pills */}
         <div className="grid grid-cols-3 gap-2 mb-4">
           {stats.map(s => (
-            <div key={s.label} className="bg-[#f8fafc] rounded-[14px] p-2 flex flex-col items-center">
-              <span className={`font-extrabold text-[14px] leading-[21px] ${s.green ? 'text-[#8dc63f]' : 'text-[#1e9fd4]'}`}>{s.value}</span>
+            <div key={s.label} className="bg-[#f8fafc] rounded-[14px] p-1.5 flex flex-col items-center">
+              <span className={`font-extrabold text-[12px] leading-[21px] ${s.green ? 'text-[#8dc63f]' : 'text-[#1e9fd4]'}`}>{s.value}</span>
               <span className="text-[#64748b] text-[10px] text-center leading-[15px]">{s.label}</span>
             </div>
           ))}
         </div>
         {/* CTA button */}
-        <button className="w-full border border-[#1e9fd4] rounded-[14px] h-10 text-[#1e9fd4] font-bold text-[12px] hover:bg-[#ebf7fc] transition-colors mt-auto">
+        <button className="w-full border border-[#1e9fd4] rounded-[14px] h-8 text-[#1e9fd4] font-bold text-[11px] hover:bg-[#ebf7fc] transition-colors mt-auto">
           View Case Study →
         </button>
       </div>
@@ -962,8 +963,19 @@ function CaseStudiesSection() {
             Recent Success Stories
           </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {caseStudies.map(c => <CaseStudyCard key={c.title} {...c} />)}
+        {/* Preload images */}
+        <div className="hidden" aria-hidden="true">
+          <img src={imgCSDabur} alt="" fetchPriority="high" />
+          <img src={imgCSDealer} alt="" fetchPriority="high" />
+          <img src={imgCSRural} alt="" fetchPriority="high" />
+        </div>
+        {/* Horizontal scroll on mobile, fixed 3-col grid on desktop */}
+        <div className="flex gap-6 overflow-x-auto pb-4 lg:overflow-visible lg:pb-0 lg:grid lg:grid-cols-3 snap-x snap-mandatory lg:snap-none">
+          {caseStudies.map(c => (
+            <div key={c.title} className="min-w-[280px] sm:min-w-[320px] lg:min-w-0 snap-start">
+              <CaseStudyCard {...c} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
