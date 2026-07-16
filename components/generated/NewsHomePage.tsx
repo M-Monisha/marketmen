@@ -683,24 +683,28 @@ const imgRuralCamp   = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9
 const imgCSR         = "https://www.figma.com/api/mcp/asset/5626d768-c94c-4666-8999-b2a4d3673869";
 
 const opportunities = [
-  { img: '/ganesh%20chaturti%20brand%20activation.jpeg', title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.',        tag: 'Festival' },
-  { img: '/garba.jpeg',                                   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.',              tag: 'Events' },
-  { img: '/employee%20engagement.jpeg',                  title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.',                  tag: 'Corporate' },
-  { img: '/retail%20expansion.jpeg',                     title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.',                tag: 'Retail' },
-  { img: '/college%20festival%20branding.jpeg',          title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.',                        tag: 'Youth' },
-  { img: '/rural%20meets.jpeg',                          title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.',         tag: 'Rural' },
-  { img: imgCSR,                                         title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.', tag: 'CSR' },
+  { img: '/ganehs%20chaturty%20brand%20activation.webp', title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
+  { img: '/garba.webp',                                   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
+  { img: '/employee%20engagement.jpeg',                   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.' },
+  { img: '/retail%20expansion.jpeg',                      title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.' },
+  { img: '/college%20festival%20branding.jpeg',           title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.' },
+  { img: '/rural%20meets.jpeg',                           title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.' },
+  { img: imgCSR,                                          title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.' },
 ];
 
-function OpportunityCard({ img, title, desc, tag }: { img: string; title: string; desc: string; tag: string }) {
+function OpportunityCard({ img, title, desc }: { img: string; title: string; desc: string }) {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-      <div className="h-36 shrink-0 overflow-hidden relative">
-        <img src={img} alt={title} className="object-cover w-full h-full" />
+    <div className="relative rounded-xl overflow-hidden border border-[#e2e8f0] flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer group" style={{ minHeight: '160px' }}>
+      {/* Full-bleed background image */}
+      <div className="absolute inset-0">
+        <img src={img} alt={title} className="w-full h-full object-cover" loading="lazy" />
+        {/* Dark overlay — darkens on hover */}
+        <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition-all duration-200" />
       </div>
-      <div className="p-3 flex flex-col gap-2 flex-1">
-        <p className="text-[#0f172a] font-bold text-[12px] leading-[21px]">{title}</p>
-        <p className="text-[#64748b] text-[11px] leading-5 flex-1">{desc}</p>
+      {/* Text on top */}
+      <div className="relative p-4 flex flex-col justify-end h-full" style={{ minHeight: '160px' }}>
+        <p className="text-white font-bold text-[13px] leading-snug mb-1">{title}</p>
+        <p className="text-gray-300 text-[11px] leading-4">{desc}</p>
       </div>
     </div>
   );
