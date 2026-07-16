@@ -683,8 +683,8 @@ const imgRuralCamp   = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9
 const imgCSR         = "https://www.figma.com/api/mcp/asset/5626d768-c94c-4666-8999-b2a4d3673869";
 
 const opportunities = [
-  { img: '/ganehs%20chaturty%20brand%20activation.webp', title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
-  { img: '/garba.webp',                                   title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
+  { img: '/ganesh.webp', title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
+  { img: '/garba.webp',  title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
   { img: '/employee%20engagement.jpeg',                   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.' },
   { img: '/retail%20expansion.jpeg',                      title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.' },
   { img: '/college%20festival%20branding.jpeg',           title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.' },
