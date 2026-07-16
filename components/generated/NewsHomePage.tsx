@@ -346,7 +346,6 @@ function HeroSection() {
           willChange: 'transform',
           transform: 'translateZ(0)',
           WebkitTransform: 'translateZ(0)',
-          imageRendering: 'auto',
         }}
         autoPlay
         muted
@@ -354,16 +353,11 @@ function HeroSection() {
         playsInline
         preload="auto"
         disablePictureInPicture
-        x-webkit-airplay="deny"
       >
-        {/* Local file — brand activation / product launch crowd (download from Pexels & save as public/hero.mp4) */}
+        {/* Local file (if uploaded) */}
         <source src="/hero.mp4" type="video/mp4" />
-        {/* Fallback: diverse audience clapping at business event */}
-        <source src="https://videos.pexels.com/video-files/32822009/32822009-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Fallback: concert crowd with energy */}
-        <source src="https://videos.pexels.com/video-files/26744705/26744705-hd_1920_1080_25fps.mp4" type="video/mp4" />
-        {/* Fallback: people clapping in corporate conference */}
-        <source src="https://videos.pexels.com/video-files/7648408/7648408-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        {/* Working fallback — brand activation / event crowd */}
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4" />
       </video>
 
       {/* ── Navbar ── */}
