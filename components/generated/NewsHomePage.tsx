@@ -349,11 +349,11 @@ function HeroSection() {
         preload="auto"
         disablePictureInPicture
       >
-        <source src="/herooooo.mp4" type="video/mp4" />
+        <source src="/hero.mp4" type="video/mp4" />
       </video>
 
       {/* ── Dark overlay so text is readable ── */}
-      <div className="absolute inset-0 bg-black/55" style={{ zIndex: 1 }} />
+      <div className="absolute inset-0 bg-black/65" style={{ zIndex: 1 }} />
 
       {/* ── Navbar ── */}
       <div className="relative px-6 md:px-12 lg:px-16 pt-6" style={{ zIndex: 50 }}>
