@@ -294,10 +294,9 @@ function AnimatedHeading({ lines, initialDelay = 200, charDelay = 30 }: {
   return (
     <>
       {lines.map((line, li) => {
-        // offset = all chars in previous lines
         const prevChars = lines.slice(0, li).reduce((s, l) => s + l.length, 0);
         return (
-          <span key={li} className="block">
+          <span key={li} className="block whitespace-nowrap">
             {line.split('').map((ch, ci) => {
               const delay = (prevChars + ci) * charDelay;
               return (
@@ -433,9 +432,9 @@ function HeroSection() {
             On desktop: push all the way to the bottom. */}
         <div className="flex flex-col" style={{ paddingTop: '84px', height: '100%' }}>
           <div className="lg:hidden flex flex-col justify-center" style={{ height: 'calc(100vh - 84px)' }}>
-            {/* Mobile: heading centred in the video */}
+            {/* Mobile: heading centred in the video — larger text */}
             <h1
-              className="text-white font-normal mb-4 text-4xl"
+              className="text-white font-normal mb-5 text-5xl"
               style={{ letterSpacing: '-0.04em', textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,1)' }}
             >
               <AnimatedHeading
@@ -445,16 +444,16 @@ function HeroSection() {
               />
             </h1>
             <FadeInHero delay={800} duration={1000}>
-              <p className="text-sm text-gray-200 mb-5 max-w-xs" style={{ textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
-                Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences across India.
+              <p className="text-base text-gray-200 mb-6 max-w-sm" style={{ textShadow: '0 1px 8px rgba(0,0,0,1)' }}>
+                Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
               </p>
             </FadeInHero>
             <FadeInHero delay={1200} duration={1000}>
               <div className="flex flex-wrap gap-3">
-                <Link href="/contact" className="bg-white text-black px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
+                <Link href="/contact" className="bg-white text-black px-7 py-3 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
                   Start a Chat
                 </Link>
-                <Link href="/opportunities" className="liquid-glass border border-white/20 text-white px-6 py-2.5 rounded-lg text-sm font-medium">
+                <Link href="/opportunities" className="liquid-glass border border-white/20 text-white px-7 py-3 rounded-lg text-sm font-medium">
                   Explore Now
                 </Link>
               </div>
@@ -467,7 +466,7 @@ function HeroSection() {
               {/* Left column */}
               <div>
                 <h1
-                  className="text-white font-normal mb-4 text-5xl lg:text-6xl xl:text-7xl"
+                  className="text-white font-normal mb-4 text-5xl lg:text-5xl xl:text-6xl"
                   style={{ letterSpacing: '-0.04em' }}
                 >
                   <AnimatedHeading
