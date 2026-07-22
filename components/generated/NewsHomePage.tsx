@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Search, User, Menu, X as XIcon, Play, ChevronLeft, ChevronRight, Star, Clock, Calendar } from 'lucide-react';
-
-// ── Animated counter hook ─────────────────────────────────────────────────────
+import { Footer, FloatingWhatsApp } from '@/components/shared/PageLayout';
+// ΓöÇΓöÇ Animated counter hook ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function useCountUp(target: number, duration = 1500, started = false) {
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -21,7 +21,7 @@ function useCountUp(target: number, duration = 1500, started = false) {
   return val;
 }
 
-// ── Intersection observer hook ────────────────────────────────────────────────
+// ΓöÇΓöÇ Intersection observer hook ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -33,14 +33,14 @@ function useInView(threshold = 0.15) {
   return { ref, inView };
 }
 
-// ── Asset URLs ────────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ Asset URLs ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const imgLogo        = "/marketmen.jpeg";
 const imgNavArrow    = null; // replaced with inline icon
 const imgNavConnect  = null; // replaced with inline icon
 const imgHeroImg     = "https://www.figma.com/api/mcp/asset/693ae6aa-26b7-487c-bea7-87778958e27b";
 const imgHeroArrow   = "https://www.figma.com/api/mcp/asset/f5bd3af5-f88d-4442-8133-b5491a4c6769";
 
-// Services icons — lucide names used in ServiceCard
+// Services icons ΓÇö lucide names used in ServiceCard
 const imgSvcBrand    = "brand";
 const imgSvcRetail   = "retail";
 const imgSvcCorpEvt  = "corporate";
@@ -103,7 +103,7 @@ const brands = [
   { src: '/zee5.webp',      alt: 'ZEE5' },
 ];
 
-// ── Reusable sub-components ───────────────────────────────────────────────────
+// ΓöÇΓöÇ Reusable sub-components ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function SectionLabel({ children }: { children: string }) {
   return (
     <div className="flex items-center gap-2 mb-4">
@@ -124,7 +124,7 @@ function ServiceCard({ icon, title, desc, bg, bgImg }: { icon: string; title: st
       {/* Content */}
       <div className="relative p-3.5 flex flex-col gap-2">
         <div className={`${bg} rounded-lg w-8 h-8 flex items-center justify-center shrink-0 text-[#1e9fd4]`}>
-          {svcIconMap[icon] ?? <span className="text-xs">●</span>}
+          {svcIconMap[icon] ?? <span className="text-xs">ΓùÅ</span>}
         </div>
         <p className="text-[#0f172a] font-bold text-[12px] leading-4">{title}</p>
         <p className="text-[#1e293b] text-[11px] leading-4 font-medium">{desc}</p>
@@ -137,7 +137,7 @@ function WhyCard({ icon, title, desc, bg }: { icon: string; title: string; desc:
   return (
     <div className="bg-white border border-[#e2e8f0] rounded-2xl p-[17px] flex flex-col gap-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
       <div className={`${bg} rounded-xl w-9 h-9 flex items-center justify-center shrink-0 text-[#1e9fd4]`}>
-        {svcIconMap[icon] ?? <span className="text-xs">●</span>}
+        {svcIconMap[icon] ?? <span className="text-xs">ΓùÅ</span>}
       </div>
       <p className="text-[#0f172a] font-bold text-[12px] leading-[18px] pt-3">{title}</p>
       <p className="text-[#64748b] text-[11px] leading-[17.875px]">{desc}</p>
@@ -165,7 +165,7 @@ function StatItem({ value, label, color, started }: { value: string; label: stri
   );
 }
 
-// ── Header ────────────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ Header ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -205,14 +205,14 @@ function Header() {
               className="text-white text-[13px] font-medium px-3 py-2 rounded-[10px] hover:bg-[rgba(255,255,255,0.08)] transition-colors flex items-center gap-1"
             >
               {link.label}
-              {link.hasArrow && <span className="text-[10px]">▾</span>}
+              {link.hasArrow && <span className="text-[10px]">Γû╛</span>}
             </Link>
           ))}
         </nav>
 
         {/* CTA */}
         <Link href="/contact" className="hidden md:flex bg-white text-[#2b1f3a] text-[13px] font-semibold px-5 py-2.5 rounded-[14px] items-center gap-2 hover:bg-gray-100 transition-colors">
-          Let&apos;s Connect →
+          Let&apos;s Connect ΓåÆ
         </Link>
 
         {/* Mobile menu toggle */}
@@ -244,7 +244,7 @@ function Header() {
   );
 }
 
-// ── Stat Card (hero stats) ────────────────────────────────────────────────────
+// ΓöÇΓöÇ Stat Card (hero stats) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function StatCard({ num, suffix = '', display, label, gradient, started }: {
   num: number; suffix?: string; display?: string; label: string; gradient: string; started: boolean;
 }) {
@@ -258,7 +258,7 @@ function StatCard({ num, suffix = '', display, label, gradient, started }: {
   );
 }
 
-// ── Counter display (large, for hero stats panel) ────────────────────────────
+// ΓöÇΓöÇ Counter display (large, for hero stats panel) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function CounterDisplay({ num, suffix = '', display, gradient, started }: {
   num: number; suffix?: string; display?: string; gradient: string; started: boolean;
 }) {
@@ -271,10 +271,10 @@ function CounterDisplay({ num, suffix = '', display, gradient, started }: {
   );
 }
 
-// ── Cinematic Hero Section ────────────────────────────────────────────────────
+// ΓöÇΓöÇ Cinematic Hero Section ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const HERO_VIDEO = '/hero.mp4';
 
-// ── FadeIn wrapper ────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ FadeIn wrapper ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function FadeInHero({ children, delay = 0, duration = 1000, className = '' }: {
   children: React.ReactNode; delay?: number; duration?: number; className?: string;
 }) {
@@ -293,7 +293,7 @@ function FadeInHero({ children, delay = 0, duration = 1000, className = '' }: {
   );
 }
 
-// ── Animated Heading (character by character) ─────────────────────────────────
+// ΓöÇΓöÇ Animated Heading (character by character) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function AnimatedHeading({ lines, initialDelay = 200, charDelay = 30 }: {
   lines: string[]; initialDelay?: number; charDelay?: number;
 }) {
@@ -350,7 +350,7 @@ function HeroSection() {
       className="relative w-full h-screen overflow-hidden bg-black"
       style={{ fontFamily: "'Inter', 'Montserrat', sans-serif" }}
     >
-      {/* ── Background Video ── */}
+      {/* ΓöÇΓöÇ Background Video ΓöÇΓöÇ */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: 0, willChange: 'transform', transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
@@ -364,10 +364,10 @@ function HeroSection() {
         <source src="/hero.mp4" type="video/mp4" />
       </video>
 
-      {/* ── Dark overlay so text is readable ── */}
+      {/* ΓöÇΓöÇ Dark overlay so text is readable ΓöÇΓöÇ */}
       <div className="absolute inset-0 bg-black/65" style={{ zIndex: 1 }} />
 
-      {/* ── Navbar ── */}
+      {/* ΓöÇΓöÇ Navbar ΓöÇΓöÇ */}
       <div className="relative px-6 md:px-12 lg:px-16 pt-6" style={{ zIndex: 50 }}>
         <nav className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
           {/* Logo */}
@@ -440,7 +440,7 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* ── Hero Content — centred, all screen sizes ── */}
+      {/* ΓöÇΓöÇ Hero Content ΓÇö centred, all screen sizes ΓöÇΓöÇ */}
       <div
         className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-12 text-center"
         style={{ zIndex: 10 }}
@@ -460,7 +460,7 @@ function HeroSection() {
         {/* Description */}
         <FadeInHero delay={800} duration={1000}>
           <p className="text-gray-200 mb-8 max-w-2xl" style={{ fontSize: 'clamp(15px, 2vw, 20px)', lineHeight: 1.7 }}>
-            Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences — one trusted execution partner across India.
+            Helping brands execute BTL campaigns, retail branding, rural activation, and corporate experiences ΓÇö one trusted execution partner across India.
           </p>
         </FadeInHero>
 
@@ -486,7 +486,7 @@ function HeroSection() {
   );
 }
 
-// ── What We Do ────────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ What We Do ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const services = [
   { icon: imgSvcBrand,    title: 'Brand Activation',      desc: 'High-impact on-ground activations that connect brands directly with consumers across India.',      bg: 'bg-[#ebf7fc]', bgImg: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&q=70&fit=crop' },
   { icon: imgSvcRetail,   title: 'Retail Branding',       desc: 'Transforming retail spaces with impactful branding solutions that drive footfall and sales.',       bg: 'bg-[#f3fae8]', bgImg: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=70&fit=crop' },
@@ -518,7 +518,7 @@ function WhatWeDoSection() {
   );
 }
 
-// ── Why Choose Us ─────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ Why Choose Us ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const whyCards = [
   { icon: 'vendor',  title: 'Verified Vendors',           desc: 'Pan-India vetted vendor network for seamless execution.', bg: 'bg-[#ebf7fc]' },
   { icon: 'pm',      title: 'Dedicated PMs',              desc: 'Single project manager from brief to final report.', bg: 'bg-[#f3fae8]' },
@@ -528,7 +528,7 @@ const whyCards = [
   { icon: 'price',   title: 'Transparent Pricing',        desc: 'Detailed cost breakdowns with zero hidden charges.', bg: 'bg-[#f3fae8]' },
   { icon: 'fast',    title: 'Fast Turnaround',            desc: 'Agile teams that mobilize quickly for urgent campaigns.', bg: 'bg-[#ebf7fc]' },
   { icon: 'finance', title: 'Financial Discipline',       desc: 'SOC-audited processes and GST-compliant billing.', bg: 'bg-[#f3fae8]' },
-  { icon: 'account', title: 'Single Point Accountability', desc: 'One partner, complete responsibility—start to finish.', bg: 'bg-[#ebf7fc]' },
+  { icon: 'account', title: 'Single Point Accountability', desc: 'One partner, complete responsibilityΓÇöstart to finish.', bg: 'bg-[#ebf7fc]' },
 ];
 
 function WhyUsSection() {
@@ -557,7 +557,7 @@ function WhyUsSection() {
   );
 }
 
-// ── Fade-in wrapper ───────────────────────────────────────────────────────────
+// ΓöÇΓöÇ Fade-in wrapper ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function FadeIn({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   const { ref, inView } = useInView(0.1);
   return (
@@ -567,13 +567,13 @@ function FadeIn({ children, className = '' }: { children: React.ReactNode; class
   );
 }
 
-// ── Insights Section ──────────────────────────────────────────────────────────
+// ΓöÇΓöÇ Insights Section ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const insights = [
   {
     date: 'Dec 12, 2024',
     category: 'Strategy',
     title: 'BTL vs ATL: Why On-Ground Is Winning in 2024',
-    excerpt: 'Why growing brands are shifting budget to on-ground — and what makes it measurable now.',
+    excerpt: 'Why growing brands are shifting budget to on-ground ΓÇö and what makes it measurable now.',
     img: '/blog 1.jpeg',
     slug: 'btl-vs-atl-why-on-ground-is-winning-in-2024',
   },
@@ -589,7 +589,7 @@ const insights = [
     date: 'Nov 15, 2024',
     category: 'Retail Branding',
     title: 'Shop-in-Shop Branding: A Complete Playbook',
-    excerpt: 'From site selection to maintenance — how to turn a shelf into a mini-showroom.',
+    excerpt: 'From site selection to maintenance ΓÇö how to turn a shelf into a mini-showroom.',
     img: '/blog 3.jpeg',
     slug: 'shop-in-shop-branding-a-complete-playbook',
   },
@@ -608,7 +608,7 @@ function InsightsSection() {
               </h2>
             </div>
             <Link href="/blogs" className="text-[#1e9fd4] font-bold text-[14px] flex items-center gap-1 hover:underline shrink-0">
-              All Articles →
+              All Articles ΓåÆ
             </Link>
           </div>
         </FadeIn>
@@ -631,7 +631,7 @@ function InsightsSection() {
                 </h3>
                 <p className="text-[#64748b] text-[13px] leading-6">{insights[0].excerpt}</p>
                 <span className="text-[#1e9fd4] font-bold text-[13px] flex items-center gap-1 mt-1 group-hover:gap-2 transition-all">
-                  Read Article →
+                  Read Article ΓåÆ
                 </span>
               </div>
             </Link>
@@ -654,7 +654,7 @@ function InsightsSection() {
                       {a.title}
                     </h3>
                     <span className="text-[#1e9fd4] font-bold text-[12px] flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Read →
+                      Read ΓåÆ
                     </span>
                   </div>
                 </Link>
@@ -667,22 +667,7 @@ function InsightsSection() {
   );
 }
 
-// ── Floating WhatsApp Button ───────────────────────────────────────────────────
-function FloatingWhatsApp() {
-  return (
-    <a
-      href="https://wa.me/919821103919"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-[#25d366] w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_24px_rgba(37,211,102,0.5)] hover:scale-110 transition-transform duration-200"
-      aria-label="Chat on WhatsApp"
-    >
-      <svg viewBox="0 0 32 32" className="w-7 h-7 fill-white">
-        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.47.675 4.783 1.85 6.766L2 30l7.447-1.822A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.56 11.56 0 01-5.9-1.617l-.423-.25-4.42 1.082 1.116-4.302-.276-.44A11.6 11.6 0 014.4 16C4.4 9.6 9.6 4.4 16 4.4S27.6 9.6 27.6 16 22.4 27.6 16 27.6zm6.362-8.668c-.348-.174-2.06-1.016-2.38-1.132-.318-.116-.55-.174-.78.174-.232.348-.898 1.132-1.102 1.364-.202.232-.404.26-.752.086-.348-.174-1.47-.542-2.8-1.728-1.034-.922-1.732-2.06-1.936-2.408-.202-.348-.022-.536.152-.71.156-.154.348-.404.522-.606.174-.202.232-.348.348-.58.116-.232.058-.434-.028-.608-.088-.174-.78-1.884-1.07-2.578-.28-.676-.566-.584-.78-.594l-.664-.012c-.232 0-.608.086-.926.434-.318.348-1.216 1.188-1.216 2.896s1.244 3.36 1.418 3.592c.174.232 2.45 3.738 5.94 5.24.83.358 1.478.572 1.982.732.832.264 1.59.226 2.188.138.668-.1 2.06-.842 2.35-1.656.29-.814.29-1.51.202-1.656-.086-.146-.318-.232-.666-.406z"/>
-      </svg>
-    </a>
-  );
-}
+// ΓöÇΓöÇ Floating WhatsApp Button ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 const imgOppArrow    = null;
 const imgOppReadMore = null;
 
@@ -707,7 +692,7 @@ const opportunities = [
 function OpportunityCard({ img, title, desc }: { img: string; title: string; desc: string }) {
   return (
     <div className="rounded-xl overflow-hidden border border-[#e2e8f0] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer group">
-      {/* Image container — fixed height, image fills it */}
+      {/* Image container ΓÇö fixed height, image fills it */}
       <div className="relative h-40 overflow-hidden">
         <img
           src={img}
@@ -743,7 +728,7 @@ function OpportunitiesSection() {
             </h2>
           </div>
           <a href="#" className="border-2 border-[#1e9fd4] text-[#1e9fd4] font-bold text-[13px] px-[22px] py-3 rounded-[14px] flex items-center gap-2 hover:bg-[#ebf7fc] transition-colors shrink-0">
-            View All Opportunities →
+            View All Opportunities ΓåÆ
           </a>
         </div>
         {/* Grid */}
@@ -755,7 +740,7 @@ function OpportunitiesSection() {
   );
 }
 
-// Division logos — local files from /public
+// Division logos ΓÇö local files from /public
 const imgDivMM     = '/marketmen.jpeg';
 const imgDivRetail = '/pertingo.jpeg';
 const imgDivLocal  = '/blook.jpeg';
@@ -826,7 +811,7 @@ function DivisionCard({ logo, logoText, logoTextColor, borderColor, bg, dotColor
       {/* Know More */}
       <div className="px-5 pb-4">
         <a href="#" className={`${linkColor} font-bold text-[12px] flex items-center gap-1`}>
-          Know More →
+          Know More ΓåÆ
         </a>
       </div>
     </div>
@@ -851,7 +836,7 @@ function DivisionsSection() {
   );
 }
 
-// ── Case Studies ──────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ Case Studies ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 // Figma asset images (valid 7 days)
 const imgCSDabur   = "https://www.figma.com/api/mcp/asset/3df0db78-8046-4618-8b3f-9526259b3ef3";
 const imgCSDealer  = "https://www.figma.com/api/mcp/asset/0f2abfb9-8545-4388-82c5-691b58d0aa0a";
@@ -916,7 +901,7 @@ function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stat
         <p className="text-[#0f172a] font-bold text-[14px] leading-[21px] mb-1">{title}</p>
         {/* Location */}
         <p className="text-[#64748b] text-[12px] leading-[18px] mb-4">{location}</p>
-        {/* Stats — 3 pills */}
+        {/* Stats ΓÇö 3 pills */}
         <div className="grid grid-cols-3 gap-2 mb-4">
           {stats.map(s => (
             <div key={s.label} className="bg-[#f8fafc] rounded-[14px] p-1.5 flex flex-col items-center">
@@ -927,7 +912,7 @@ function CaseStudyCard({ img, brandBg, brandLetter, brand, title, location, stat
         </div>
         {/* CTA button */}
         <button className="w-full border border-[#1e9fd4] rounded-[14px] h-8 text-[#1e9fd4] font-bold text-[11px] hover:bg-[#ebf7fc] transition-colors mt-auto">
-          View Case Study →
+          View Case Study ΓåÆ
         </button>
       </div>
     </div>
@@ -963,7 +948,7 @@ function CaseStudiesSection() {
   );
 }
 
-// ── Trusted By (Marquee) ──────────────────────────────────────────────────────
+// ΓöÇΓöÇ Trusted By (Marquee) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function TrustedBySection() {
   return (
     <section className="py-16 px-8 bg-white" id="trusted">
@@ -986,7 +971,7 @@ function TrustedBySection() {
   );
 }
 
-// ── CTA Banner ────────────────────────────────────────────────────────────────
+// ΓöÇΓöÇ CTA Banner ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 function CTASection() {
   return (
     <section className="bg-gradient-to-r from-[#2b1f3a] to-[#142f4c] py-20 px-8" id="contact">
@@ -1011,138 +996,12 @@ function CTASection() {
   );
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
-function Footer() {
-  const [email, setEmail] = useState('');
-  const quickLinks = [
-    { label: 'Home',          href: '/' },
-    { label: 'About Us',      href: '/about' },
-    { label: 'Events',        href: '/events' },
-    { label: 'Opportunities', href: '/opportunities' },
-    { label: 'Case Studies',  href: '/case-studies' },
-    { label: 'Contact Us',    href: '/contact' },
-  ];
-  const eventServices = ['Corporate Events','Employee Engagement','Brand & Public Events','Event IPs','Exhibition & Fabrication','Event Production','Rural Marketing'];
-  const socialIcons  = [
-    { src: imgFooterFB, alt: 'Facebook' },
-    { src: imgFooterTW, alt: 'Twitter' },
-    { src: imgFooterIG, alt: 'Instagram' },
-    { src: imgFooterLI, alt: 'LinkedIn' },
-  ];
-
-  return (
-    <footer className="bg-[#0f172a]">
-      {/* WhatsApp bar */}
-      <div className="border-b border-[rgba(255,255,255,0.07)]" style={{ backgroundImage: 'linear-gradient(177deg, rgba(30,159,212,0.125) 0%, rgba(141,198,63,0.082) 100%)' }}>
-        <div className="max-w-[1280px] mx-auto px-8 py-5 flex items-center justify-between flex-wrap gap-4">
-          <p className="text-[#cbd5e1] text-[14px] font-medium">Planning an event? Let&apos;s talk directly.</p>
-          <a href="https://wa.me/919821103919" target="_blank" rel="noopener noreferrer"
-            className="bg-[#25d366] text-white font-bold text-[13px] px-6 py-2.5 rounded-[14px] flex items-center gap-2 hover:bg-[#1fb85a] transition-colors">
-            <img src={imgWhatsApp} alt="" className="w-4 h-4" />
-            Plan your event on WhatsApp
-          </a>
-        </div>
-      </div>
-
-      {/* Main footer */}
-      <div className="max-w-[1280px] mx-auto px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {/* Column 1 — brand */}
-        <div className="flex flex-col gap-5">
-          <div className="bg-white rounded-[14px] p-2 w-fit">
-            <img src={imgFooterLogo} alt="MarketMen" className="h-12 object-contain" />
-          </div>
-          <p className="text-[#94a3b8] text-[13px] leading-[21px]">
-            MarketMen is India&apos;s trusted events and consumer connect company — delivering corporate events, employee engagement, brand activations, rural marketing, and experiential campaigns across India since 1989.
-          </p>
-          <div className="flex gap-3">
-            {socialIcons.map(s => (
-              <a key={s.alt} href="#" className="bg-[rgba(255,255,255,0.08)] rounded-[14px] w-9 h-9 flex items-center justify-center hover:bg-[rgba(255,255,255,0.15)] transition-colors">
-                <img src={s.src} alt={s.alt} className="w-4 h-4 object-contain" />
-              </a>
-            ))}
-          </div>
-          <div>
-            <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase mb-3">Newsletter</p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email address"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                className="flex-1 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.12)] rounded-[14px] px-3 py-2.5 text-[12px] text-white placeholder-[rgba(255,255,255,0.5)] outline-none focus:border-[#1e9fd4]"
-              />
-              <button className="bg-[#1e9fd4] rounded-[14px] w-10 h-10 flex items-center justify-center hover:bg-[#1a8fbe] transition-colors shrink-0">
-                <img src={imgFooterEmail} alt="Subscribe" className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 2 — quick links */}
-        <div>
-          <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Quick Links</p>
-          <div className="flex flex-col gap-2.5">
-            {quickLinks.map(l => (
-              <Link key={l.label} href={l.href} className="text-[#94a3b8] text-[13px] hover:text-white transition-colors">{l.label}</Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Column 3 — info links (moved here) */}
-        <div>
-          <p className="text-[#8dc63f] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Info</p>
-          <div className="flex flex-col gap-2.5">
-            {[
-              { label: 'Partner With MarketMen', href: '/partner' },
-              { label: 'Cities & Coverage',       href: '/cities' },
-              { label: 'FAQs',                    href: '/faqs' },
-              { label: 'Privacy Policy',          href: '/privacy-policy' },
-              { label: 'Terms & Conditions',      href: '/terms' },
-            ].map(l => (
-              <a key={l.label} href={l.href} className="text-[#94a3b8] text-[13px] hover:text-white transition-colors">{l.label}</a>
-            ))}
-          </div>
-        </div>
-
-        {/* Column 4 — contact */}
-        <div>
-          <p className="text-[#1e9fd4] text-[11px] font-bold tracking-[1.1px] uppercase mb-5">Contact Us</p>
-          <div className="flex flex-col gap-4">
-            <div className="flex gap-2.5 items-start">
-              <img src={imgFooterPin} alt="" className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-              <p className="text-[#94a3b8] text-[12px] leading-5">Thacker Compound, 274, B. Bharucha Road, Marzban Parsi Colony, Grant Road (East), Mumbai – 400 007</p>
-            </div>
-            <a href="tel:+919821103919" className="flex gap-2.5 items-center hover:text-white transition-colors">
-              <img src={imgFooterPhone} alt="" className="w-3.5 h-3.5 shrink-0" />
-              <span className="text-[#94a3b8] text-[13px]">+91 98211 03919</span>
-            </a>
-            <a href="mailto:connect@marketmen.in" className="flex gap-2.5 items-center hover:text-white transition-colors">
-              <img src={imgFooterMail} alt="" className="w-3.5 h-3.5 shrink-0" />
-              <span className="text-[#94a3b8] text-[13px]">connect@marketmen.in</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Copyright bar */}
-      <div className="border-t border-[rgba(255,255,255,0.07)]">
-        <div className="max-w-[1280px] mx-auto px-8 py-5 flex flex-wrap items-center justify-between gap-4">
-          <p className="text-[#475569] text-[12px]">Copyright © Market Men Consumer Connect &amp; Events Pvt. Ltd. · All Rights Reserved</p>
-          <div className="flex gap-5">
-            {['Privacy Policy','Terms & Conditions','FAQs'].map(l => (
-              <a key={l} href="#" className="text-[#475569] text-[12px] hover:text-white transition-colors">{l}</a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
+// ΓöÇΓöÇ Footer ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 
 // ── Main Export ───────────────────────────────────────────────────────────────
 export function NewsHomePage() {
   return (
-    <div className="home w-full overflow-x-hidden font-['Montserrat',sans-serif]">
+    <div className={"home w-full overflow-x-hidden font-['Montserrat',sans-serif]"}>
       <FloatingWhatsApp />
       <main>
         <HeroSection />
