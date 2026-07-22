@@ -192,7 +192,7 @@ function Header() {
         {/* Logo */}
         <Link href="/" className="shrink-0 group">
           <div className="bg-white rounded-xl px-4 py-2.5 shadow-[0_0_28px_rgba(30,159,212,0.55)] group-hover:shadow-[0_0_40px_rgba(30,159,212,0.8)] transition-shadow duration-300">
-            <img src={imgLogo} alt="MarketMen" className="h-14 w-auto object-contain" />
+            <img src={imgLogo} alt="MarketMen" className="h-20 w-auto object-contain" />
           </div>
         </Link>
 
@@ -373,7 +373,7 @@ function HeroSection() {
           {/* Logo */}
           <Link href="/" className="shrink-0 group">
             <div className="bg-white rounded-lg px-3 py-1.5 shadow-[0_0_20px_rgba(30,159,212,0.4)] group-hover:shadow-[0_0_32px_rgba(30,159,212,0.7)] transition-shadow duration-300">
-              <img src={imgLogo} alt="MarketMen" className="h-9 w-auto object-contain" />
+              <img src={imgLogo} alt="MarketMen" className="h-14 w-auto object-contain" />
             </div>
           </Link>
 
@@ -755,15 +755,11 @@ function OpportunitiesSection() {
   );
 }
 
-// Division logos — replaced with local text badges (Figma asset URLs expire after 7 days)
-const imgDivMM     = null;
-const imgDivRetail = null;
-const imgDivLocal  = null;
-const imgDivTech   = null;
-const imgDivKM     = null;
-const imgDivOrange = null;
-const imgDivBlue   = null;
-const imgDivPink   = null;
+// Division logos — local files from /public
+const imgDivMM     = '/marketmen.jpeg';
+const imgDivRetail = '/pertingo.jpeg';
+const imgDivLocal  = '/blook.jpeg';
+const imgDivTech   = '/blookhub.jpeg';
 
 const divisions = [
   {
@@ -774,45 +770,41 @@ const divisions = [
     dotColor: 'bg-[#1ed41e]',
     textColor: 'text-[#476949]',
     linkColor: 'text-[#25d366]',
-    linkIcon: imgDivKM,
     items: ['Brand Activation','Experiential Marketing','Rural Marketing','Employee Engagement','Video & Photo Production','Event IPs'],
   },
   {
     logo: imgDivRetail,
-    logoText: 'RetailMen', logoTextColor: 'text-[#c48807]',
+    logoText: 'Pertingo', logoTextColor: 'text-[#c48807]',
     borderColor: 'border-[rgba(177,115,17,0.19)]',
     bg: 'linear-gradient(160deg, rgba(222,126,42,0.082) 0%, rgba(180,111,0,0.125) 100%)',
     dotColor: 'bg-[#bc9836]',
     textColor: 'text-[#696147]',
     linkColor: 'text-[#c48807]',
-    linkIcon: imgDivOrange,
     items: ['Retail Branding','Visual Merchandising','Shop-in-Shop Solutions','Trade Marketing','Channel Programs','In-Store Promotions'],
   },
   {
     logo: imgDivLocal,
-    logoText: 'LocalMen', logoTextColor: 'text-[#4a1ee9]',
+    logoText: 'BLook', logoTextColor: 'text-[#4a1ee9]',
     borderColor: 'border-[rgba(74,30,233,0.19)]',
     bg: 'linear-gradient(160deg, rgba(50,30,233,0.082) 0%, rgba(72,43,179,0.125) 100%)',
     dotColor: 'bg-[#321ee9]',
     textColor: 'text-[#514769]',
     linkColor: 'text-[#4a1ee9]',
-    linkIcon: imgDivBlue,
     items: ['Hyperlocal Marketing','Community Marketing','Space Monetization','Retail Media Solutions','Brand Visibility Campaigns','Consumer Engagement'],
   },
   {
     logo: imgDivTech,
-    logoText: 'TechMen', logoTextColor: 'text-[#c015af]',
+    logoText: 'BLookHub', logoTextColor: 'text-[#c015af]',
     borderColor: 'border-[rgba(192,21,189,0.19)]',
     bg: 'linear-gradient(160deg, rgba(192,21,155,0.082) 0%, rgba(246,100,231,0.125) 100%)',
     dotColor: 'bg-[#c015af]',
     textColor: 'text-[#694762]',
     linkColor: 'text-[#c015af]',
-    linkIcon: imgDivPink,
     items: ['White-Label SaaS Platforms','Visitor Management Systems','QR & Registration Solutions','Queue Management Systems','Event Technology Solutions','Custom Business Applications'],
   },
 ];
 
-function DivisionCard({ logo, logoText, logoTextColor, borderColor, bg, dotColor, textColor, linkColor, linkIcon, items }: typeof divisions[0]) {
+function DivisionCard({ logo, logoText, logoTextColor, borderColor, bg, dotColor, textColor, linkColor, items }: typeof divisions[0]) {
   return (
     <div className={`bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col`}>
       {/* Logo header */}

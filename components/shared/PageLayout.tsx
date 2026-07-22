@@ -34,7 +34,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="shrink-0 group">
           <div className="bg-white rounded-xl px-4 py-2.5 shadow-[0_0_28px_rgba(30,159,212,0.55)] group-hover:shadow-[0_0_40px_rgba(30,159,212,0.8)] transition-shadow duration-300">
-            <img src={imgLogo} alt="MarketMen" className="h-14 w-auto object-contain" />
+            <img src={imgLogo} alt="MarketMen" className="h-20 w-auto object-contain" />
           </div>
         </Link>
 
