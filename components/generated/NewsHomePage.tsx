@@ -33,36 +33,49 @@ function useInView(threshold = 0.15) {
   return { ref, inView };
 }
 
-// ── Asset URLs from Figma (valid for 7 days) ──────────────────────────────────
-const imgLogo        = "https://www.figma.com/api/mcp/asset/3c49f5af-41d0-4316-9b1d-27b9adb8072c";
-const imgNavArrow    = "https://www.figma.com/api/mcp/asset/385959db-6e75-43b3-9a1a-fdc7ca96c5fd";
-const imgNavConnect  = "https://www.figma.com/api/mcp/asset/e799bb3a-b8ff-4a51-b7b0-d1518afcac6f";
+// ── Asset URLs ────────────────────────────────────────────────────────────────
+const imgLogo        = "/marketmen.jpeg";
+const imgNavArrow    = null; // replaced with inline icon
+const imgNavConnect  = null; // replaced with inline icon
 const imgHeroImg     = "https://www.figma.com/api/mcp/asset/693ae6aa-26b7-487c-bea7-87778958e27b";
 const imgHeroArrow   = "https://www.figma.com/api/mcp/asset/f5bd3af5-f88d-4442-8133-b5491a4c6769";
 
-// Services icons
-const imgSvcBrand    = "https://www.figma.com/api/mcp/asset/5aa8d2d8-d8e6-4306-8d42-6975e12e7469";
-const imgSvcRetail   = "https://www.figma.com/api/mcp/asset/1dddc0b5-7a63-4430-aa84-86b2f7af92bc";
-const imgSvcCorpEvt  = "https://www.figma.com/api/mcp/asset/94333c4b-8cce-425d-9d79-5a658fc761e3";
-const imgSvcEmpEng   = "https://www.figma.com/api/mcp/asset/1970ca94-393d-45c0-bd74-1187e523ce4a";
-const imgSvcRural    = "https://www.figma.com/api/mcp/asset/1507966d-e982-4fef-b860-28c907a8be94";
-const imgSvcEvent    = "https://www.figma.com/api/mcp/asset/9178b186-a27c-4c36-b0f3-73ae40afaa5a";
-const imgSvcMedia    = "https://www.figma.com/api/mcp/asset/aa602bd6-f165-4160-bca2-94a461f3f7e6";
-const imgSvcPermit   = "https://www.figma.com/api/mcp/asset/b515b6f1-8b96-4307-9189-d0a1addb92aa";
-const imgSvcVideo    = "https://www.figma.com/api/mcp/asset/abf23e4a-4284-4472-97da-3d4599f131d5";
-const imgSvcCreative = "https://www.figma.com/api/mcp/asset/a0038811-03c0-4010-b0c5-174a6aa32367";
+// Services icons — lucide names used in ServiceCard
+const imgSvcBrand    = "brand";
+const imgSvcRetail   = "retail";
+const imgSvcCorpEvt  = "corporate";
+const imgSvcEmpEng   = "engagement";
+const imgSvcRural    = "rural";
+const imgSvcEvent    = "event";
+const imgSvcMedia    = "media";
+const imgSvcPermit   = "permit";
+const imgSvcVideo    = "video";
+const imgSvcCreative = "creative";
 
-// Why Us icons
-const imgWhyLink     = "https://www.figma.com/api/mcp/asset/e40e867b-66f3-4122-a774-8c32f575a6b5";
-const imgWhyVendor   = "https://www.figma.com/api/mcp/asset/196a8a13-6c8e-413b-b66b-3fe7a2fa7633";
-const imgWhyPM       = "https://www.figma.com/api/mcp/asset/42d1e8e9-08ca-4ca0-846f-bc670ad210de";
-const imgWhyNation   = "https://www.figma.com/api/mcp/asset/d85f06e7-051f-49c9-84da-0b94c77743bd";
-const imgWhyGPS      = "https://www.figma.com/api/mcp/asset/3a73e966-9805-4a71-87e5-3f2ccb19d0b5";
-const imgWhyPhoto    = "https://www.figma.com/api/mcp/asset/62ebc169-2208-4ce1-9c02-ab006c55c63c";
-const imgWhyPrice    = "https://www.figma.com/api/mcp/asset/98b4cc5d-65e5-41b4-bdb8-b5574c185eb1";
-const imgWhyFast     = "https://www.figma.com/api/mcp/asset/5b7b16e7-83ec-43b8-9c0b-94a165987a9d";
-const imgWhyFinance  = "https://www.figma.com/api/mcp/asset/18b198b7-10f5-430e-bd10-8d904a86fa58";
-const imgWhyAccount  = "https://www.figma.com/api/mcp/asset/082797a0-64c4-4692-921d-d1da8f754965";
+// Map icon keys to lucide components for ServiceCard & WhyCard
+const svcIconMap: Record<string, React.ReactNode> = {
+  brand:      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>,
+  retail:     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>,
+  corporate:  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
+  engagement: <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  rural:      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+  event:      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
+  media:      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>,
+  permit:     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>,
+  video:      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
+  creative:   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>,
+  // why-us icons
+  vendor:  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>,
+  pm:      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
+  nation:  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+  gps:     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>,
+  photo:   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>,
+  price:   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
+  fast:    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+  finance: <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
+  account: <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+  link:    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>,
+};
 
 // Footer icons
 const imgFooterLogo  = "https://www.figma.com/api/mcp/asset/d9d312d3-959b-4de2-b6d5-9d0669e3371b";
@@ -110,8 +123,8 @@ function ServiceCard({ icon, title, desc, bg, bgImg }: { icon: string; title: st
       </div>
       {/* Content */}
       <div className="relative p-3.5 flex flex-col gap-2">
-        <div className={`${bg} rounded-lg w-8 h-8 flex items-center justify-center shrink-0`}>
-          <img src={icon} alt={title} className="w-4 h-4 object-contain" />
+        <div className={`${bg} rounded-lg w-8 h-8 flex items-center justify-center shrink-0 text-[#1e9fd4]`}>
+          {svcIconMap[icon] ?? <span className="text-xs">●</span>}
         </div>
         <p className="text-[#0f172a] font-bold text-[12px] leading-4">{title}</p>
         <p className="text-[#1e293b] text-[11px] leading-4 font-medium">{desc}</p>
@@ -123,8 +136,8 @@ function ServiceCard({ icon, title, desc, bg, bgImg }: { icon: string; title: st
 function WhyCard({ icon, title, desc, bg }: { icon: string; title: string; desc: string; bg: string }) {
   return (
     <div className="bg-white border border-[#e2e8f0] rounded-2xl p-[17px] flex flex-col gap-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
-      <div className={`${bg} rounded-xl w-9 h-9 flex items-center justify-center shrink-0`}>
-        <img src={icon} alt={title} className="w-4 h-4 object-contain" />
+      <div className={`${bg} rounded-xl w-9 h-9 flex items-center justify-center shrink-0 text-[#1e9fd4]`}>
+        {svcIconMap[icon] ?? <span className="text-xs">●</span>}
       </div>
       <p className="text-[#0f172a] font-bold text-[12px] leading-[18px] pt-3">{title}</p>
       <p className="text-[#64748b] text-[11px] leading-[17.875px]">{desc}</p>
@@ -192,15 +205,14 @@ function Header() {
               className="text-white text-[13px] font-medium px-3 py-2 rounded-[10px] hover:bg-[rgba(255,255,255,0.08)] transition-colors flex items-center gap-1"
             >
               {link.label}
-              {link.hasArrow && <img src={imgNavArrow} alt="" className="w-3 h-3" />}
+              {link.hasArrow && <span className="text-[10px]">▾</span>}
             </Link>
           ))}
         </nav>
 
         {/* CTA */}
         <Link href="/contact" className="hidden md:flex bg-white text-[#2b1f3a] text-[13px] font-semibold px-5 py-2.5 rounded-[14px] items-center gap-2 hover:bg-gray-100 transition-colors">
-          Let&apos;s Connect
-          <img src={imgNavConnect} alt="" className="w-3 h-3" />
+          Let&apos;s Connect →
         </Link>
 
         {/* Mobile menu toggle */}
@@ -508,15 +520,15 @@ function WhatWeDoSection() {
 
 // ── Why Choose Us ─────────────────────────────────────────────────────────────
 const whyCards = [
-  { icon: imgWhyVendor,  title: 'Verified Vendors',          desc: 'Pan-India vetted vendor network for seamless execution.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgWhyPM,      title: 'Dedicated PMs',             desc: 'Single project manager from brief to final report.', bg: 'bg-[#f3fae8]' },
-  { icon: imgWhyNation,  title: 'Nationwide Execution',      desc: 'Present in 500+ districts across 25+ states.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgWhyGPS,     title: 'GPS Campaign Tracking',     desc: 'Real-time location tracking of all field activities.', bg: 'bg-[#f3fae8]' },
-  { icon: imgWhyPhoto,   title: 'Photo & Video Reporting',   desc: '100% visual documentation of every campaign touchpoint.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgWhyPrice,   title: 'Transparent Pricing',       desc: 'Detailed cost breakdowns with zero hidden charges.', bg: 'bg-[#f3fae8]' },
-  { icon: imgWhyFast,    title: 'Fast Turnaround',           desc: 'Agile teams that mobilize quickly for urgent campaigns.', bg: 'bg-[#ebf7fc]' },
-  { icon: imgWhyFinance, title: 'Financial Discipline',      desc: 'SOC-audited processes and GST-compliant billing.', bg: 'bg-[#f3fae8]' },
-  { icon: imgWhyAccount, title: 'Single Point Accountability',desc: 'One partner, complete responsibility—start to finish.', bg: 'bg-[#ebf7fc]' },
+  { icon: 'vendor',  title: 'Verified Vendors',           desc: 'Pan-India vetted vendor network for seamless execution.', bg: 'bg-[#ebf7fc]' },
+  { icon: 'pm',      title: 'Dedicated PMs',              desc: 'Single project manager from brief to final report.', bg: 'bg-[#f3fae8]' },
+  { icon: 'nation',  title: 'Nationwide Execution',       desc: 'Present in 500+ districts across 25+ states.', bg: 'bg-[#ebf7fc]' },
+  { icon: 'gps',     title: 'GPS Campaign Tracking',      desc: 'Real-time location tracking of all field activities.', bg: 'bg-[#f3fae8]' },
+  { icon: 'photo',   title: 'Photo & Video Reporting',    desc: '100% visual documentation of every campaign touchpoint.', bg: 'bg-[#ebf7fc]' },
+  { icon: 'price',   title: 'Transparent Pricing',        desc: 'Detailed cost breakdowns with zero hidden charges.', bg: 'bg-[#f3fae8]' },
+  { icon: 'fast',    title: 'Fast Turnaround',            desc: 'Agile teams that mobilize quickly for urgent campaigns.', bg: 'bg-[#ebf7fc]' },
+  { icon: 'finance', title: 'Financial Discipline',       desc: 'SOC-audited processes and GST-compliant billing.', bg: 'bg-[#f3fae8]' },
+  { icon: 'account', title: 'Single Point Accountability', desc: 'One partner, complete responsibility—start to finish.', bg: 'bg-[#ebf7fc]' },
 ];
 
 function WhyUsSection() {
@@ -671,42 +683,47 @@ function FloatingWhatsApp() {
     </a>
   );
 }
-const imgOppArrow    = "https://www.figma.com/api/mcp/asset/31095440-83d8-48d8-bba2-36db45b85940";
-const imgOppReadMore = "https://www.figma.com/api/mcp/asset/f8729e5b-012d-4708-a647-374ebb9a60b5";
+const imgOppArrow    = null;
+const imgOppReadMore = null;
 
-const imgGanesh      = "https://www.figma.com/api/mcp/asset/bd7a97a2-017a-4cc5-ba86-02d99b0ee033";
-const imgGarbha      = "https://www.figma.com/api/mcp/asset/dc59f4d7-182b-4884-9554-a9828667e94a";
-const imgEmpCal      = "https://www.figma.com/api/mcp/asset/63f87c81-7b2b-42fc-b2be-872d63d7e90e";
-const imgRetailExp   = "https://www.figma.com/api/mcp/asset/b0eddc1c-dfc5-4114-b3e9-cac1c7176cfe";
-const imgCollege     = "https://www.figma.com/api/mcp/asset/ffd3902f-4d24-4c12-82d0-bafa4dcb9ed2";
-const imgRuralCamp   = "https://www.figma.com/api/mcp/asset/6bb90760-a177-4bbd-9ba6-2c4084a1a495";
-const imgCSR         = "https://www.figma.com/api/mcp/asset/5626d768-c94c-4666-8999-b2a4d3673869";
+const imgGanesh      = '/ganesh.webp';
+const imgGarbha      = '/garba.webp';
+const imgEmpCal      = '/employee engagement.jpeg';
+const imgRetailExp   = '/retail expansion.jpeg';
+const imgCollege     = '/college festival branding.jpeg';
+const imgRuralCamp   = '/rural meets.jpeg';
+const imgCSR         = '/rural meet .jpeg';
 
 const opportunities = [
-  { img: '/ganesh.webp', title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
-  { img: '/garba.webp',  title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
-  { img: '/employee%20engagement.jpeg',                   title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.' },
-  { img: '/retail%20expansion.jpeg',                      title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.' },
-  { img: '/college%20festival%20branding.jpeg',           title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.' },
-  { img: '/rural%20meets.jpeg',                           title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.' },
-  { img: imgCSR,                                          title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.' },
+  { img: '/ganesh.webp',                    title: 'Ganesh Festival Brand Activation', desc: 'Pan-city activations during Ganeshotsav with massive crowd engagement.' },
+  { img: '/garba.webp',                     title: 'Garbha Event Management',          desc: 'Premium garba event sponsorships across Gujarat and Maharashtra.' },
+  { img: '/employee engagement.jpeg',       title: 'Employee Engagement Calendar',     desc: 'Year-round engagement programs designed for corporate teams.' },
+  { img: '/retail expansion.jpeg',          title: 'Retail Expansion Program',         desc: 'Branded retail rollouts across modern trade and general trade.' },
+  { img: '/college festival branding.jpeg', title: 'College Festival Branding',        desc: 'Youth-focused brand activations at top college fests.' },
+  { img: '/rural meets.jpeg',               title: 'Rural Marketing Campaigns',        desc: 'Deep Bharat outreach programs connecting brands with rural consumers.' },
+  { img: '/rural meet .jpeg',               title: 'CSR & Government Projects',        desc: 'Purpose-driven campaigns aligned with government schemes and corporate CSR mandates.' },
 ];
 
 function OpportunityCard({ img, title, desc }: { img: string; title: string; desc: string }) {
   return (
-    <div className="relative rounded-xl overflow-hidden border border-[#1e9fd4]/20 flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer group" style={{ height: '180px' }}>
-      {/* Full-bleed background image */}
-      <img
-        src={img}
-        alt={title}
-        className="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-      />
-      {/* Dark gradient overlay — stronger at bottom for text */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10 group-hover:from-black/90 transition-all duration-200" />
-      {/* Text pinned to bottom */}
-      <div className="absolute bottom-0 left-0 right-0 p-3">
-        <p className="text-white font-bold text-[13px] leading-snug mb-0.5">{title}</p>
+    <div className="rounded-xl overflow-hidden border border-[#e2e8f0] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-pointer group">
+      {/* Image container — fixed height, image fills it */}
+      <div className="relative h-40 overflow-hidden">
+        <img
+          src={img}
+          alt={title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+        />
+        {/* Dark gradient from bottom */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        {/* Title pinned to bottom of image */}
+        <div className="absolute bottom-0 left-0 right-0 p-3">
+          <p className="text-white font-bold text-[13px] leading-snug drop-shadow">{title}</p>
+        </div>
+      </div>
+      {/* Description below image */}
+      <div className="bg-[#0f172a] px-3 py-2.5">
         <p className="text-gray-300 text-[11px] leading-4">{desc}</p>
       </div>
     </div>
@@ -726,8 +743,7 @@ function OpportunitiesSection() {
             </h2>
           </div>
           <a href="#" className="border-2 border-[#1e9fd4] text-[#1e9fd4] font-bold text-[13px] px-[22px] py-3 rounded-[14px] flex items-center gap-2 hover:bg-[#ebf7fc] transition-colors shrink-0">
-            View All Opportunities
-            <img src={imgOppArrow} alt="" className="w-3.5 h-3.5" />
+            View All Opportunities →
           </a>
         </div>
         {/* Grid */}
@@ -739,19 +755,20 @@ function OpportunitiesSection() {
   );
 }
 
-// ── Our Specialist Divisions ──────────────────────────────────────────────────
-const imgDivMM     = "https://www.figma.com/api/mcp/asset/58d2e479-9a1f-4f3d-a0f1-79a7af8d8f1c";
-const imgDivRetail = "https://www.figma.com/api/mcp/asset/e148aa53-893e-4661-93c3-7f4eda0632ac";
-const imgDivLocal  = "https://www.figma.com/api/mcp/asset/3d8d389f-593d-49c7-a6d5-80ed89b34f32";
-const imgDivTech   = "https://www.figma.com/api/mcp/asset/f42bdfa7-47d3-4536-a4e6-717fe3442fa3";
-const imgDivKM     = "https://www.figma.com/api/mcp/asset/dc13dfe0-9e9e-4662-bbb0-b7740ac6a236";
-const imgDivOrange = "https://www.figma.com/api/mcp/asset/3202cba3-7155-4d4e-b9e4-fc1bc5156448";
-const imgDivBlue   = "https://www.figma.com/api/mcp/asset/074d6993-fd44-4e5a-8350-346e77e8a5fd";
-const imgDivPink   = "https://www.figma.com/api/mcp/asset/7b85d153-0aa2-4863-b342-cd797ff53f33";
+// Division logos — replaced with local text badges (Figma asset URLs expire after 7 days)
+const imgDivMM     = null;
+const imgDivRetail = null;
+const imgDivLocal  = null;
+const imgDivTech   = null;
+const imgDivKM     = null;
+const imgDivOrange = null;
+const imgDivBlue   = null;
+const imgDivPink   = null;
 
 const divisions = [
   {
     logo: imgDivMM,
+    logoText: 'MarketMen', logoTextColor: 'text-[#17a15c]',
     borderColor: 'border-[rgba(30,212,69,0.19)]',
     bg: 'linear-gradient(160deg, rgba(94,212,30,0.082) 0%, rgba(23,161,92,0.125) 100%)',
     dotColor: 'bg-[#1ed41e]',
@@ -762,6 +779,7 @@ const divisions = [
   },
   {
     logo: imgDivRetail,
+    logoText: 'RetailMen', logoTextColor: 'text-[#c48807]',
     borderColor: 'border-[rgba(177,115,17,0.19)]',
     bg: 'linear-gradient(160deg, rgba(222,126,42,0.082) 0%, rgba(180,111,0,0.125) 100%)',
     dotColor: 'bg-[#bc9836]',
@@ -772,6 +790,7 @@ const divisions = [
   },
   {
     logo: imgDivLocal,
+    logoText: 'LocalMen', logoTextColor: 'text-[#4a1ee9]',
     borderColor: 'border-[rgba(74,30,233,0.19)]',
     bg: 'linear-gradient(160deg, rgba(50,30,233,0.082) 0%, rgba(72,43,179,0.125) 100%)',
     dotColor: 'bg-[#321ee9]',
@@ -782,6 +801,7 @@ const divisions = [
   },
   {
     logo: imgDivTech,
+    logoText: 'TechMen', logoTextColor: 'text-[#c015af]',
     borderColor: 'border-[rgba(192,21,189,0.19)]',
     bg: 'linear-gradient(160deg, rgba(192,21,155,0.082) 0%, rgba(246,100,231,0.125) 100%)',
     dotColor: 'bg-[#c015af]',
@@ -792,12 +812,15 @@ const divisions = [
   },
 ];
 
-function DivisionCard({ logo, borderColor, bg, dotColor, textColor, linkColor, linkIcon, items }: typeof divisions[0]) {
+function DivisionCard({ logo, logoText, logoTextColor, borderColor, bg, dotColor, textColor, linkColor, linkIcon, items }: typeof divisions[0]) {
   return (
     <div className={`bg-white border border-[#e2e8f0] rounded-2xl overflow-hidden flex flex-col`}>
       {/* Logo header */}
       <div className={`border-b-2 ${borderColor} px-5 py-4`} style={{ backgroundImage: bg }}>
-        <img src={logo} alt="" className="h-12 object-contain" />
+        {logo
+          ? <img src={logo} alt="" className="h-12 object-contain" />
+          : <span className={`font-extrabold text-[18px] ${logoTextColor}`}>{logoText}</span>
+        }
       </div>
       {/* List */}
       <div className="px-5 py-4 flex flex-col gap-1.5 flex-1">
@@ -811,8 +834,7 @@ function DivisionCard({ logo, borderColor, bg, dotColor, textColor, linkColor, l
       {/* Know More */}
       <div className="px-5 pb-4">
         <a href="#" className={`${linkColor} font-bold text-[12px] flex items-center gap-1`}>
-          Know More
-          <img src={linkIcon} alt="" className="w-3 h-3" />
+          Know More →
         </a>
       </div>
     </div>
